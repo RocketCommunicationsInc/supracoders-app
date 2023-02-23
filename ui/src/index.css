@@ -1,3 +1,5 @@
+@import '@astrouxds/tokens/dist/css/index.css';
+
 html,
 body {
   margin: 0;

@@ -1,4 +1,7 @@
 //import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme';
+// import component from '@astrouxds/tokens/dist/json/base.component.json';
+// import system from '@astrouxds/tokens/dist/json/base.system.json';
+//import reference from '@astrouxds/tokens/dist/json/base.reference.json';
 
 export const AstroTheme = {
   palette: {
@@ -8,7 +11,7 @@ export const AstroTheme = {
       paper: '#1b2d3e',
     },
     primary: {
-      main: '#005a8f',
+      main: '#000000',
       light: '#2f7aa7',
       light2: '#649cbd',
       light3: '#98bdd3',
@@ -24,12 +27,17 @@ export const AstroTheme = {
       dark: '#2b659b',
     },
     tertiary: {
-      main: '#274059',
-      light: '#52667a',
-      light2: '#7e8c9b',
-      light3: '#a9b2bc',
+      // main: '#274059', // team / server background color
+      main: 'var(--color-background-base-header)',
+      // light: '#52667a', // Spectrum Analyzer / Equipment Case Border Color
+      light: 'var(--card-color-border)',
+      // light2: '#7e8c9b', // Spectrum Analyzer and Equipment Case Background Color
+      light2: 'var(--color-background-surface-default)',
+      // light3: '#a9b2bc', // ARTGrid background color / 'Space Electronic Warfare' header text color / Loopback Switch Background Color / Input background color / Apply, Power and Tx button on Antenna Controller and Modems
+      light3: 'var(--color-background-base-default)',
       light4: '#d4d8dd',
-      dark: '#1f3347',
+      // dark: '#1f3347', // Top of header background color
+      dark: 'var(--color-background-base-header)',
       dark2: '#172635',
       dark3: '#101923',
       dark4: '#080c11',
@@ -38,7 +46,7 @@ export const AstroTheme = {
       main: '#ffb302',
     },
     warning: {
-      main: '#fce83a',
+      main: '#fce83a', // tooltip color / config button on spectrum analyzer (why does this exist twice in this file?)
       Lighten1: 'rgb(253, 237, 97)',
       Lighten2: 'rgb(253, 241, 137)',
       Lighten3: 'rgb(254, 246, 176)',
@@ -61,7 +69,7 @@ export const AstroTheme = {
       main: '#ffb302',
     },
     caution: {
-      main: '#fce83a',
+      main: '#fce83a', // tooltip color / config button on spectrum analyzer (why does this exist twice in this file?)
     },
     normal: {
       main: '#56f000',
@@ -74,6 +82,9 @@ export const AstroTheme = {
     },
   },
   typography: {
+    colors: {
+      primary: 'var(--color-text-primary)',
+    },
     h1: {
       fontSize: '2.125rem',
       fontWeight: 400,
@@ -87,4 +98,15 @@ export const AstroTheme = {
       fontWeight: 500,
     },
   },
+  reference: {
+    radii: {
+      radiusBase: 'var(--radius-base)',
+    },
+  },
 };
+
+/** Values that do not exist in this file (but should) **/
+// color: rgba(0, 0, 0, 0.87)
+// color: white;
+// color: #fff <--yet another white, why??
+// background-color: yellow (IF and PAUSE button on Spetrum Analyzer)

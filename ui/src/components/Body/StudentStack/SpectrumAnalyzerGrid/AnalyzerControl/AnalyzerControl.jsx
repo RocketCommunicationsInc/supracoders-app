@@ -18,9 +18,9 @@ const popupStyle = {
   borderImageSlice: '30 fill',
   borderImageOutset: 0,
   zIndex: '9999',
-  color: 'white',
+  color: AstroTheme.typography.colors.primary,
   textAlign: 'center',
-  borderRadius: '10px',
+  borderRadius: AstroTheme.reference.radii.borderRadius,
   boxShadow: '0px 0px 12px 5px rgba(0, 0, 0, 1)',
 };
 
