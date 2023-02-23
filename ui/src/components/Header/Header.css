@@ -11,3 +11,9 @@
   color: var(--color-text-primary);
   text-decoration: none;
 }
+
+.switch-indicator {
+  fill: var(--color-text-primary);
+  height: var(--spacing-4);
+  width: var(--spacing-4);
+}

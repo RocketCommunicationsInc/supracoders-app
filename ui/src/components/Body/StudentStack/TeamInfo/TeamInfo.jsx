@@ -34,8 +34,8 @@ export const TeamInfo = () => {
       height={60}
       sx={{
         backgroundColor: AstroTheme.palette.tertiary.main,
-        color: 'white',
-        boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.8)',
+        color: AstroTheme.typography.colors.primary,
+        //boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.8)',
         alignItems: 'center',
       }}>
       {state?.isAuthenticated ? (

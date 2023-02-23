@@ -19,8 +19,8 @@ export const RxModemInput = ({ currentRow }) => {
 
   const sxInputApply = {
     backgroundColor: AstroTheme.palette.tertiary.light3,
-    boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.75)',
-    color: 'black',
+    //boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.75)',
+    color: AstroTheme.typography.colors.black,
     cursor: 'pointer',
     marginTop: '20px',
   };

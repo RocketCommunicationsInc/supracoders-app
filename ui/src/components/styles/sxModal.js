@@ -6,9 +6,9 @@ export const sxModal = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   bgcolor: AstroTheme.palette.tertiary.dark,
-  color: '#000',
-  border: `5px solid ${AstroTheme.palette.tertiary.dark2}`,
-  borderRadius: '5px',
-  boxShadow: 24,
+  color: AstroTheme.typography.colors.black,
+  border: `1px solid ${AstroTheme.palette.tertiary.light}`,
+  borderRadius: AstroTheme.reference.radii.borderRadius,
+  //boxShadow: 24,
   p: 4,
 };

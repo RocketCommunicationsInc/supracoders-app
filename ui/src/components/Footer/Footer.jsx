@@ -13,8 +13,8 @@ export const Footer = () => (
     <Toolbar
       sx={{
         backgroundColor: AstroTheme.palette.tertiary.dark,
-        color: 'white',
-        boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.8)',
+        color: AstroTheme.typography.colors.primary,
+        //boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.8)',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

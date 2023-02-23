@@ -46,25 +46,25 @@ const sxInputRow = {
   fontSize: '1em',
 };
 const configButtonStyle = {
-  backgroundColor: AstroTheme.palette.warning.main,
-  boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.75)',
-  color: 'black',
+  backgroundColor: AstroTheme.system.colors.backgroundInteractiveDefault,
+  //boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.75)',
+  color: AstroTheme.typography.colors.inverse,
   margin: '8px',
   cursor: 'pointer',
   '&:hover': {
-    backgroundColor: AstroTheme.palette.serious.main,
+    backgroundColor: AstroTheme.system.colors.backgroundInteractiveHover,
   },
 };
 const canvasContainer = {
   position: 'relative',
-  border: '8px solid transparent',
-  borderImageSource: 'url(./bezel.png)',
-  borderImageSlice: '30 fill',
-  borderImageOutset: 0,
+  border: '1px solid ' + AstroTheme.palette.tertiary.light,
+  //borderImageSource: 'url(./bezel.png)',
+  //borderImageSlice: '30 fill',
+  //borderImageOutset: 0,
   overflow: 'hidden',
-  boxShadow: '0px 0px 10px rgba(0,0,0,0.5)',
+  //boxShadow: '0px 0px 10px rgba(0,0,0,0.5)',
   backgroundColor: '#282a2b',
-  borderRadius: '10px',
+  borderRadius: AstroTheme.reference.radii.borderRadius,
 };
 
 export const SpectrumAnalyzerBox = (props) => {
@@ -326,8 +326,9 @@ export const SpectrumAnalyzerBox = (props) => {
                 sx={{
                   ...configButtonStyle,
                   ...{
-                    backgroundColor: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isRfMode ? 'red' : 'yellow',
-                    color: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isRfMode ? 'white' : 'black',
+                    backgroundColor: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isRfMode ? AstroTheme.reference.colors.green500 : AstroTheme.palette.tertiary.light2,
+                    color: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isRfMode ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveDefault,
+                    border: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isRfMode ? '1px solid ' + AstroTheme.reference.colors.green500 : '1px solid ' + AstroTheme.system.colors.backgroundInteractiveDefault,
                   },
                 }}
                 onClick={handleRfClicked}>
@@ -346,8 +347,9 @@ export const SpectrumAnalyzerBox = (props) => {
                 sx={{
                   ...configButtonStyle,
                   ...{
-                    backgroundColor: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause ? 'red' : 'yellow',
-                    color: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause ? 'white' : 'black',
+                    backgroundColor: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause ? AstroTheme.reference.colors.green500 : AstroTheme.palette.tertiary.light2,
+                    color: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveDefault,
+                    border: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause ? '1px solid ' + AstroTheme.reference.colors.green500 : '1px solid ' + AstroTheme.system.colors.backgroundInteractiveDefault,
                   },
                 }}
                 onClick={handlePauseClicked}>
