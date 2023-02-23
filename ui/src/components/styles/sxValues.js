@@ -6,6 +6,6 @@ export const sxValues = {
 };
 export const sxValuesGrid = {
   backgroundColor: AstroTheme.palette.tertiary.light3,
-  border: '1px solid' + AstroTheme.palette.tertiary.light,
+  border: '1px solid ' + AstroTheme.palette.tertiary.light,
   borderRadius: '5px',
 };

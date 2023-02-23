@@ -29,7 +29,7 @@ const SpectrumAnalyzerBoxStyle = {
   //boxShadow: '0px 0px 5px rgba(0,0,0,0.5)',
   color: AstroTheme.typography.colors.primary,
   backgroundColor: AstroTheme.palette.tertiary.light2,
-  border: '1px solid' + AstroTheme.palette.tertiary.light,
+  border: '1px solid ' + AstroTheme.palette.tertiary.light,
   overflow: 'hidden',
   position: 'relative',
   zIndex: '1',

@@ -14,9 +14,9 @@ const popupTimeoutTime = 3000;
 let errorResetTimeout;
 
 const sxInputApply = {
-  backgroundColor: AstroTheme.palette.tertiary.light3,
-  boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.75)',
-  color: 'black',
+  backgroundColor: AstroTheme.system.colors.backgroundInteractiveDefault,
+  //boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.75)',
+  color: AstroTheme.typography.colors.inverse,
   cursor: 'pointer',
 };
 
@@ -33,17 +33,13 @@ export const TxModemInput = ({ unitData, activeModem, currentRow }) => {
   const sxTransmit = {
     cursor: 'pointer',
     marginLeft: '10px',
-    boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.5)',
-    border: '1px solid red',
-    backgroundColor: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting
-      ? 'red'
-      : AstroTheme.palette.tertiary.light3,
-    color: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? 'white' : 'black',
+    border: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? '1px solid ' + AstroTheme.reference.colors.green500 : '1px solid ' + AstroTheme.system.colors.borderInteractiveDefault,
+    backgroundColor: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? AstroTheme.reference.colors.green500 : AstroTheme.palette.tertiary.light2,
+    color: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? AstroTheme.typography.colors.black : AstroTheme.typography.colors.interactive,
     '&:hover': {
-      backgroundColor: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting
-        ? AstroTheme.palette.error.main
-        : AstroTheme.palette.critical.main,
-      color: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? 'black' : 'white',
+      border: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? '1px solid ' + AstroTheme.reference.colors.green400 : '1px solid ' + AstroTheme.system.colors.borderInteractiveHover,
+      backgroundColor: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? AstroTheme.reference.colors.green400 : AstroTheme.palette.tertiary.light2,
+      color: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveHover,
     },
   };
 

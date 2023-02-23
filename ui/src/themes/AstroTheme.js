@@ -84,6 +84,9 @@ export const AstroTheme = {
   typography: {
     colors: {
       primary: 'var(--color-text-primary)',
+      interactive: 'var(--color-text-interactive-default)',
+      black: 'var(--color-text-black)',
+      inverse: 'var(--color-text-inverse)',
     },
     h1: {
       fontSize: '2.125rem',
@@ -101,6 +104,20 @@ export const AstroTheme = {
   reference: {
     radii: {
       radiusBase: 'var(--radius-base)',
+    },
+    colors: {
+      green400: 'var(--color-palette-green-400)',
+      green500: 'var(--color-palette-green-500)',
+    },
+  },
+  system: {
+    colors: {
+      backgroundInteractiveDefault: 'var(--color-background-interactive-default)',
+      backgroundInteractiveHover: 'var(--color-background-interactive-hover)',
+      backgroundInteractiveMuted: 'var(--color-background-interactive-muted)',
+      borderInteractiveDefault: 'var(--color-border-interactive-default)',
+      borderInteractiveHover: 'var(--color-border-interactive-hover)',
+      borderInteractiveMuted: 'var(--color-border-interactive-muted)',
     },
   },
 };

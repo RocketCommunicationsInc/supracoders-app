@@ -93,7 +93,7 @@ export const Header = () => {
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Typography fontSize={'24px'} sx={{ fontFamily: 'Nasa', color: AstroTheme.palette.tertiary.light3 }}>
+                <Typography fontSize={'24px'} sx={{ fontFamily: 'Nasa', color: AstroTheme.typography.colors.primary }}>
                   Space Electronic Warfare Sandbox
                 </Typography>
               </Grid>

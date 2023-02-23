@@ -1,4 +1,5 @@
 @import '@astrouxds/tokens/dist/css/index.css';
+@import '@astrouxds/tokens/dist/css/theme.light.css';
 
 html,
 body {

@@ -27,7 +27,7 @@ export const Injects = () => {
     backgroundColor: theme.palette.tertiary.light2,
     borderRadius: '10px',
     boxShadow: '0px 0px 5px rgba(0,0,0,0.5)',
-    border: '1px solid' + AstroTheme.palette.tertiary.light,
+    border: '1px solid ' + AstroTheme.palette.tertiary.light,
     display: 'grid',
     gridTemplateColumns: '30px 3fr 5fr 2fr 3fr',
     justifyContent: 'space-between',
@@ -81,7 +81,7 @@ export const Injects = () => {
     cursor: 'pointer',
     margin: '8px',
     boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.5)',
-    border: '1px solid red',
+    border: '1px solid ' + AstroTheme.system.colors.borderInteractiveDefault,
     backgroundColor: sewAppCtx.signal[activeModem]?.operational ? 'red' : theme.palette.tertiary.light3,
     color: sewAppCtx.signal[activeModem]?.operational ? 'white' : 'black',
     '&:hover': {
