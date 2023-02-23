@@ -33,7 +33,7 @@ export const TeamInfo = () => {
       pr={4}
       height={60}
       sx={{
-        backgroundColor: AstroTheme.palette.tertiary.main,
+        backgroundColor: AstroTheme.system.colors.backgroundSurfaceDefault,
         color: AstroTheme.typography.colors.primary,
         //boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.8)',
         alignItems: 'center',

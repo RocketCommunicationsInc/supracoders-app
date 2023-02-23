@@ -101,12 +101,12 @@ export const Header = () => {
             </Grid>
             <Grid item xs={true} container spacing={1}>
               <Grid item xs={12} mt={-1} mb={-5}>
-                <Typography fontSize={'64px'} fontFamily={'Nasa'}>
+                <Typography fontSize={'64px'} fontFamily={'Nasa'} color={AstroTheme.typography.colors.primary}>
                   IRIS
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Typography fontSize={'24px'} sx={{ fontFamily: 'Nasa', color: AstroTheme.typography.colors.primary }}>
+                <Typography fontSize={'24px'} sx={{ fontFamily: 'Nasa', color: AstroTheme.typography.colors.secondary }}>
                   Space Electronic Warfare Sandbox
                 </Typography>
               </Grid>

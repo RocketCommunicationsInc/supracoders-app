@@ -84,6 +84,7 @@ export const AstroTheme = {
   typography: {
     colors: {
       primary: 'var(--color-text-primary)',
+      secondary: 'var(--color-text-secondary)',
       interactive: 'var(--color-text-interactive-default)',
       black: 'var(--color-text-black)',
       inverse: 'var(--color-text-inverse)',
