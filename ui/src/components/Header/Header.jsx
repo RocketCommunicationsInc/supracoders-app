@@ -39,7 +39,7 @@ export const Header = () => {
   return (
     <>
       <Modal open={isHelpModalActive} onClose={() => setIsHelpModalActive(false)}>
-        <Box sx={{ ...sxModal, ...{ color: AstroTheme.palette.tertiary.light4 } }}>
+        <Box sx={{ ...sxModal, ...{ color: AstroTheme.typography.colors.primary } }}>
           <Typography m={1} variant='h3'>
             IRIS Space Electronic Warfare Sandbox
           </Typography>

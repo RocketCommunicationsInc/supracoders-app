@@ -19,11 +19,11 @@ export const Login = () => {
       <Box
         component='form'
         onSubmit={handleSubmit}
-        bgcolor='tertiary.light4'
+        bgcolor={AstroTheme.system.colors.backgroundSurfaceDefault}
+        color={AstroTheme.typography.colors.primary}
         sx={{
           margin: 'auto',
           borderRadius: AstroTheme.reference.radii.borderRadius,
-          //boxShadow: '0px 0px 30px rgba(0, 0, 0, 0.2)',
           '& > :not(style)': { m: 1 },
         }}
         novalidate
