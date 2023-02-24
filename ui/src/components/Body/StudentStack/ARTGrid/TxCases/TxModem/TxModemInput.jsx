@@ -18,6 +18,10 @@ const sxInputApply = {
   //boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.75)',
   color: AstroTheme.typography.colors.inverse,
   cursor: 'pointer',
+  textTransform: 'Capitalize',
+  '&:hover': {
+    backgroundColor: AstroTheme.system.colors.backgroundInteractiveHover,
+  },
 };
 
 export const TxModemInput = ({ unitData, activeModem, currentRow }) => {
@@ -34,11 +38,11 @@ export const TxModemInput = ({ unitData, activeModem, currentRow }) => {
     cursor: 'pointer',
     marginLeft: '10px',
     border: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? '1px solid ' + AstroTheme.reference.colors.green500 : '1px solid ' + AstroTheme.system.colors.borderInteractiveDefault,
-    backgroundColor: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? AstroTheme.reference.colors.green500 : AstroTheme.palette.tertiary.light2,
+    backgroundColor: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? AstroTheme.reference.colors.green500 : AstroTheme.system.colors.backgroundSurfaceDefault,
     color: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? AstroTheme.typography.colors.black : AstroTheme.typography.colors.interactive,
     '&:hover': {
       border: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? '1px solid ' + AstroTheme.reference.colors.green400 : '1px solid ' + AstroTheme.system.colors.borderInteractiveHover,
-      backgroundColor: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? AstroTheme.reference.colors.green400 : AstroTheme.palette.tertiary.light2,
+      backgroundColor: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? AstroTheme.reference.colors.green400 : AstroTheme.system.colors.backgroundSurfaceDefault,
       color: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveHover,
     },
   };

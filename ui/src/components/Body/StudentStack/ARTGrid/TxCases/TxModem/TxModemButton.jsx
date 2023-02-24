@@ -8,14 +8,18 @@ import { useSound } from 'use-sound';
 const sxTxModemButton = (params) => {
   const { isTransmitting, isActive } = params;
   return {
-    backgroundColor: isActive ? AstroTheme.palette.primary.dark : AstroTheme.palette.primary.light2,
-    border: isTransmitting ? '2px solid red' : '2px solid ' + AstroTheme.typography.colors.black,
-    color: isActive ? 'white' : 'black',
+    backgroundColor: isActive ? AstroTheme.reference.colors.green500 : "none",
+    border: isActive ? '1px solid ' + AstroTheme.reference.colors.green500 : '1px solid ' + AstroTheme.system.colors.backgroundInteractiveDefault,
+    color: isActive ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveDefault,
+    outline: isTransmitting && 'var(--border-width-focus-default) solid var(--color-border-focus-default)',
+    outlineOffset: isTransmitting && 'var(--spacing-focus-default)',
+    borderRadius: 'var(--radius-base)',
     width: '5px',
     margin: '8px',
-    outline: 'none',
     '&:hover': {
-      backgroundColor: isActive ? AstroTheme.typography.colors.black : AstroTheme.palette.primary.light,
+      backgroundColor: isActive ? AstroTheme.reference.colors.green400 : "none",
+      border: isActive ? '1px solid ' + AstroTheme.reference.colors.green400 : '1px solid ' + AstroTheme.system.colors.backgroundInteractiveHover,
+      color: isActive ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveHover,
     },
   };
 };

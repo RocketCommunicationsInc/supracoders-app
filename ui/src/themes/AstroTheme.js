@@ -1,9 +1,8 @@
 //import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme';
-// import component from '@astrouxds/tokens/dist/json-nested/base.component.json';
+//import component from '@astrouxds/tokens/dist/json-nested/base.component.json';
 import system from '@astrouxds/tokens/dist/json-nested/base.system.json';
 import reference from '@astrouxds/tokens/dist/json-nested/base.reference.json';
 // import light from '@astrouxds/tokens/dist/json-nested/theme.light.json'
-console.log(reference);
 
 export const AstroTheme = {
   palette: {
@@ -14,32 +13,16 @@ export const AstroTheme = {
     },
     primary: {
       main: system.color.border.focus.default,
-      light: '#2f7aa7',
-      light2: '#649cbd',
-      light3: '#98bdd3',
-      light4: '#cbdee9',
-      dark: '#004872',
+      light: reference.color.palette.darkblue[400],
+      light2: reference.color.palette.darkblue[300],
+      light3: reference.color.palette.darkblue[200],
+      light4: reference.color.palette.darkblue[100],
+      dark: reference.color.palette.darkblue[600],
       dark2: '#003655',
       dark3: '#002439',
       dark4: '#00121c',
     },
     reference: reference,
-    tertiary: {
-      // main: '#274059', // team / server background color
-      main: system['color-background-base-header'],
-      // light: '#52667a', // Spectrum Analyzer / Equipment Case Border Color
-      light: 'var(--card-color-border)',
-      // light2: '#7e8c9b', // Spectrum Analyzer and Equipment Case Background Color
-      light2: 'var(--color-background-surface-default)',
-      // light3: '#a9b2bc', // ARTGrid background color / 'Space Electronic Warfare' header text color / Loopback Switch Background Color / Input background color / Apply, Power and Tx button on Antenna Controller and Modems
-      light3: 'var(--color-background-base-default)',
-      light4: '#d4d8dd',
-      // dark: '#1f3347', // Top of header background color
-      dark: system['color-background-base-header'],
-      dark2: '#172635',
-      dark3: '#101923',
-      dark4: '#080c11',
-    },
     error: {
       main: '#ffb302',
     },
@@ -55,7 +38,7 @@ export const AstroTheme = {
       Darken4: 'rgb(50, 46, 12)',
     },
     info: {
-      main: '#2dccff',
+      main: system.color.status.standby,
     },
     success: {
       main: system.color.status.normal,
@@ -115,9 +98,18 @@ export const AstroTheme = {
       spacing2: 'var(--spacing-2)',
     },
   },
+  component: {
+    card: {
+      cardColorBorder: 'var(--card-color-border)',
+    },
+    progress: {
+      borderRadius: 'var(--progress-radius-outer)',
+    },
+  },
   system: {
     colors: {
       backgroundBaseHeader: 'var(--color-background-base-header)',
+      backgroundBaseDefault: 'var(--color-background-base-default)',
       backgroundInteractiveDefault: 'var(--color-background-interactive-default)',
       backgroundInteractiveHover: 'var(--color-background-interactive-hover)',
       backgroundInteractiveMuted: 'var(--color-background-interactive-muted)',

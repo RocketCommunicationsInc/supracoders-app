@@ -5,7 +5,7 @@ export const sxEquipmentCase = {
   margin: 'auto',
   borderRadius: AstroTheme.reference.radii.radiusBase,
   boxShadow: AstroTheme.reference.shadow.boxShadow,
-  backgroundColor: AstroTheme.palette.tertiary.light2,
+  backgroundColor: AstroTheme.system.colors.backgroundSurfaceDefault,
   color: AstroTheme.typography.colors.primary,
-  border: '1px solid ' + AstroTheme.palette.tertiary.light,
+  border: '1px solid ' + AstroTheme.component.card.cardColorBorder,
 };

@@ -18,11 +18,15 @@ export const RxModemInput = ({ currentRow }) => {
   }, [currentRow]);
 
   const sxInputApply = {
-    backgroundColor: AstroTheme.palette.tertiary.light3,
+    backgroundColor: AstroTheme.system.colors.backgroundInteractiveDefault,
     //boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.75)',
-    color: AstroTheme.typography.colors.black,
+    color: AstroTheme.typography.colors.inverse,
     cursor: 'pointer',
+    textTransform: 'Capitalize',
     marginTop: '20px',
+    '&:hover': {
+      backgroundColor: AstroTheme.system.colors.backgroundInteractiveHover,
+    },
   };
 
   const handleInputChange = ({ param, val }) => {

@@ -36,7 +36,7 @@ const fullscreenFadeStyle = {
 
 const controlsGridStyle = {
   display: 'flex',
-  backgroundColor: AstroTheme.palette.tertiary.light2,
+  backgroundColor: AstroTheme.system.colors.backgroundSurfaceDefault,
   padding: '10px',
   justifyContent: 'space-around',
   alignItems: 'center',
@@ -225,12 +225,12 @@ export const AnalyzerControl = (props) => {
               <Grid container item xs={8} sx={{ justifyContent: 'space-around' }}>
                 <Box
                   sx={{
-                    color: 'black',
+                    color: AstroTheme.typography.colors.primary,
                     width: '100%',
-                    background: 'white',
-                    border: '2px solid',
+                    background: AstroTheme.system.colors.backgroundBaseDefault,
+                    border: '1px solid',
                     padding: '8px',
-                    borderColor: AstroTheme.system.colors.backgroundBaseHeader,
+                    borderColor: AstroTheme.component.card.cardColorBorder,
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',

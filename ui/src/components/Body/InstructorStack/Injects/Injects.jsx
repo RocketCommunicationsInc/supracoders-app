@@ -24,11 +24,11 @@ export const Injects = () => {
   // Styles
   const sxCase = {
     flexGrow: 1,
-    backgroundColor: theme.palette.tertiary.light2,
+    backgroundColor: theme.system.colors.backgroundSurfaceDefault,
     color: AstroTheme.typography.colors.primary,
     borderRadius: AstroTheme.reference.radii.radiusBase,
     boxShadow: AstroTheme.reference.shadow.boxShadow,
-    border: '1px solid ' + AstroTheme.palette.tertiary.light,
+    border: '1px solid ' + AstroTheme.component.card.cardColorBorder,
     display: 'grid',
     gridTemplateColumns: '30px 3fr 5fr 2fr 3fr',
     justifyContent: 'space-between',
@@ -40,9 +40,8 @@ export const Injects = () => {
     textAlign: 'center',
   };
   const sxModemButtonBox = {
-    backgroundColor: AstroTheme.palette.tertiary.light2,
-    borderRadius: AstroTheme.reference.radii.radiusBase,
-    border: '1px solid ' + AstroTheme.palette.tertiary.light,
+    backgroundColor: AstroTheme.system.colors.backgroundSurfaceDefault,
+    border: '1px solid ' + AstroTheme.component.card.cardColorBorder,
     //boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.2)',
   };
   const sxValues = {
@@ -50,7 +49,7 @@ export const Injects = () => {
     textDecoration: 'underline',
   };
   const sxInputBox = {
-    backgroundColor: theme.palette.tertiary.light2,
+    backgroundColor: theme.system.colors.backgroundSurfaceDefault,
     margin: '8px',
     borderRadius: AstroTheme.reference.radii.radiusBase,
     display: 'grid',
@@ -63,7 +62,7 @@ export const Injects = () => {
     margin: '2px',
   };
   const sxInputApply = {
-    backgroundColor: theme.palette.tertiary.light3,
+    backgroundColor: theme.system.colors.backgroundBaseDefault,
     //boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.75)',
     color: AstroTheme.typography.colors.black,
     margin: '8px',
@@ -71,8 +70,9 @@ export const Injects = () => {
   };
   const sxVideo = {
     margin: '10px',
-    border: '2px solid grey',
-    backgroundColor: theme.palette.tertiary.light3,
+    border: '1px solid ' + AstroTheme.component.card.cardColorBorder,
+    borderRadius: AstroTheme.reference.radii.radiusBase,
+    backgroundColor: theme.system.colors.backgroundBaseDefault,
     width: '400px',
     height: '400px',
     display: 'flex',
@@ -83,14 +83,15 @@ export const Injects = () => {
     cursor: 'pointer',
     margin: '8px',
     //boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.5)',
-    border: '1px solid ' + AstroTheme.system.colors.borderInteractiveDefault,
-    backgroundColor: sewAppCtx.signal[activeModem]?.operational ? 'red' : theme.palette.tertiary.light3,
-    color: sewAppCtx.signal[activeModem]?.operational ? 'white' : 'black',
+    border: sewAppCtx.signal[activeModem]?.operational ? '1px solid ' + AstroTheme.reference.colors.green500 : '1px solid ' + AstroTheme.system.colors.borderInteractiveDefault,
+    backgroundColor: sewAppCtx.signal[activeModem]?.operational ? AstroTheme.reference.colors.green500 : AstroTheme.system.colors.backgroundSurfaceDefault,
+    color: sewAppCtx.signal[activeModem]?.operational ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveDefault,
     '&:hover': {
       backgroundColor: sewAppCtx.signal[activeModem]?.operational
-        ? theme.palette.error.main
-        : theme.palette.critical.main,
-      color: sewAppCtx.signal[activeModem]?.operational ? 'black' : 'white',
+        ? AstroTheme.reference.colors.green400
+        : AstroTheme.system.colors.backgroundSurfaceDefault,
+      color: sewAppCtx.signal[activeModem]?.operational ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveHover,
+      border: sewAppCtx.signal[activeModem]?.operational ? '1px solid ' + AstroTheme.reference.colors.green400 : '1px solid ' + AstroTheme.system.colors.borderInteractiveHover,
     },
   };
 
@@ -98,7 +99,7 @@ export const Injects = () => {
   const sidebar = [];
   ['S', 'I', 'G', 'N', 'A', 'L', 'S'].forEach((x, index) => {
     sidebar.push(
-      <Typography key={index} sx={{ color: 'black' }}>
+      <Typography key={index} sx={{ color: AstroTheme.typography.colors.primary }}>
         {x}
       </Typography>
     );
@@ -131,15 +132,19 @@ export const Injects = () => {
     return (
       <Button
         sx={{
-          backgroundColor: modem - 1 == activeModem ? theme.palette.primary.dark : theme.palette.primary.light2,
-          color: modem - 1 == activeModem ? 'white' : 'black',
-          border: sewAppCtx.signal[sewAppCtx.signal.map((x) => x.id).indexOf(modem)].operational
-            ? '2px solid red'
-            : '2px solid ' + theme.typography.colors.black,
+          backgroundColor: modem - 1 == activeModem
+            ? AstroTheme.reference.colors.green500 
+            : "none",
+          color: modem - 1 == activeModem ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveDefault,
+          border: modem - 1 == activeModem ? '1px solid ' + AstroTheme.reference.colors.green500 : '1px solid ' + AstroTheme.system.colors.backgroundInteractiveDefault,
+          outline: sewAppCtx.signal[sewAppCtx.signal.map((x) => x.id).indexOf(modem)].operational && 'var(--border-width-focus-default) solid var(--color-border-focus-default)',
+          outlineOffset: sewAppCtx.signal[sewAppCtx.signal.map((x) => x.id).indexOf(modem)].operational && 'var(--spacing-focus-default)',
+          borderRadius: 'var(--radius-base)',
           margin: '8px',
           cursor: 'pointer',
           '&:hover': {
-            backgroundColor: theme.palette.primary.light3,
+            backgroundColor: modem - 1 == activeModem ? AstroTheme.reference.colors.green400 : AstroTheme.system.colors.backgroundSurfaceDefault,
+            color: modem - 1 == activeModem ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveHover,
           },
         }}
         onClick={(e) => {

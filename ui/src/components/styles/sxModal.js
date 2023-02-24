@@ -7,7 +7,7 @@ export const sxModal = {
   transform: 'translate(-50%, -50%)',
   bgcolor: AstroTheme.system.colors.backgroundBaseHeader,
   color: AstroTheme.typography.colors.black,
-  border: `1px solid ${AstroTheme.palette.tertiary.light}`,
+  border: `1px solid ${AstroTheme.component.card.cardColorBorder}`,
   borderRadius: AstroTheme.reference.radii.borderRadius,
   //boxShadow: 24,
   p: 4,

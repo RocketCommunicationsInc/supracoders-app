@@ -28,8 +28,8 @@ const SpectrumAnalyzerBoxStyle = {
   borderRadius: AstroTheme.reference.radii.radiusBase,
   boxShadow: AstroTheme.reference.shadow.boxShadow,
   color: AstroTheme.typography.colors.primary,
-  backgroundColor: AstroTheme.palette.tertiary.light2,
-  border: '1px solid ' + AstroTheme.palette.tertiary.light,
+  backgroundColor: AstroTheme.system.colors.backgroundSurfaceDefault,
+  border: '1px solid ' + AstroTheme.component.card.cardColorBorder,
   overflow: 'hidden',
   position: 'relative',
   zIndex: '1',
@@ -51,13 +51,14 @@ const configButtonStyle = {
   color: AstroTheme.typography.colors.inverse,
   margin: '8px',
   cursor: 'pointer',
+  textTransform: 'Capitalize',
   '&:hover': {
     backgroundColor: AstroTheme.system.colors.backgroundInteractiveHover,
   },
 };
 const canvasContainer = {
   position: 'relative',
-  border: '1px solid ' + AstroTheme.palette.tertiary.light,
+  border: '1px solid ' + AstroTheme.component.card.cardColorBorder,
   //borderImageSource: 'url(./bezel.png)',
   //borderImageSlice: '30 fill',
   //borderImageOutset: 0,
@@ -326,7 +327,7 @@ export const SpectrumAnalyzerBox = (props) => {
                 sx={{
                   ...configButtonStyle,
                   ...{
-                    backgroundColor: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isRfMode ? AstroTheme.reference.colors.green500 : AstroTheme.palette.tertiary.light2,
+                    backgroundColor: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isRfMode ? AstroTheme.reference.colors.green500 : AstroTheme.system.colors.backgroundSurfaceDefault,
                     color: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isRfMode ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveDefault,
                     border: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isRfMode ? '1px solid ' + AstroTheme.reference.colors.green500 : '1px solid ' + AstroTheme.system.colors.backgroundInteractiveDefault,
                   },
@@ -347,7 +348,7 @@ export const SpectrumAnalyzerBox = (props) => {
                 sx={{
                   ...configButtonStyle,
                   ...{
-                    backgroundColor: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause ? AstroTheme.reference.colors.green500 : AstroTheme.palette.tertiary.light2,
+                    backgroundColor: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause ? AstroTheme.reference.colors.green500 : AstroTheme.system.colors.backgroundSurfaceDefault,
                     color: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveDefault,
                     border: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause ? '1px solid ' + AstroTheme.reference.colors.green500 : '1px solid ' + AstroTheme.system.colors.backgroundInteractiveDefault,
                   },
