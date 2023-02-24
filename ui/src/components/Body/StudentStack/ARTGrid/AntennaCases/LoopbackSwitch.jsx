@@ -23,17 +23,17 @@ export const LoopbackSwitch = ({ unit }) => {
   const sxHPA = {
     marginTop: '5px',
     border: sewAppCtx.antenna[antennaIdx].hpa ? '1px solid ' + AstroTheme.reference.colors.green500 : '1px solid ' + AstroTheme.system.colors.borderInteractiveDefault,
-    backgroundColor: sewAppCtx.antenna[antennaIdx].hpa ? AstroTheme.reference.colors.green500 : AstroTheme.palette.tertiary.light2,
+    backgroundColor: sewAppCtx.antenna[antennaIdx].hpa ? AstroTheme.reference.colors.green500 : "none",
     color: sewAppCtx.antenna[antennaIdx].hpa ? AstroTheme.typography.colors.black : AstroTheme.typography.colors.interactive,
     '&:hover': {
       border: sewAppCtx.antenna[antennaIdx].hpa ? '1px solid ' + AstroTheme.reference.colors.green400 : '1px solid ' + AstroTheme.system.colors.borderInteractiveHover,
-      backgroundColor: sewAppCtx.antenna[antennaIdx].hpa ? AstroTheme.reference.colors.green400 : AstroTheme.palette.tertiary.light2,
+      backgroundColor: sewAppCtx.antenna[antennaIdx].hpa ? AstroTheme.reference.colors.green400 : "none",
       color: sewAppCtx.antenna[antennaIdx].hpa ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveHover,
     },
   };
   const sxTx = {
     backgroundColor: sewAppCtx.antenna[antennaIdx].loopback
-      ? AstroTheme.palette.tertiary.light2
+      ? AstroTheme.system.colors.backgroundSurfaceDefault
       : sewAppCtx.antenna[antennaIdx].hpa
       ? 'red'
       : 'green',
@@ -42,8 +42,8 @@ export const LoopbackSwitch = ({ unit }) => {
 
   const sxLoopback = {
     width: '100px',
-    backgroundColor: AstroTheme.palette.tertiary.light2,
-    border: '1px solid ' + AstroTheme.palette.tertiary.light,
+    backgroundColor: AstroTheme.system.colors.backgroundBaseDefault,
+    border: '1px solid ' + AstroTheme.component.card.cardColorBorder,
     padding: '10px 30px',
     marginTop: '-1px',
     marginBottom: '-1px',
