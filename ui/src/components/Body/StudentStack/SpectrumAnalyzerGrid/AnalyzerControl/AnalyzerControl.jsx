@@ -20,8 +20,8 @@ const popupStyle = {
   zIndex: '9999',
   color: AstroTheme.typography.colors.primary,
   textAlign: 'center',
-  borderRadius: AstroTheme.reference.radii.borderRadius,
-  boxShadow: '0px 0px 12px 5px rgba(0, 0, 0, 1)',
+  borderRadius: AstroTheme.reference.radii.radiusBase,
+  boxShadow: AstroTheme.reference.shadow.boxShadow,
 };
 
 const fullscreenFadeStyle = {
@@ -230,7 +230,7 @@ export const AnalyzerControl = (props) => {
                     background: 'white',
                     border: '2px solid',
                     padding: '8px',
-                    borderColor: AstroTheme.palette.tertiary.dark,
+                    borderColor: AstroTheme.system.colors.backgroundBaseHeader,
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',

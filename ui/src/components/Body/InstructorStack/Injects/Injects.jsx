@@ -25,8 +25,9 @@ export const Injects = () => {
   const sxCase = {
     flexGrow: 1,
     backgroundColor: theme.palette.tertiary.light2,
-    borderRadius: '10px',
-    boxShadow: '0px 0px 5px rgba(0,0,0,0.5)',
+    color: AstroTheme.typography.colors.primary,
+    borderRadius: AstroTheme.reference.radii.radiusBase,
+    boxShadow: AstroTheme.reference.shadow.boxShadow,
     border: '1px solid ' + AstroTheme.palette.tertiary.light,
     display: 'grid',
     gridTemplateColumns: '30px 3fr 5fr 2fr 3fr',
@@ -34,14 +35,15 @@ export const Injects = () => {
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
   };
   const sxCaseId = {
-    color: 'white',
+    color: AstroTheme.typography.colors.primary,
     margin: '8px',
     textAlign: 'center',
   };
   const sxModemButtonBox = {
-    backgroundColor: theme.palette.tertiary.light3,
-    borderRadius: '5px',
-    boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.2)',
+    backgroundColor: AstroTheme.palette.tertiary.light2,
+    borderRadius: AstroTheme.reference.radii.radiusBase,
+    border: '1px solid ' + AstroTheme.palette.tertiary.light,
+    //boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.2)',
   };
   const sxValues = {
     fontWeight: 'bold',
@@ -50,7 +52,7 @@ export const Injects = () => {
   const sxInputBox = {
     backgroundColor: theme.palette.tertiary.light2,
     margin: '8px',
-    borderRadius: '4px',
+    borderRadius: AstroTheme.reference.radii.radiusBase,
     display: 'grid',
     flexDirection: 'column',
   };
@@ -62,8 +64,8 @@ export const Injects = () => {
   };
   const sxInputApply = {
     backgroundColor: theme.palette.tertiary.light3,
-    boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.75)',
-    color: 'black',
+    //boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.75)',
+    color: AstroTheme.typography.colors.black,
     margin: '8px',
     cursor: 'pointer',
   };
@@ -80,7 +82,7 @@ export const Injects = () => {
   const sxTransmit = {
     cursor: 'pointer',
     margin: '8px',
-    boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.5)',
+    //boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.5)',
     border: '1px solid ' + AstroTheme.system.colors.borderInteractiveDefault,
     backgroundColor: sewAppCtx.signal[activeModem]?.operational ? 'red' : theme.palette.tertiary.light3,
     color: sewAppCtx.signal[activeModem]?.operational ? 'white' : 'black',
@@ -133,7 +135,7 @@ export const Injects = () => {
           color: modem - 1 == activeModem ? 'white' : 'black',
           border: sewAppCtx.signal[sewAppCtx.signal.map((x) => x.id).indexOf(modem)].operational
             ? '2px solid red'
-            : '2px solid ' + theme.palette.primary.main,
+            : '2px solid ' + theme.typography.colors.black,
           margin: '8px',
           cursor: 'pointer',
           '&:hover': {

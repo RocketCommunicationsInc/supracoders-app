@@ -5,7 +5,7 @@ export const sxModal = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  bgcolor: AstroTheme.palette.tertiary.dark,
+  bgcolor: AstroTheme.system.colors.backgroundBaseHeader,
   color: AstroTheme.typography.colors.black,
   border: `1px solid ${AstroTheme.palette.tertiary.light}`,
   borderRadius: AstroTheme.reference.radii.borderRadius,

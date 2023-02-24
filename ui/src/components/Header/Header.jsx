@@ -90,7 +90,7 @@ export const Header = () => {
         </Box>
       </Modal>
       <AppBar className={'appBar'} position='static'>
-        <Toolbar sx={{ backgroundColor: theme.palette.tertiary.dark }}>
+        <Toolbar sx={{ backgroundColor: theme.system.colors.backgroundBaseHeader }}>
           <Grid container>
             <Grid item xs={'auto'}>
               <Tooltip title='Home' placement='bottom'>

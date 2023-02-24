@@ -1,7 +1,9 @@
 //import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme';
-// import component from '@astrouxds/tokens/dist/json/base.component.json';
-// import system from '@astrouxds/tokens/dist/json/base.system.json';
-//import reference from '@astrouxds/tokens/dist/json/base.reference.json';
+// import component from '@astrouxds/tokens/dist/json-nested/base.component.json';
+import system from '@astrouxds/tokens/dist/json-nested/base.system.json';
+import reference from '@astrouxds/tokens/dist/json-nested/base.reference.json';
+// import light from '@astrouxds/tokens/dist/json-nested/theme.light.json'
+console.log(reference);
 
 export const AstroTheme = {
   palette: {
@@ -11,7 +13,7 @@ export const AstroTheme = {
       paper: '#1b2d3e',
     },
     primary: {
-      main: '#000000',
+      main: system.color.border.focus.default,
       light: '#2f7aa7',
       light2: '#649cbd',
       light3: '#98bdd3',
@@ -21,14 +23,10 @@ export const AstroTheme = {
       dark3: '#002439',
       dark4: '#00121c',
     },
-    secondary: {
-      main: '#4dacff',
-      light: '#92cbff',
-      dark: '#2b659b',
-    },
+    reference: reference,
     tertiary: {
       // main: '#274059', // team / server background color
-      main: 'var(--color-background-base-header)',
+      main: system['color-background-base-header'],
       // light: '#52667a', // Spectrum Analyzer / Equipment Case Border Color
       light: 'var(--card-color-border)',
       // light2: '#7e8c9b', // Spectrum Analyzer and Equipment Case Background Color
@@ -37,7 +35,7 @@ export const AstroTheme = {
       light3: 'var(--color-background-base-default)',
       light4: '#d4d8dd',
       // dark: '#1f3347', // Top of header background color
-      dark: 'var(--color-background-base-header)',
+      dark: system['color-background-base-header'],
       dark2: '#172635',
       dark3: '#101923',
       dark4: '#080c11',
@@ -60,25 +58,25 @@ export const AstroTheme = {
       main: '#2dccff',
     },
     success: {
-      main: '#56f000',
+      main: system.color.status.normal,
     },
     critical: {
-      main: '#ff3838',
+      main: system.color.status.critical,
     },
     serious: {
-      main: '#ffb302',
+      main: system.color.status.serious,
     },
     caution: {
-      main: '#fce83a', // tooltip color / config button on spectrum analyzer (why does this exist twice in this file?)
+      main: system.color.status.caution, // tooltip color / config button on spectrum analyzer (why does this exist twice in this file?)
     },
     normal: {
-      main: '#56f000',
+      main: system.color.status.normal,
     },
     standby: {
-      main: '#2dccff',
+      main: system.color.status.standby,
     },
     disabled: {
-      main: '#9ea7ad',
+      main: system.color.status.off, //off
     },
   },
   typography: {
@@ -110,9 +108,16 @@ export const AstroTheme = {
       green400: 'var(--color-palette-green-400)',
       green500: 'var(--color-palette-green-500)',
     },
+    shadow: {
+      boxShadow: 'var(--shadow-overlay)',
+    },
+    spacing: {
+      spacing2: 'var(--spacing-2)',
+    },
   },
   system: {
     colors: {
+      backgroundBaseHeader: 'var(--color-background-base-header)',
       backgroundInteractiveDefault: 'var(--color-background-interactive-default)',
       backgroundInteractiveHover: 'var(--color-background-interactive-hover)',
       backgroundInteractiveMuted: 'var(--color-background-interactive-muted)',

@@ -23,7 +23,7 @@ export const Login = () => {
         color={AstroTheme.typography.colors.primary}
         sx={{
           margin: 'auto',
-          borderRadius: AstroTheme.reference.radii.borderRadius,
+          borderRadius: AstroTheme.reference.radii.radiusBase,
           '& > :not(style)': { m: 1 },
         }}
         novalidate

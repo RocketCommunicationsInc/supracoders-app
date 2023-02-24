@@ -9,13 +9,13 @@ const sxTxModemButton = (params) => {
   const { isTransmitting, isActive } = params;
   return {
     backgroundColor: isActive ? AstroTheme.palette.primary.dark : AstroTheme.palette.primary.light2,
-    border: isTransmitting ? '2px solid red' : '2px solid ' + AstroTheme.palette.primary.main,
+    border: isTransmitting ? '2px solid red' : '2px solid ' + AstroTheme.typography.colors.black,
     color: isActive ? 'white' : 'black',
     width: '5px',
     margin: '8px',
     outline: 'none',
     '&:hover': {
-      backgroundColor: isActive ? AstroTheme.palette.primary.main : AstroTheme.palette.primary.light,
+      backgroundColor: isActive ? AstroTheme.typography.colors.black : AstroTheme.palette.primary.light,
     },
   };
 };
