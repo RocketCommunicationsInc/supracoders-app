@@ -11,31 +11,9 @@ export const AstroTheme = {
       default: '#101923',
       paper: '#1b2d3e',
     },
-    primary: {
-      main: system.color.border.focus.default,
-      light: reference.color.palette.darkblue[400],
-      light2: reference.color.palette.darkblue[300],
-      light3: reference.color.palette.darkblue[200],
-      light4: reference.color.palette.darkblue[100],
-      dark: reference.color.palette.darkblue[600],
-      dark2: '#003655',
-      dark3: '#002439',
-      dark4: '#00121c',
-    },
     reference: reference,
-    error: {
-      main: '#ffb302',
-    },
     warning: {
-      main: '#fce83a', // tooltip color / config button on spectrum analyzer (why does this exist twice in this file?)
-      Lighten1: 'rgb(253, 237, 97)',
-      Lighten2: 'rgb(253, 241, 137)',
-      Lighten3: 'rgb(254, 246, 176)',
-      Lighten4: 'rgb(254, 250, 216)',
-      Darken1: 'rgb(202, 186, 46)',
-      Darken2: 'rgb(151, 139, 35)',
-      Darken3: 'rgb(101, 93, 23)',
-      Darken4: 'rgb(50, 46, 12)',
+      main: system.color.status.caution, // tooltip color / config button on spectrum analyzer (why does this exist twice in this file?)
     },
     info: {
       main: system.color.status.standby,

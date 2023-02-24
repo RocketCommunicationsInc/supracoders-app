@@ -126,7 +126,7 @@ export const Header = () => {
               checked={checked}
               onClick={()=>setChecked(!checked)} />
               <Tooltip title='View Code on Github' placement='bottom'>
-                <IconButton target='_blank' href='http://github.com/thkruz/iris' size='large' color='inherit'>
+                <IconButton target='_blank' href='http://github.com/thkruz/iris' size='large' sx={{ color: AstroTheme.typography.colors.primary}}>
                   <GitHubIcon />
                 </IconButton>
               </Tooltip>
@@ -136,13 +136,13 @@ export const Header = () => {
                   onClick={() => {
                     setIsHelpModalActive(true);
                   }}
-                  color='inherit'>
+                  sx={{ color: AstroTheme.typography.colors.primary}}>
                   <HelpCenterIcon />
                 </IconButton>
               </Tooltip>
               {state?.isAuthenticated && (
                 <Tooltip title='Logout' placement='bottom'>
-                  <IconButton size='large' onClick={handleLogout} color='inherit'>
+                  <IconButton size='large' onClick={handleLogout} sx={{ color: AstroTheme.typography.colors.primary}}>
                     <Logout />
                   </IconButton>
                 </Tooltip>
