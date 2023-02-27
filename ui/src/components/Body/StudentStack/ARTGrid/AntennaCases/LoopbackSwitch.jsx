@@ -22,12 +22,12 @@ export const LoopbackSwitch = ({ unit }) => {
 
   const sxHPA = {
     marginTop: '5px',
-    border: sewAppCtx.antenna[antennaIdx].hpa ? '1px solid ' + AstroTheme.reference.colors.green500 : '1px solid ' + AstroTheme.system.colors.borderInteractiveDefault,
-    backgroundColor: sewAppCtx.antenna[antennaIdx].hpa ? AstroTheme.reference.colors.green500 : "none",
+    border: sewAppCtx.antenna[antennaIdx].hpa ? '1px solid ' + AstroTheme.reference.color.palette.green[500] : '1px solid ' + AstroTheme.system.colors.borderInteractiveDefault,
+    backgroundColor: sewAppCtx.antenna[antennaIdx].hpa ? AstroTheme.reference.color.palette.green[500] : "none",
     color: sewAppCtx.antenna[antennaIdx].hpa ? AstroTheme.typography.colors.black : AstroTheme.typography.colors.interactive,
     '&:hover': {
-      border: sewAppCtx.antenna[antennaIdx].hpa ? '1px solid ' + AstroTheme.reference.colors.green400 : '1px solid ' + AstroTheme.system.colors.borderInteractiveHover,
-      backgroundColor: sewAppCtx.antenna[antennaIdx].hpa ? AstroTheme.reference.colors.green400 : "none",
+      border: sewAppCtx.antenna[antennaIdx].hpa ? '1px solid ' + AstroTheme.reference.color.palette.green[400] : '1px solid ' + AstroTheme.system.colors.borderInteractiveHover,
+      backgroundColor: sewAppCtx.antenna[antennaIdx].hpa ? AstroTheme.reference.color.palette.green[400] : "none",
       color: sewAppCtx.antenna[antennaIdx].hpa ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveHover,
     },
   };

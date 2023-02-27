@@ -9,10 +9,6 @@ import { sxEquipmentCase } from '../../../styles';
 export const EquipmentCase = ({ children, helpTitle, helpComponent, unit, icon }) => {
   const [helpState, setHelpState] = useState(false);
 
-  const sxTooltip = {
-    color: AstroTheme.system.colors.backgroundBaseDefault,
-  };
-
   return (
     <>
       {helpComponent({ modalState: helpState, setModalState: setHelpState })}
@@ -26,7 +22,11 @@ export const EquipmentCase = ({ children, helpTitle, helpComponent, unit, icon }
           </Grid>
           <Grid item xs={'auto'} ml={0}>
             <Tooltip title={helpTitle} placement='top'>
-              <IconButton sx={sxTooltip}
+              <IconButton sx={{
+                '& svg': {
+                  color: AstroTheme.system.colors.backgroundInteractiveDefault,
+                } 
+              }}
                 onClick={() => {
                   setHelpState(true);
                 }}>

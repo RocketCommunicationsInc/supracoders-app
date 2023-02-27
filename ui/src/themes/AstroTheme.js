@@ -11,7 +11,6 @@ export const AstroTheme = {
       default: '#101923',
       paper: '#1b2d3e',
     },
-    reference: reference,
     warning: {
       main: system.color.status.caution, // tooltip color / config button on spectrum analyzer (why does this exist twice in this file?)
     },
@@ -40,6 +39,7 @@ export const AstroTheme = {
       main: system.color.status.off, //off
     },
   },
+  reference: { ...reference },
   typography: {
     colors: {
       primary: 'var(--color-text-primary)',
@@ -61,27 +61,17 @@ export const AstroTheme = {
       fontWeight: 500,
     },
   },
-  reference: {
-    radii: {
-      radiusBase: 'var(--radius-base)',
-    },
-    colors: {
-      green400: 'var(--color-palette-green-400)',
-      green500: 'var(--color-palette-green-500)',
-    },
-    shadow: {
-      boxShadow: 'var(--shadow-overlay)',
-    },
-    spacing: {
-      spacing2: 'var(--spacing-2)',
-    },
-  },
   component: {
     card: {
       cardColorBorder: 'var(--card-color-border)',
     },
     progress: {
       borderRadius: 'var(--progress-radius-outer)',
+    },
+    tooltip: {
+      tooltipRadius: 'var(--tooltip-radius)',
+      tooltipColor: 'var(--tooltip-color-text)',
+      tooltipBackgroundColor: 'var(--tooltip-color-background)',
     },
   },
   system: {
@@ -97,6 +87,44 @@ export const AstroTheme = {
       borderInteractiveDefault: 'var(--color-border-interactive-default)',
       borderInteractiveHover: 'var(--color-border-interactive-hover)',
       borderInteractiveMuted: 'var(--color-border-interactive-muted)',
+      textInteractiveDefault: 'var(--color-text-interactive-default)',
+      textInteractiveHover: 'var(--color-text-interactive-hover)',
+    },
+    shadow: {
+      overlay: 'var(--shadow-overlay)',
+    },
+  },
+  components: {
+    MuiSwitch: {
+      styleOverrides: {
+        switchBase: {
+          // Controls default (unchecked) color for the thumb
+          color: 'var(--color-background-surface-default)',
+          padding: 0,
+          top: 'calc(var(--spacing-2) + 1px)',
+          left: 'calc(var(--spacing-2) + 1px)',
+          border: '1px solid var(--color-border-interactive-default)',
+          '&:hover': {
+            border: '1px solid var(--color-border-interactive-hover)',
+          },
+        },
+        colorPrimary: {
+          '&.Mui-checked': {
+            // Controls checked color for the thumb
+            color: 'var(--color-background-surface-default)',
+          },
+        },
+        track: {
+          // Controls default (unchecked) color for the track
+          border: '1px solid var(--color-border-interactive-default)',
+          backgroundColor: 'var(--color-background-surface-default)',
+          '.Mui-checked.Mui-checked + &': {
+            // Controls checked color for the track
+            backgroundColor: 'var(--color-background-interactive-default)',
+            opacity: 1,
+          },
+        },
+      },
     },
   },
 };

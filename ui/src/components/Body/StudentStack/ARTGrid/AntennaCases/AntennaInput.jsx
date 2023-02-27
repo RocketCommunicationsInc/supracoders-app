@@ -40,12 +40,12 @@ export const AntennaInput = ({ unit }) => {
 
   const sxEnable = {
     marginLeft: '10px',
-    border: inputData.operational ? '1px solid ' + AstroTheme.reference.colors.green500 : '1px solid ' + AstroTheme.system.colors.borderInteractiveDefault,
-    backgroundColor: inputData.operational ? AstroTheme.reference.colors.green500 : AstroTheme.system.colors.backgroundSurfaceDefault,
+    border: inputData.operational ? '1px solid ' + AstroTheme.reference.color.palette.green[500] : '1px solid ' + AstroTheme.system.colors.borderInteractiveDefault,
+    backgroundColor: inputData.operational ? AstroTheme.reference.color.palette.green[500] : AstroTheme.system.colors.backgroundSurfaceDefault,
     color: inputData.operational ? AstroTheme.typography.colors.black : AstroTheme.typography.colors.interactive,
     '&:hover': {
-      border: inputData.operational ? '1px solid ' + AstroTheme.reference.colors.green400 : '1px solid ' + AstroTheme.system.colors.borderInteractiveHover,
-      backgroundColor: inputData.operational ? AstroTheme.reference.colors.green400 : AstroTheme.system.colors.backgroundSurfaceDefault,
+      border: inputData.operational ? '1px solid ' + AstroTheme.reference.color.palette.green[400] : '1px solid ' + AstroTheme.system.colors.borderInteractiveHover,
+      backgroundColor: inputData.operational ? AstroTheme.reference.color.palette.green[400] : AstroTheme.system.colors.backgroundSurfaceDefault,
       color: inputData.operational ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveHover,
     },
   };
@@ -177,6 +177,7 @@ export const AntennaInput = ({ unit }) => {
             <Grid item xs={true}>
               <Switch
                 checked={inputData.track}
+                //disabled={ !inputData.operational ? true : false }
                 onChange={() => {
                   if (!inputData.operational) {
                     setErrorActive(true);

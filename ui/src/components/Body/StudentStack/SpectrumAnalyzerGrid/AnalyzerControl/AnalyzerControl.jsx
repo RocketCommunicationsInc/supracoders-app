@@ -20,8 +20,8 @@ const popupStyle = {
   zIndex: '9999',
   color: AstroTheme.typography.colors.primary,
   textAlign: 'center',
-  borderRadius: AstroTheme.reference.radii.radiusBase,
-  boxShadow: AstroTheme.reference.shadow.boxShadow,
+  borderRadius: AstroTheme.reference.radius.base,
+  boxShadow: AstroTheme.system.shadow.overlay,
 };
 
 const fullscreenFadeStyle = {

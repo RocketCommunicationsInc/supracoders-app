@@ -25,8 +25,8 @@ const SpectrumAnalyzerBoxStyle = {
   justifyContent: 'center',
   alignItems: 'center',
   flexDirection: 'column',
-  borderRadius: AstroTheme.reference.radii.radiusBase,
-  boxShadow: AstroTheme.reference.shadow.boxShadow,
+  borderRadius: AstroTheme.reference.radius.base,
+  boxShadow: AstroTheme.system.shadow.overlay,
   color: AstroTheme.typography.colors.primary,
   backgroundColor: AstroTheme.system.colors.backgroundSurfaceDefault,
   border: '1px solid ' + AstroTheme.component.card.cardColorBorder,
@@ -52,9 +52,6 @@ const configButtonStyle = {
   margin: '8px',
   cursor: 'pointer',
   textTransform: 'Capitalize',
-  '&:hover': {
-    backgroundColor: AstroTheme.system.colors.backgroundInteractiveHover,
-  },
 };
 const canvasContainer = {
   position: 'relative',
@@ -65,7 +62,7 @@ const canvasContainer = {
   overflow: 'hidden',
   //boxShadow: '0px 0px 10px rgba(0,0,0,0.5)',
   backgroundColor: '#282a2b',
-  borderRadius: AstroTheme.reference.radii.borderRadius,
+  borderRadius: AstroTheme.reference.radius.base,
 };
 
 export const SpectrumAnalyzerBox = (props) => {
@@ -263,8 +260,12 @@ export const SpectrumAnalyzerBox = (props) => {
             <Typography>Span: {sewAppCtx.sewApp[`specA${whichSpecA}`]?.bw / 1e6} MHz</Typography>
           </Grid>
           <Grid item xs={1}>
-            <Tooltip title='Spectrum Analyzer Help' placement='top'>
-              <IconButton
+            <Tooltip title='Spectrum Analyzer Help' placement='top' sx={{
+                '& svg': {
+                  color: AstroTheme.system.colors.backgroundInteractiveDefault,
+                } 
+              }}>
+              <IconButton 
                 size='small'
                 onClick={() => {
                   setIsHelpModalActive(true);
@@ -304,7 +305,11 @@ export const SpectrumAnalyzerBox = (props) => {
           <Grid item xs={3}>
             <Tooltip title='Open Spectrum Analyzer Configuration'>
               <Button
-                sx={configButtonStyle}
+                sx={{...configButtonStyle,
+                ...{'&:hover': {
+                  backgroundColor: AstroTheme.system.colors.backgroundInteractiveHover,
+                },}
+                }}
                 onClick={() => {
                   playSelectSound();
                   props.handleConfigClick(
@@ -320,16 +325,21 @@ export const SpectrumAnalyzerBox = (props) => {
             <Tooltip
               title={
                 sewAppCtx.sewApp[`specA${whichSpecA}`]?.isRfMode
-                  ? 'Swith to Intermediate Frequency'
+                  ? 'Switch to Intermediate Frequency'
                   : 'Switch to Radio Frequency'
               }>
               <Button
                 sx={{
                   ...configButtonStyle,
                   ...{
-                    backgroundColor: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isRfMode ? AstroTheme.reference.colors.green500 : AstroTheme.system.colors.backgroundSurfaceDefault,
-                    color: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isRfMode ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveDefault,
-                    border: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isRfMode ? '1px solid ' + AstroTheme.reference.colors.green500 : '1px solid ' + AstroTheme.system.colors.backgroundInteractiveDefault,
+                    backgroundColor: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isRfMode ? AstroTheme.reference.color.palette.green[500] : 'transparent',
+                    color: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isRfMode ? AstroTheme.typography.colors.black : AstroTheme.system.colors.textInteractiveDefault,
+                    border: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isRfMode ? '1px solid ' + AstroTheme.reference.color.palette.green[500] : '1px solid ' + AstroTheme.system.colors.backgroundInteractiveDefault,
+                    '&:hover': {
+                      borderColor: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isRfMode ? AstroTheme.reference.color.palette.green[400] : AstroTheme.system.colors.borderInteractiveHover,
+                      backgroundColor: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isRfMode ? AstroTheme.reference.color.palette.green[400] : 'transparent',
+                      color: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isRfMode ? AstroTheme.typography.colors.black : AstroTheme.system.colors.textInteractiveHover,
+                    },
                   },
                 }}
                 onClick={handleRfClicked}>
@@ -348,9 +358,14 @@ export const SpectrumAnalyzerBox = (props) => {
                 sx={{
                   ...configButtonStyle,
                   ...{
-                    backgroundColor: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause ? AstroTheme.reference.colors.green500 : AstroTheme.system.colors.backgroundSurfaceDefault,
-                    color: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveDefault,
-                    border: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause ? '1px solid ' + AstroTheme.reference.colors.green500 : '1px solid ' + AstroTheme.system.colors.backgroundInteractiveDefault,
+                    backgroundColor: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause ? AstroTheme.reference.color.palette.green[500] : 'transparent',
+                    color: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause ? AstroTheme.typography.colors.black : AstroTheme.system.colors.textInteractiveDefault,
+                    border: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause ? '1px solid ' + AstroTheme.reference.color.palette.green[500] : '1px solid ' + AstroTheme.system.colors.borderInteractiveDefault,
+                    '&:hover': {
+                        borderColor: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause ? AstroTheme.reference.color.palette.green[400] : AstroTheme.system.colors.borderInteractiveHover,
+                        backgroundColor: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause ? AstroTheme.reference.color.palette.green[400] : 'transparent',
+                        color: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause ? AstroTheme.typography.colors.black : AstroTheme.system.colors.textInteractiveHover,
+                    },
                   },
                 }}
                 onClick={handlePauseClicked}>

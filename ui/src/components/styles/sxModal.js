@@ -8,7 +8,7 @@ export const sxModal = {
   bgcolor: AstroTheme.system.colors.backgroundBaseHeader,
   color: AstroTheme.typography.colors.black,
   border: `1px solid ${AstroTheme.component.card.cardColorBorder}`,
-  borderRadius: AstroTheme.reference.radii.borderRadius,
+  borderRadius: AstroTheme.reference.radius.base,
   //boxShadow: 24,
   p: 4,
 };

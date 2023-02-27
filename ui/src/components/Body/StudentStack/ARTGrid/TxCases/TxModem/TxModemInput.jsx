@@ -37,12 +37,12 @@ export const TxModemInput = ({ unitData, activeModem, currentRow }) => {
   const sxTransmit = {
     cursor: 'pointer',
     marginLeft: '10px',
-    border: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? '1px solid ' + AstroTheme.reference.colors.green500 : '1px solid ' + AstroTheme.system.colors.borderInteractiveDefault,
-    backgroundColor: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? AstroTheme.reference.colors.green500 : AstroTheme.system.colors.backgroundSurfaceDefault,
+    border: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? '1px solid ' + AstroTheme.reference.color.palette.green[500] : '1px solid ' + AstroTheme.system.colors.borderInteractiveDefault,
+    backgroundColor: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? AstroTheme.reference.color.palette.green[500] : AstroTheme.system.colors.backgroundSurfaceDefault,
     color: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? AstroTheme.typography.colors.black : AstroTheme.typography.colors.interactive,
     '&:hover': {
-      border: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? '1px solid ' + AstroTheme.reference.colors.green400 : '1px solid ' + AstroTheme.system.colors.borderInteractiveHover,
-      backgroundColor: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? AstroTheme.reference.colors.green400 : AstroTheme.system.colors.backgroundSurfaceDefault,
+      border: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? '1px solid ' + AstroTheme.reference.color.palette.green[400] : '1px solid ' + AstroTheme.system.colors.borderInteractiveHover,
+      backgroundColor: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? AstroTheme.reference.color.palette.green[400] : AstroTheme.system.colors.backgroundSurfaceDefault,
       color: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveHover,
     },
   };

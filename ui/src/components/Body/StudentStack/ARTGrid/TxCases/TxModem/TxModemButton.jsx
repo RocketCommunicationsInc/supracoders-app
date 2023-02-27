@@ -8,8 +8,8 @@ import { useSound } from 'use-sound';
 const sxTxModemButton = (params) => {
   const { isTransmitting, isActive } = params;
   return {
-    backgroundColor: isActive ? AstroTheme.reference.colors.green500 : "none",
-    border: isActive ? '1px solid ' + AstroTheme.reference.colors.green500 : '1px solid ' + AstroTheme.system.colors.backgroundInteractiveDefault,
+    backgroundColor: isActive ? AstroTheme.reference.color.palette.green[500] : "none",
+    border: isActive ? '1px solid ' + AstroTheme.reference.color.palette.green[500] : '1px solid ' + AstroTheme.system.colors.backgroundInteractiveDefault,
     color: isActive ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveDefault,
     outline: isTransmitting && 'var(--border-width-focus-default) solid var(--color-border-focus-default)',
     outlineOffset: isTransmitting && 'var(--spacing-focus-default)',
@@ -17,8 +17,8 @@ const sxTxModemButton = (params) => {
     width: '5px',
     margin: '8px',
     '&:hover': {
-      backgroundColor: isActive ? AstroTheme.reference.colors.green400 : "none",
-      border: isActive ? '1px solid ' + AstroTheme.reference.colors.green400 : '1px solid ' + AstroTheme.system.colors.backgroundInteractiveHover,
+      backgroundColor: isActive ? AstroTheme.reference.color.palette.green[400] : "none",
+      border: isActive ? '1px solid ' + AstroTheme.reference.color.palette.green[400] : '1px solid ' + AstroTheme.system.colors.backgroundInteractiveHover,
       color: isActive ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveHover,
     },
   };

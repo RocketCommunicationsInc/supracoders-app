@@ -23,6 +23,12 @@ body {
   user-select: none;
 }
 
+:focus-visible {
+  outline: var(--border-width-focus-default) solid var(--color-border-focus-default);
+  outline-offset: var(--spacing-focus-default);
+  border-radius: var(--radius-base);
+}
+
 #root {
   /* Full Screen  */
   width: 100%;
