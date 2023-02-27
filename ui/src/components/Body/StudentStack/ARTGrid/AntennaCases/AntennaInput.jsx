@@ -177,7 +177,7 @@ export const AntennaInput = ({ unit }) => {
             <Grid item xs={true}>
               <Switch
                 checked={inputData.track}
-                //disabled={ !inputData.operational ? true : false }
+                // disabled={ !inputData.operational ? true : false }
                 onChange={() => {
                   if (!inputData.operational) {
                     setErrorActive(true);

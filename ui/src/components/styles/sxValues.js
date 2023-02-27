@@ -3,6 +3,7 @@ import { AstroTheme } from '../../themes/AstroTheme';
 export const sxValues = {
   fontWeight: 'bold',
   textAlign: 'center',
+  color: AstroTheme.typography.colors.secondary,
 };
 export const sxValuesGrid = {
   display: 'flex',
