@@ -41,7 +41,7 @@ export const TeamInfo = () => {
       {state?.isAuthenticated ? (
         <>
           <Grid item xs={6} textAlign={'left'}>
-            <Typography variant='h6'>Team: {teams[sewAppCtx.user?.team_id - 1].name}</Typography>
+            <Typography variant='h6'>Team:  {teams[sewAppCtx.user?.team_id - 1].name}</Typography>
           </Grid>
           <Grid item xs={6} textAlign={'right'}>
             <Typography variant='h6'>
