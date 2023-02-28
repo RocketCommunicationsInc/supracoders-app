@@ -35,7 +35,7 @@ export const RxCase = ({ unit }) => {
       color = AstroTheme.palette.critical.main;
       description = 'Signal Denied';
     } else {
-      color = AstroTheme.palette.standby.main;
+      color = AstroTheme.palette.disabled.main;
       description = 'Signal Not Found';
     }
     return {

@@ -13,15 +13,15 @@ const popupStyle = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  border: '8px solid transparent',
-  borderImageSource: 'url(./bezel.png)',
-  borderImageSlice: '30 fill',
-  borderImageOutset: 0,
+  border: '1px solid transparent',
+  //borderImageSource: 'url(./bezel.png)',
+  //borderImageSlice: '30 fill',
+  //borderImageOutset: 0,
   zIndex: '9999',
-  color: 'white',
+  color: AstroTheme.typography.colors.primary,
   textAlign: 'center',
-  borderRadius: '10px',
-  boxShadow: '0px 0px 12px 5px rgba(0, 0, 0, 1)',
+  borderRadius: AstroTheme.reference.radius.base,
+  boxShadow: AstroTheme.system.shadow.overlay,
 };
 
 const fullscreenFadeStyle = {
@@ -36,7 +36,7 @@ const fullscreenFadeStyle = {
 
 const controlsGridStyle = {
   display: 'flex',
-  backgroundColor: AstroTheme.palette.tertiary.light2,
+  backgroundColor: AstroTheme.system.colors.backgroundSurfaceDefault,
   padding: '10px',
   justifyContent: 'space-around',
   alignItems: 'center',
@@ -225,12 +225,12 @@ export const AnalyzerControl = (props) => {
               <Grid container item xs={8} sx={{ justifyContent: 'space-around' }}>
                 <Box
                   sx={{
-                    color: 'black',
+                    color: AstroTheme.typography.colors.primary,
                     width: '100%',
-                    background: 'white',
-                    border: '2px solid',
+                    background: AstroTheme.system.colors.backgroundBaseDefault,
+                    border: '1px solid',
                     padding: '8px',
-                    borderColor: AstroTheme.palette.tertiary.dark,
+                    borderColor: AstroTheme.component.card.cardColorBorder,
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',

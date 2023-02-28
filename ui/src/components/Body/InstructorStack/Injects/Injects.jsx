@@ -19,58 +19,65 @@ export const Injects = () => {
   
   const theme = AstroTheme;
   const [activeModem, setActiveModem] = useState(0);
-  console.log(sewAppCtx.signal)
 
   // Styles
   const sxCase = {
     flexGrow: 1,
-    backgroundColor: theme.palette.tertiary.light2,
-    borderRadius: '10px',
-    boxShadow: '0px 0px 5px rgba(0,0,0,0.5)',
-    border: '1px solid' + AstroTheme.palette.tertiary.light,
+    backgroundColor: theme.system.colors.backgroundSurfaceDefault,
+    color: AstroTheme.typography.colors.primary,
+    borderRadius: AstroTheme.reference.radius.base,
+    boxShadow: AstroTheme.system.shadow.overlay,
+    border: '1px solid ' + AstroTheme.component.card.cardColorBorder,
     display: 'grid',
-    gridTemplateColumns: '30px 3fr 5fr 2fr 3fr',
+    gridTemplateColumns: '30px 6fr 4fr 2fr',
     justifyContent: 'space-between',
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
   };
   const sxCaseId = {
-    color: 'white',
-    margin: '8px',
+    color: AstroTheme.typography.colors.primary,
+    margin: AstroTheme.reference.spacing[2],
     textAlign: 'center',
   };
   const sxModemButtonBox = {
-    backgroundColor: theme.palette.tertiary.light3,
-    borderRadius: '5px',
-    boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.2)',
+    backgroundColor: AstroTheme.system.colors.backgroundSurfaceDefault,
+    border: '1px solid ' + AstroTheme.component.card.cardColorBorder,
   };
   const sxValues = {
     fontWeight: 'bold',
     textDecoration: 'underline',
   };
   const sxInputBox = {
-    backgroundColor: theme.palette.tertiary.light2,
-    margin: '8px',
-    borderRadius: '4px',
-    display: 'grid',
+    backgroundColor: AstroTheme.system.colors.backgroundSurfaceDefault,
+    margin: AstroTheme.reference.spacing[2],
+    borderRadius: AstroTheme.reference.radius.base,
+    display: 'flex',
+    gap: AstroTheme.reference.spacing[1],
     flexDirection: 'column',
   };
   const sxInputRow = {
     display: 'grid',
-    gridTemplateColumns: '80px 180px 180px',
+    gridTemplateColumns: '80px 180px 80px',
+    gridTemplateRows: 'auto',
     textAlign: 'left',
+    gap: AstroTheme.reference.spacing[4],
     margin: '2px',
   };
   const sxInputApply = {
-    backgroundColor: theme.palette.tertiary.light3,
-    boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.75)',
-    color: 'black',
-    margin: '8px',
+    backgroundColor: AstroTheme.system.colors.backgroundInteractiveDefault,
+    color: AstroTheme.typography.colors.inverse,
+    textTransform: 'Capitalize',
+    margin: AstroTheme.reference.spacing[2],
     cursor: 'pointer',
+    '&:hover': {
+      backgroundColor: AstroTheme.system.colors.backgroundInteractiveHover,
+    }
+
   };
   const sxVideo = {
     margin: '10px',
-    border: '2px solid grey',
-    backgroundColor: theme.palette.tertiary.light3,
+    border: '1px solid ' + AstroTheme.component.card.cardColorBorder,
+    borderRadius: AstroTheme.reference.radius.base,
+    backgroundColor: AstroTheme.system.colors.backgroundBaseDefault,
     width: '400px',
     height: '400px',
     display: 'flex',
@@ -79,16 +86,17 @@ export const Injects = () => {
   };
   const sxTransmit = {
     cursor: 'pointer',
-    margin: '8px',
-    boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.5)',
-    border: '1px solid red',
-    backgroundColor: sewAppCtx.signal[activeModem]?.operational ? 'red' : theme.palette.tertiary.light3,
-    color: sewAppCtx.signal[activeModem]?.operational ? 'white' : 'black',
+    margin: AstroTheme.reference.spacing[2],
+    textTransform: 'Capitalize',
+    border: sewAppCtx.signal[activeModem]?.operational ? '1px solid ' + AstroTheme.reference.color.palette.green[500] : '1px solid ' + AstroTheme.system.colors.borderInteractiveDefault,
+    backgroundColor: sewAppCtx.signal[activeModem]?.operational ? AstroTheme.reference.color.palette.green[500] : AstroTheme.system.colors.backgroundSurfaceDefault,
+    color: sewAppCtx.signal[activeModem]?.operational ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveDefault,
     '&:hover': {
       backgroundColor: sewAppCtx.signal[activeModem]?.operational
-        ? theme.palette.error.main
-        : theme.palette.critical.main,
-      color: sewAppCtx.signal[activeModem]?.operational ? 'black' : 'white',
+        ? AstroTheme.reference.color.palette.green[400]
+        : AstroTheme.system.colors.backgroundSurfaceDefault,
+      color: sewAppCtx.signal[activeModem]?.operational ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveHover,
+      border: sewAppCtx.signal[activeModem]?.operational ? '1px solid ' + AstroTheme.reference.color.palette.green[400] : '1px solid ' + AstroTheme.system.colors.borderInteractiveHover,
     },
   };
 
@@ -96,7 +104,7 @@ export const Injects = () => {
   const sidebar = [];
   ['S', 'I', 'G', 'N', 'A', 'L', 'S'].forEach((x, index) => {
     sidebar.push(
-      <Typography key={index} sx={{ color: 'black' }}>
+      <Typography key={index} sx={{ color: AstroTheme.typography.colors.primary }}>
         {x}
       </Typography>
     );
@@ -129,15 +137,21 @@ export const Injects = () => {
     return (
       <Button
         sx={{
-          backgroundColor: modem - 1 == activeModem ? theme.palette.primary.dark : theme.palette.primary.light2,
-          color: modem - 1 == activeModem ? 'white' : 'black',
-          border: sewAppCtx.signal[sewAppCtx.signal.map((x) => x.id).indexOf(modem)].operational
-            ? '2px solid red'
-            : '2px solid ' + theme.palette.primary.main,
-          margin: '8px',
+          backgroundColor: sewAppCtx.signal[sewAppCtx.signal.map((x) => x.id).indexOf(modem)].operational
+            ? AstroTheme.reference.color.palette.green[500] 
+            : "none",
+          color: sewAppCtx.signal[sewAppCtx.signal.map((x) => x.id).indexOf(modem)].operational ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveDefault,
+          border: sewAppCtx.signal[sewAppCtx.signal.map((x) => x.id).indexOf(modem)].operational ? '1px solid ' + AstroTheme.reference.color.palette.green[500] : '1px solid ' + AstroTheme.system.colors.backgroundInteractiveDefault,
+          outline: modem - 1 == activeModem && 'var(--border-width-focus-default) solid var(--color-border-focus-default)',
+          outlineOffset: modem - 1 == activeModem && 'var(--spacing-focus-default)',
+          borderRadius: 'var(--radius-base)',
+          margin: 'var(--spacing-2)',
           cursor: 'pointer',
+          display: 'inline-flex',
+          width: 'var(--spacing-14)',
           '&:hover': {
-            backgroundColor: theme.palette.primary.light3,
+            backgroundColor: sewAppCtx.signal[sewAppCtx.signal.map((x) => x.id).indexOf(modem)].operational ? AstroTheme.reference.color.palette.green[400] : AstroTheme.system.colors.backgroundSurfaceDefault,
+            color: sewAppCtx.signal[sewAppCtx.signal.map((x) => x.id).indexOf(modem)].operational ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveHover,
           },
         }}
         onClick={(e) => {
@@ -174,111 +188,112 @@ export const Injects = () => {
     };
 
     return (
-      <Box sx={sxInputBox}>
-        <Box sx={sxInputRow}>
-          <label htmlFor='Satellite'>Satellite</label>
-          <select
-            name='Satellite'
-            value={inputData.target_id}
-            onChange={(e) =>
-              handleInputChange({
-                param: 'target_id',
-                val: parseInt(e.target.value),
-              })
-            }>
-            {satellites.map((x, index) => (
-              <option key={index} value={x.id}>
-                {x.name}
-              </option>
-            ))}
-          </select>
-          <Typography sx={sxValues}>{satellites[sewAppCtx.signal[index]]?.name}</Typography>
-        </Box>
-        <Box sx={sxInputRow}>
-          <label htmlFor='frequency'>Frequency</label>
-          <input
-            name='frequency'
-            type='text'
-            value={inputData.frequency}
-            onChange={(e) =>
-              handleInputChange({
-                param: 'frequency',
-                val: parseInt(e.target.value) || 0,
-              })
-            }></input>
-          <Typography sx={sxValues}>{sewAppCtx.signal[index].frequency + ' MHz'}</Typography>
-        </Box>
-        <Box sx={sxInputRow}>
-          <label htmlFor='bandwidth'>Bandwidth</label>
-          <input
-            name='bandwidth'
-            type='text'
-            value={inputData.bandwidth}
-            onChange={(e) =>
-              handleInputChange({
-                param: 'bandwidth',
-                val: parseInt(e.target.value) || 0,
-              })
-            }></input>
-          <Typography sx={sxValues}>{sewAppCtx.signal[index].bandwidth + ' MHz'}</Typography>
-        </Box>
-        <Box sx={sxInputRow}>
-          <label htmlFor='modulation'>Modulation</label>
-          <select
-            name='modulation'
-            value={inputData.modulation}
-            onChange={(e) => handleInputChange({ param: 'modulation', val: e.target.value || 0 })}>
-            <option value='BPSK'>BPSK</option>
-            <option value='QPSK'>QPSK</option>
-            <option value='8QAM'>8QAM</option>
-            <option value='16QAM'>16QAM</option>
-          </select>
-          <Typography sx={sxValues}>{sewAppCtx.signal[index].modulation}</Typography>
-        </Box>
-        <Box sx={sxInputRow}>
-          <label htmlFor='fec'>FEC</label>
-          <select
-            name='fec'
-            value={inputData.fec}
-            onChange={(e) => handleInputChange({ param: 'fec', val: e.target.value || 0 })}>
-            <option value='1/2'>1/2</option>
-            <option value='2/3'>2/3</option>
-            <option value='3/4'>3/4</option>
-            <option value='5/6'>5/6</option>
-            <option value='7/8'>7/8</option>
-          </select>
-          <Typography sx={sxValues}>{sewAppCtx.signal[index].fec}</Typography>
-        </Box>
-        <Box sx={sxInputRow}>
-          <label htmlFor='feed'>Feed</label>
-          <select
-            name='feed'
-            value={inputData.feed}
-            onChange={(e) => handleInputChange({ param: 'feed', val: e.target.value })}>
-            <option value='blue 1.mp4'>Blue 1</option>
-            <option value='blue 2.mp4'>Blue 2</option>
-            <option value='red 1.mp4'>Red 1</option>
-            <option value='red 2.mp4'>Red 2</option>
-            <option value='red 3.mp4'>Red 3</option>
-            <option value='red 4.mp4'>Red 4</option>
-            <option value='red 5.mp4'>Red 5</option>
-            <option value='red 6.mp4'>Red 6</option>
-            <option value='red 7.mp4'>Red 7</option>
-            <option value='red 8.mp4'>Red 8</option>
-            <option value='red 9.mp4'>Red 9</option>
-          </select>
-          <Typography sx={sxValues}>{sewAppCtx.signal[activeModem].feed}</Typography>
-        </Box>
-        <Box sx={sxInputRow}>
-          <div></div>
-          <Button sx={sxInputApply} onClick={(e) => handleApply(e)}>
-            Apply
-          </Button>
-          <Button sx={sxTransmit} onClick={(e) => handleTransmit(e)}>
-            TX
-          </Button>
-        </Box>
-      </Box>
+      <div>
+        <Box sx={sxInputBox}>
+                <Box sx={sxInputRow}>
+                  <label htmlFor='Satellite'>Satellite</label>
+                  <select
+                    name='Satellite'
+                    value={inputData.target_id}
+                    onChange={(e) =>
+                      handleInputChange({
+                        param: 'target_id',
+                        val: parseInt(e.target.value),
+                      })
+                    }>
+                    {satellites.map((x, index) => (
+                      <option key={index} value={x.id}>
+                        {x.name}
+                      </option>
+                    ))}
+                  </select>
+                  <Typography sx={sxValues}>{satellites[sewAppCtx.signal[index]]?.name}</Typography>
+                </Box>
+                <Box sx={sxInputRow}>
+                  <label htmlFor='frequency'>Frequency</label>
+                  <input
+                    name='frequency'
+                    type='text'
+                    value={inputData.frequency}
+                    onChange={(e) =>
+                      handleInputChange({
+                        param: 'frequency',
+                        val: parseInt(e.target.value) || 0,
+                      })
+                    }></input>
+                  <Typography sx={sxValues}>{sewAppCtx.signal[index].frequency + ' MHz'}</Typography>
+                </Box>
+                <Box sx={sxInputRow}>
+                  <label htmlFor='bandwidth'>Bandwidth</label>
+                  <input
+                    name='bandwidth'
+                    type='text'
+                    value={inputData.bandwidth}
+                    onChange={(e) =>
+                      handleInputChange({
+                        param: 'bandwidth',
+                        val: parseInt(e.target.value) || 0,
+                      })
+                    }></input>
+                  <Typography sx={sxValues}>{sewAppCtx.signal[index].bandwidth + ' MHz'}</Typography>
+                </Box>
+                <Box sx={sxInputRow}>
+                  <label htmlFor='modulation'>Modulation</label>
+                  <select
+                    name='modulation'
+                    value={inputData.modulation}
+                    onChange={(e) => handleInputChange({ param: 'modulation', val: e.target.value || 0 })}>
+                    <option value='BPSK'>BPSK</option>
+                    <option value='QPSK'>QPSK</option>
+                    <option value='8QAM'>8QAM</option>
+                    <option value='16QAM'>16QAM</option>
+                  </select>
+                  <Typography sx={sxValues}>{sewAppCtx.signal[index].modulation}</Typography>
+                </Box>
+                <Box sx={sxInputRow}>
+                  <label htmlFor='fec'>FEC</label>
+                  <select
+                    name='fec'
+                    value={inputData.fec}
+                    onChange={(e) => handleInputChange({ param: 'fec', val: e.target.value || 0 })}>
+                    <option value='1/2'>1/2</option>
+                    <option value='2/3'>2/3</option>
+                    <option value='3/4'>3/4</option>
+                    <option value='5/6'>5/6</option>
+                    <option value='7/8'>7/8</option>
+                  </select>
+                  <Typography sx={sxValues}>{sewAppCtx.signal[index].fec}</Typography>
+                </Box>
+                <Box sx={sxInputRow}>
+                  <label htmlFor='feed'>Feed</label>
+                  <select
+                    name='feed'
+                    value={inputData.feed}
+                    onChange={(e) => handleInputChange({ param: 'feed', val: e.target.value })}>
+                    <option value='blue 1.mp4'>Blue 1</option>
+                    <option value='blue 2.mp4'>Blue 2</option>
+                    <option value='red 1.mp4'>Red 1</option>
+                    <option value='red 2.mp4'>Red 2</option>
+                    <option value='red 3.mp4'>Red 3</option>
+                    <option value='red 4.mp4'>Red 4</option>
+                    <option value='red 5.mp4'>Red 5</option>
+                    <option value='red 6.mp4'>Red 6</option>
+                    <option value='red 7.mp4'>Red 7</option>
+                    <option value='red 8.mp4'>Red 8</option>
+                    <option value='red 9.mp4'>Red 9</option>
+                  </select>
+                  <Typography sx={sxValues}>{sewAppCtx.signal[activeModem].feed}</Typography>
+                </Box>
+              </Box>
+              <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <Button sx={sxInputApply} onClick={(e) => handleApply(e)}>
+                Apply
+              </Button>
+              <Button sx={sxTransmit} onClick={(e) => handleTransmit(e)}>
+                TX
+              </Button>
+            </Box>
+      </div>
     );
   };
 
@@ -287,7 +302,7 @@ export const Injects = () => {
       <Box sx={sxVideo}>
         <ReactPlayer
           config={{ file: { attributes: { controlsList: 'nodownload' } } }}
-          onContextMenu={(e) => e.preventDefault()}
+          //onContextMenu={(e) => e.preventDefault()}
           url={`./videos/${sewAppCtx.signal[activeModem].feed}`}
           width='100%'
           height='100%'

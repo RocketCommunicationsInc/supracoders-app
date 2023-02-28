@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table, TableCell, TableContainer, TableHead, TableRow, TableBody } from '@mui/material';
 //import { useTx } from '../../../../../context/sewAppCtx';
-//import { AstroTheme } from '../../../../../themes/AstroTheme';
+import { AstroTheme } from '../../../../../themes/AstroTheme';
 import { PropTypes } from 'prop-types';
 
 export const Equipment = ({ sewApp }) => {
@@ -24,7 +24,7 @@ export const Equipment = ({ sewApp }) => {
           <TableHead>
             <TableRow>
               {headerItems.map((item, index) => (
-                <TableCell sx={{ color: 'white' }} key={index}>
+                <TableCell sx={{ color: AstroTheme.typography.colors.primary }} key={index}>
                   {item.name}
                 </TableCell>
               ))}

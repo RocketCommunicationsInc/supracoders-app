@@ -46,10 +46,10 @@ export const AntennaCase = ({ unit }) => {
         setLockColor(AstroTheme.palette.success.main);
         setLockState('Locked');
       } else if (!antenna.locked && antenna.track) {
-        setLockColor(AstroTheme.palette.caution.main);
+        setLockColor(AstroTheme.palette.standby.main);
         setLockState('Tracking');
       } else if (!antenna.locked && !antenna.track) {
-        setLockColor(AstroTheme.palette.critical.main);
+        setLockColor(AstroTheme.palette.disabled.main);
         setLockState('Unlocked');
       }
     }
