@@ -1,8 +1,8 @@
-import './3d-buttons.css';
 import React from 'react';
 import { Button } from '@mui/material';
 import { PropTypes } from 'prop-types';
 import { AstroTheme } from '../../themes/AstroTheme';
+import './3d-buttons.css';
 
 export const PhysicalButton = ({ isEnabled, color, onClick, text }) => {
   let sxFront = {};
@@ -10,27 +10,25 @@ export const PhysicalButton = ({ isEnabled, color, onClick, text }) => {
   switch (color) {
     case 'red':
       sxFront = {
-        background: isEnabled ? AstroTheme.palette.critical.main : '#52667a',
+        background: isEnabled ? AstroTheme.palette.critical.main : AstroTheme.system.colors.backgroundInteractiveDefault,
         color: '#fff',
-        fontWeight: 'normal',
       };
       sxEdge = {
         background: isEnabled
-          ? 'linear-gradient(to left, #dd1313 0%, #700f0f 8%, #700f0f 92%, #dd1313 100%)'
-          : 'linear-gradient(to left, #172635 0%, #1f3347 8%, #1f3347 92%, #172635 100%)',
+        ? `linear-gradient(to left, ${AstroTheme.reference.color.palette.red[700]} 0%, ${AstroTheme.reference.color.palette.red[800]} 8%, ${AstroTheme.reference.color.palette.red[800]} 92%, ${AstroTheme.reference.color.palette.red[700]} 100%)`
+        : `linear-gradient(to left, ${AstroTheme.system.colors.backgroundInteractiveMuted} 0%, ${AstroTheme.reference.color.palette.darkblue[700]} 8%, ${AstroTheme.reference.color.palette.darkblue[700]} 92%, ${AstroTheme.system.colors.backgroundInteractiveMuted} 100%)`,
       };
       break;
     case 'green':
     default:
       sxFront = {
-        background: isEnabled ? AstroTheme.palette.success.main : '#52667a',
+        background: isEnabled ? AstroTheme.palette.success.main : AstroTheme.system.colors.backgroundInteractiveDefault,
         color: isEnabled ? '#000' : '#fff',
-        fontWeight: isEnabled ? 'bold' : 'normal',
       };
       sxEdge = {
         background: isEnabled
-          ? 'linear-gradient(to left, #3dc31f 0%, #299012 8%, #299012 92%, #3dc31f 100%)'
-          : 'linear-gradient(to left, #172635 0%, #1f3347 8%, #1f3347 92%, #172635 100%)',
+          ? `linear-gradient(to left, ${AstroTheme.reference.color.palette.green[700]} 0%, ${AstroTheme.reference.color.palette.green[800]} 8%, ${AstroTheme.reference.color.palette.green[800]} 92%, ${AstroTheme.reference.color.palette.green[700]} 100%)`
+          : `linear-gradient(to left, ${AstroTheme.system.colors.backgroundInteractiveMuted} 0%, ${AstroTheme.reference.color.palette.darkblue[700]} 8%, ${AstroTheme.reference.color.palette.darkblue[700]} 92%, ${AstroTheme.system.colors.backgroundInteractiveMuted} 100%)`,
       };
       break;
   }

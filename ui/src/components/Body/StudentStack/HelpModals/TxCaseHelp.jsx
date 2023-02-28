@@ -7,7 +7,7 @@ import { AstroTheme } from '../../../../themes/AstroTheme';
 const TxCaseHelp = ({ modalState, setModalState }) => {
   return (
     <Modal open={modalState} onClose={() => setModalState(false)}>
-      <Box sx={{ ...sxModal, ...{ color: AstroTheme.palette.tertiary.light4 } }}>
+      <Box sx={{ ...sxModal, ...{ color: AstroTheme.typography.colors.secondary } }}>
         <Typography align='center' m={1} variant='h4'>
           Transmitter Case
         </Typography>

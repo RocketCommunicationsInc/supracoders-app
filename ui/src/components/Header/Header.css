@@ -4,10 +4,16 @@
 }
 
 .appBar img {
-  padding: 10px 20px 10px 0px;
+  padding: var(--spacing-2) var(--spacing-4) var(--spacing-2) var(--spacing-0);
 }
 
 .appBar a {
-  color: #fff;
+  color: var(--color-text-primary);
   text-decoration: none;
+}
+
+.switch-indicator {
+  fill: var(--color-text-primary);
+  height: var(--spacing-4);
+  width: var(--spacing-4);
 }
