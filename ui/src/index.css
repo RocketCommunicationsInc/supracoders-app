@@ -24,10 +24,14 @@ body {
 }
 
 :focus-visible,
-*.Mui-focusVisible {
+.MuiButton-root.Mui-focusVisible,
+span.Mui-focusVisible {
   outline: var(--border-width-focus-default) solid var(--color-border-focus-default);
   outline-offset: var(--spacing-focus-default);
   border-radius: var(--radius-base);
+}
+.MuiSwitch-switchBase.Mui-focusVisible {
+  border-radius: 50%;
 }
 
 #root {

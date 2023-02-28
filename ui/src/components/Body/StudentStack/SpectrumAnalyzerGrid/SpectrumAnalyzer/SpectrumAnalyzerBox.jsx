@@ -49,7 +49,7 @@ const configButtonStyle = {
   backgroundColor: AstroTheme.system.colors.backgroundInteractiveDefault,
   //boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.75)',
   color: AstroTheme.typography.colors.inverse,
-  margin: '8px',
+  margin: 'var(--spacing-2)',
   cursor: 'pointer',
   textTransform: 'Capitalize',
 };
@@ -256,6 +256,7 @@ export const SpectrumAnalyzerBox = (props) => {
   const sxAntSelect = {
     padding:'var(--spacing-1)',
     minWidth: 'var(--spacing-2)',
+    width: 'var(--spacing-12)',
     backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8.12 9.29 12 13.17l3.88-3.88a.996.996 0 1 1 1.41 1.41l-4.59 4.59a.996.996 0 0 1-1.41 0L6.7 10.7a.996.996 0 0 1 0-1.41c.39-.38 1.03-.39 1.42 0Z' fill='%234dacff'%3E%3C/path%3E%3C/svg%3E")`,
     backgroundSize: '14px',
     backgroundColor: 'var(--color-background-base-default)'
@@ -299,8 +300,8 @@ export const SpectrumAnalyzerBox = (props) => {
           <Grid item xs={12}>
             <Typography>CF: {sewAppCtx.sewApp[`specA${whichSpecA}`]?.centerFreq / 1e6} MHz</Typography>
           </Grid>
-          <Grid container item sx={{ display: 'flex', alignItems: 'center' }}>
-            <Grid container item sx={{ width: 'fit-content' }}>
+          <Grid container item sx={{ display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'space-between' }}>
+            <Grid container item sx={{display: 'flex', width: 'auto'}}>
               <Box sx={sxInputRow}>
                 <label htmlFor='Antenna'>Ant</label>
                 <select
@@ -315,7 +316,7 @@ export const SpectrumAnalyzerBox = (props) => {
                 </select>
               </Box>
             </Grid>
-            <Grid container item sx={{ display: 'flex', marginLeft: 'auto', width: 'fit-content' }}>
+            <Grid container item sx={{ display: 'flex', width: 'fit-content', flexWrap: 'nowrap' }}>
               <Grid item>
                 <Tooltip title='Open Spectrum Analyzer Configuration'>
                   <Button

@@ -29,7 +29,7 @@ export const Injects = () => {
     boxShadow: AstroTheme.system.shadow.overlay,
     border: '1px solid ' + AstroTheme.component.card.cardColorBorder,
     display: 'grid',
-    gridTemplateColumns: '30px 3fr 5fr 2fr 3fr',
+    gridTemplateColumns: '30px 6fr 4fr 2fr',
     justifyContent: 'space-between',
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
   };
@@ -41,9 +41,6 @@ export const Injects = () => {
   const sxModemButtonBox = {
     backgroundColor: AstroTheme.system.colors.backgroundSurfaceDefault,
     border: '1px solid ' + AstroTheme.component.card.cardColorBorder,
-    width: '400px'
-
-    //boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.2)',
   };
   const sxValues = {
     fontWeight: 'bold',
@@ -53,21 +50,21 @@ export const Injects = () => {
     backgroundColor: AstroTheme.system.colors.backgroundSurfaceDefault,
     margin: '8px',
     borderRadius: AstroTheme.reference.radius.base,
-    display: 'grid',
-    gap: 'var(--spacing-4)',
+    display: 'flex',
+    gap: AstroTheme.reference.spacing[1],
     flexDirection: 'column',
   };
   const sxInputRow = {
     display: 'grid',
-    gridTemplateColumns: '80px 180px 180px',
+    gridTemplateColumns: '80px 180px 80px',
+    gridTemplateRows: 'auto',
     textAlign: 'left',
     gap: 'var(--spacing-4)',
     margin: '2px',
   };
   const sxInputApply = {
     backgroundColor: AstroTheme.system.colors.backgroundInteractiveDefault,
-    //boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.75)',
-    color: AstroTheme.typography.colors.black,
+    color: AstroTheme.typography.colors.primary,
     margin: '8px',
     cursor: 'pointer',
     '&:hover': {
@@ -190,111 +187,112 @@ export const Injects = () => {
     };
 
     return (
-      <Box sx={sxInputBox}>
-        <Box sx={sxInputRow}>
-          <label htmlFor='Satellite'>Satellite</label>
-          <select
-            name='Satellite'
-            value={inputData.target_id}
-            onChange={(e) =>
-              handleInputChange({
-                param: 'target_id',
-                val: parseInt(e.target.value),
-              })
-            }>
-            {satellites.map((x, index) => (
-              <option key={index} value={x.id}>
-                {x.name}
-              </option>
-            ))}
-          </select>
-          <Typography sx={sxValues}>{satellites[sewAppCtx.signal[index]]?.name}</Typography>
-        </Box>
-        <Box sx={sxInputRow}>
-          <label htmlFor='frequency'>Frequency</label>
-          <input
-            name='frequency'
-            type='text'
-            value={inputData.frequency}
-            onChange={(e) =>
-              handleInputChange({
-                param: 'frequency',
-                val: parseInt(e.target.value) || 0,
-              })
-            }></input>
-          <Typography sx={sxValues}>{sewAppCtx.signal[index].frequency + ' MHz'}</Typography>
-        </Box>
-        <Box sx={sxInputRow}>
-          <label htmlFor='bandwidth'>Bandwidth</label>
-          <input
-            name='bandwidth'
-            type='text'
-            value={inputData.bandwidth}
-            onChange={(e) =>
-              handleInputChange({
-                param: 'bandwidth',
-                val: parseInt(e.target.value) || 0,
-              })
-            }></input>
-          <Typography sx={sxValues}>{sewAppCtx.signal[index].bandwidth + ' MHz'}</Typography>
-        </Box>
-        <Box sx={sxInputRow}>
-          <label htmlFor='modulation'>Modulation</label>
-          <select
-            name='modulation'
-            value={inputData.modulation}
-            onChange={(e) => handleInputChange({ param: 'modulation', val: e.target.value || 0 })}>
-            <option value='BPSK'>BPSK</option>
-            <option value='QPSK'>QPSK</option>
-            <option value='8QAM'>8QAM</option>
-            <option value='16QAM'>16QAM</option>
-          </select>
-          <Typography sx={sxValues}>{sewAppCtx.signal[index].modulation}</Typography>
-        </Box>
-        <Box sx={sxInputRow}>
-          <label htmlFor='fec'>FEC</label>
-          <select
-            name='fec'
-            value={inputData.fec}
-            onChange={(e) => handleInputChange({ param: 'fec', val: e.target.value || 0 })}>
-            <option value='1/2'>1/2</option>
-            <option value='2/3'>2/3</option>
-            <option value='3/4'>3/4</option>
-            <option value='5/6'>5/6</option>
-            <option value='7/8'>7/8</option>
-          </select>
-          <Typography sx={sxValues}>{sewAppCtx.signal[index].fec}</Typography>
-        </Box>
-        <Box sx={sxInputRow}>
-          <label htmlFor='feed'>Feed</label>
-          <select
-            name='feed'
-            value={inputData.feed}
-            onChange={(e) => handleInputChange({ param: 'feed', val: e.target.value })}>
-            <option value='blue 1.mp4'>Blue 1</option>
-            <option value='blue 2.mp4'>Blue 2</option>
-            <option value='red 1.mp4'>Red 1</option>
-            <option value='red 2.mp4'>Red 2</option>
-            <option value='red 3.mp4'>Red 3</option>
-            <option value='red 4.mp4'>Red 4</option>
-            <option value='red 5.mp4'>Red 5</option>
-            <option value='red 6.mp4'>Red 6</option>
-            <option value='red 7.mp4'>Red 7</option>
-            <option value='red 8.mp4'>Red 8</option>
-            <option value='red 9.mp4'>Red 9</option>
-          </select>
-          <Typography sx={sxValues}>{sewAppCtx.signal[activeModem].feed}</Typography>
-        </Box>
-        <Box sx={sxInputRow}>
-          <div></div>
-          <Button sx={sxInputApply} onClick={(e) => handleApply(e)}>
-            Apply
-          </Button>
-          <Button sx={sxTransmit} onClick={(e) => handleTransmit(e)}>
-            TX
-          </Button>
-        </Box>
-      </Box>
+      <div>
+        <Box sx={sxInputBox}>
+                <Box sx={sxInputRow}>
+                  <label htmlFor='Satellite'>Satellite</label>
+                  <select
+                    name='Satellite'
+                    value={inputData.target_id}
+                    onChange={(e) =>
+                      handleInputChange({
+                        param: 'target_id',
+                        val: parseInt(e.target.value),
+                      })
+                    }>
+                    {satellites.map((x, index) => (
+                      <option key={index} value={x.id}>
+                        {x.name}
+                      </option>
+                    ))}
+                  </select>
+                  <Typography sx={sxValues}>{satellites[sewAppCtx.signal[index]]?.name}</Typography>
+                </Box>
+                <Box sx={sxInputRow}>
+                  <label htmlFor='frequency'>Frequency</label>
+                  <input
+                    name='frequency'
+                    type='text'
+                    value={inputData.frequency}
+                    onChange={(e) =>
+                      handleInputChange({
+                        param: 'frequency',
+                        val: parseInt(e.target.value) || 0,
+                      })
+                    }></input>
+                  <Typography sx={sxValues}>{sewAppCtx.signal[index].frequency + ' MHz'}</Typography>
+                </Box>
+                <Box sx={sxInputRow}>
+                  <label htmlFor='bandwidth'>Bandwidth</label>
+                  <input
+                    name='bandwidth'
+                    type='text'
+                    value={inputData.bandwidth}
+                    onChange={(e) =>
+                      handleInputChange({
+                        param: 'bandwidth',
+                        val: parseInt(e.target.value) || 0,
+                      })
+                    }></input>
+                  <Typography sx={sxValues}>{sewAppCtx.signal[index].bandwidth + ' MHz'}</Typography>
+                </Box>
+                <Box sx={sxInputRow}>
+                  <label htmlFor='modulation'>Modulation</label>
+                  <select
+                    name='modulation'
+                    value={inputData.modulation}
+                    onChange={(e) => handleInputChange({ param: 'modulation', val: e.target.value || 0 })}>
+                    <option value='BPSK'>BPSK</option>
+                    <option value='QPSK'>QPSK</option>
+                    <option value='8QAM'>8QAM</option>
+                    <option value='16QAM'>16QAM</option>
+                  </select>
+                  <Typography sx={sxValues}>{sewAppCtx.signal[index].modulation}</Typography>
+                </Box>
+                <Box sx={sxInputRow}>
+                  <label htmlFor='fec'>FEC</label>
+                  <select
+                    name='fec'
+                    value={inputData.fec}
+                    onChange={(e) => handleInputChange({ param: 'fec', val: e.target.value || 0 })}>
+                    <option value='1/2'>1/2</option>
+                    <option value='2/3'>2/3</option>
+                    <option value='3/4'>3/4</option>
+                    <option value='5/6'>5/6</option>
+                    <option value='7/8'>7/8</option>
+                  </select>
+                  <Typography sx={sxValues}>{sewAppCtx.signal[index].fec}</Typography>
+                </Box>
+                <Box sx={sxInputRow}>
+                  <label htmlFor='feed'>Feed</label>
+                  <select
+                    name='feed'
+                    value={inputData.feed}
+                    onChange={(e) => handleInputChange({ param: 'feed', val: e.target.value })}>
+                    <option value='blue 1.mp4'>Blue 1</option>
+                    <option value='blue 2.mp4'>Blue 2</option>
+                    <option value='red 1.mp4'>Red 1</option>
+                    <option value='red 2.mp4'>Red 2</option>
+                    <option value='red 3.mp4'>Red 3</option>
+                    <option value='red 4.mp4'>Red 4</option>
+                    <option value='red 5.mp4'>Red 5</option>
+                    <option value='red 6.mp4'>Red 6</option>
+                    <option value='red 7.mp4'>Red 7</option>
+                    <option value='red 8.mp4'>Red 8</option>
+                    <option value='red 9.mp4'>Red 9</option>
+                  </select>
+                  <Typography sx={sxValues}>{sewAppCtx.signal[activeModem].feed}</Typography>
+                </Box>
+              </Box>
+              <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <Button sx={sxInputApply} onClick={(e) => handleApply(e)}>
+                Apply
+              </Button>
+              <Button sx={sxTransmit} onClick={(e) => handleTransmit(e)}>
+                TX
+              </Button>
+            </Box>
+      </div>
     );
   };
 
