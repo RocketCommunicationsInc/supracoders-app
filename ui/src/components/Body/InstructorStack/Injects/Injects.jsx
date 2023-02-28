@@ -35,7 +35,7 @@ export const Injects = () => {
   };
   const sxCaseId = {
     color: AstroTheme.typography.colors.primary,
-    margin: '8px',
+    margin: AstroTheme.reference.spacing[2],
     textAlign: 'center',
   };
   const sxModemButtonBox = {
@@ -48,7 +48,7 @@ export const Injects = () => {
   };
   const sxInputBox = {
     backgroundColor: AstroTheme.system.colors.backgroundSurfaceDefault,
-    margin: '8px',
+    margin: AstroTheme.reference.spacing[2],
     borderRadius: AstroTheme.reference.radius.base,
     display: 'flex',
     gap: AstroTheme.reference.spacing[1],
@@ -59,13 +59,14 @@ export const Injects = () => {
     gridTemplateColumns: '80px 180px 80px',
     gridTemplateRows: 'auto',
     textAlign: 'left',
-    gap: 'var(--spacing-4)',
+    gap: AstroTheme.reference.spacing[4],
     margin: '2px',
   };
   const sxInputApply = {
     backgroundColor: AstroTheme.system.colors.backgroundInteractiveDefault,
-    color: AstroTheme.typography.colors.primary,
-    margin: '8px',
+    color: AstroTheme.typography.colors.inverse,
+    textTransform: 'Capitalize',
+    margin: AstroTheme.reference.spacing[2],
     cursor: 'pointer',
     '&:hover': {
       backgroundColor: AstroTheme.system.colors.backgroundInteractiveHover,
@@ -85,8 +86,8 @@ export const Injects = () => {
   };
   const sxTransmit = {
     cursor: 'pointer',
-    margin: '8px',
-    //boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.5)',
+    margin: AstroTheme.reference.spacing[2],
+    textTransform: 'Capitalize',
     border: sewAppCtx.signal[activeModem]?.operational ? '1px solid ' + AstroTheme.reference.color.palette.green[500] : '1px solid ' + AstroTheme.system.colors.borderInteractiveDefault,
     backgroundColor: sewAppCtx.signal[activeModem]?.operational ? AstroTheme.reference.color.palette.green[500] : AstroTheme.system.colors.backgroundSurfaceDefault,
     color: sewAppCtx.signal[activeModem]?.operational ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveDefault,

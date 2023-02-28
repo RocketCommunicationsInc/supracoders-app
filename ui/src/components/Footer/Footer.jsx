@@ -19,20 +19,18 @@ export const Footer = () => (
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-      <Typography variant='h6' sx={{ color: 'white' }}>
+      <Typography variant='h6' sx={{ color: AstroTheme.typography.colors.primary, fontSize: '1rem', fontWeight: '400' }}>
       <Link
           component={RouterLink}
           to="/instructor"
           sx={{
-            textDecoration: 'none',
-            color: '#fff',
+            textDecoration: 'none', color: 'inherit',
           }}>Copyright</Link> © 2022{' '}
         <Link
           href='https://github.com/thkruz/'
           target='_new'
           sx={{
-            textDecoration: 'none',
-            color: '#fff',
+            textDecoration: 'none', color: 'inherit',
           }}>
           Theodore Kruczek
         </Link>
@@ -41,8 +39,7 @@ export const Footer = () => (
           href='https://raw.githubusercontent.com/thkruz/iris/dev/LICENSE.md'
           target='_new'
           sx={{
-            textDecoration: 'none',
-            color: '#fff',
+            textDecoration: 'none', color: 'inherit',
           }}>
           AGPLv3
         </Link>
