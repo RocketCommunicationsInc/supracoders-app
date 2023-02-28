@@ -118,6 +118,7 @@ export const AstroTheme = {
           // Controls default (unchecked) color for the track
           border: '1px solid var(--color-border-interactive-default)',
           backgroundColor: 'var(--color-background-surface-default)',
+          opacity: 1,
           '.Mui-checked.Mui-checked + &': {
             // Controls checked color for the track
             backgroundColor: 'var(--color-background-interactive-default)',
@@ -126,11 +127,43 @@ export const AstroTheme = {
         },
       },
     },
+    MuiButton: {
+      defaultProps: {
+        // The props to change the default for.
+        disableRipple: true, // No more ripple, on the whole application 💣!
+      },
+      styleOverrides: {
+        root: {
+          order: 'none',
+          display: 'flex',
+          position: 'relative',
+          margin: 'var(--spacing-0)',
+          width: 'inherit',
+          padding: 'var(--spacing-2) var(--spacing-4)',
+          borderRadius: 'var(--radius-base)',
+          color: 'var(--color-text-inverse)',
+          fontFamily: 'var(--font-control-body-1-font-family)',
+          fontSize: 'var(--font-control-body-1-font-size)',
+          fontWeight: 'var(--font-control-body-1-font-weight)',
+          lineHeight: 'var(--font-control-body-1-line-height)',
+          letterSpacing: 'var(--font-control-body-1-letter-spacing)',
+          whiteSpace: 'nowrap',
+          textOverflow: 'ellipsis',
+          justifyContent: 'center',
+          alignItems: 'center',
+          userSelect: 'none',
+          minWidth: '0',
+        },
+        sizeSmall: {
+          padding: 'var(--spacing-1) var(--spacing-4)',
+        },
+        sizeMedium: {
+          padding: 'var(--spacing-2) var(--spacing-4)',
+        },
+        sizeLarge: {
+          padding: 'var(--spacing-3) var(--spacing-4)',
+        },
+      },
+    },
   },
 };
-
-/** Values that do not exist in this file (but should) **/
-// color: rgba(0, 0, 0, 0.87)
-// color: white;
-// color: #fff <--yet another white, why??
-// background-color: yellow (IF and PAUSE button on Spetrum Analyzer)

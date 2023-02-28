@@ -7,7 +7,7 @@ export const sxModalError = {
   left: '50%',
   transform: 'translate(-50%, 10%)',
   bgcolor: AstroTheme.system.colors.backgroundBaseDefault,
-  color: '#fff',
+  color: AstroTheme.typography.colors.primary,
   borderTop: `3px solid ${AstroTheme.palette.critical.main}`,
   borderRight: `3px solid ${AstroTheme.palette.critical.main}`,
   borderBottom: `3px solid ${AstroTheme.palette.critical.main}`,

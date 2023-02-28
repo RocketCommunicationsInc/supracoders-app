@@ -19,7 +19,6 @@ export const Injects = () => {
   
   const theme = AstroTheme;
   const [activeModem, setActiveModem] = useState(0);
-  console.log(sewAppCtx.signal)
 
   // Styles
   const sxCase = {
@@ -42,6 +41,8 @@ export const Injects = () => {
   const sxModemButtonBox = {
     backgroundColor: AstroTheme.system.colors.backgroundSurfaceDefault,
     border: '1px solid ' + AstroTheme.component.card.cardColorBorder,
+    width: '400px'
+
     //boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.2)',
   };
   const sxValues = {
@@ -49,30 +50,36 @@ export const Injects = () => {
     textDecoration: 'underline',
   };
   const sxInputBox = {
-    backgroundColor: theme.system.colors.backgroundSurfaceDefault,
+    backgroundColor: AstroTheme.system.colors.backgroundSurfaceDefault,
     margin: '8px',
     borderRadius: AstroTheme.reference.radius.base,
     display: 'grid',
+    gap: 'var(--spacing-4)',
     flexDirection: 'column',
   };
   const sxInputRow = {
     display: 'grid',
     gridTemplateColumns: '80px 180px 180px',
     textAlign: 'left',
+    gap: 'var(--spacing-4)',
     margin: '2px',
   };
   const sxInputApply = {
-    backgroundColor: theme.system.colors.backgroundBaseDefault,
+    backgroundColor: AstroTheme.system.colors.backgroundInteractiveDefault,
     //boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.75)',
     color: AstroTheme.typography.colors.black,
     margin: '8px',
     cursor: 'pointer',
+    '&:hover': {
+      backgroundColor: AstroTheme.system.colors.backgroundInteractiveHover,
+    }
+
   };
   const sxVideo = {
     margin: '10px',
     border: '1px solid ' + AstroTheme.component.card.cardColorBorder,
     borderRadius: AstroTheme.reference.radius.base,
-    backgroundColor: theme.system.colors.backgroundBaseDefault,
+    backgroundColor: AstroTheme.system.colors.backgroundBaseDefault,
     width: '400px',
     height: '400px',
     display: 'flex',
@@ -132,19 +139,21 @@ export const Injects = () => {
     return (
       <Button
         sx={{
-          backgroundColor: modem - 1 == activeModem
+          backgroundColor: sewAppCtx.signal[sewAppCtx.signal.map((x) => x.id).indexOf(modem)].operational
             ? AstroTheme.reference.color.palette.green[500] 
             : "none",
-          color: modem - 1 == activeModem ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveDefault,
-          border: modem - 1 == activeModem ? '1px solid ' + AstroTheme.reference.color.palette.green[500] : '1px solid ' + AstroTheme.system.colors.backgroundInteractiveDefault,
-          outline: sewAppCtx.signal[sewAppCtx.signal.map((x) => x.id).indexOf(modem)].operational && 'var(--border-width-focus-default) solid var(--color-border-focus-default)',
-          outlineOffset: sewAppCtx.signal[sewAppCtx.signal.map((x) => x.id).indexOf(modem)].operational && 'var(--spacing-focus-default)',
+          color: sewAppCtx.signal[sewAppCtx.signal.map((x) => x.id).indexOf(modem)].operational ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveDefault,
+          border: sewAppCtx.signal[sewAppCtx.signal.map((x) => x.id).indexOf(modem)].operational ? '1px solid ' + AstroTheme.reference.color.palette.green[500] : '1px solid ' + AstroTheme.system.colors.backgroundInteractiveDefault,
+          outline: modem - 1 == activeModem && 'var(--border-width-focus-default) solid var(--color-border-focus-default)',
+          outlineOffset: modem - 1 == activeModem && 'var(--spacing-focus-default)',
           borderRadius: 'var(--radius-base)',
-          margin: '8px',
+          margin: 'var(--spacing-2)',
           cursor: 'pointer',
+          display: 'inline-flex',
+          width: 'var(--spacing-14)',
           '&:hover': {
-            backgroundColor: modem - 1 == activeModem ? AstroTheme.reference.color.palette.green[400] : AstroTheme.system.colors.backgroundSurfaceDefault,
-            color: modem - 1 == activeModem ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveHover,
+            backgroundColor: sewAppCtx.signal[sewAppCtx.signal.map((x) => x.id).indexOf(modem)].operational ? AstroTheme.reference.color.palette.green[400] : AstroTheme.system.colors.backgroundSurfaceDefault,
+            color: sewAppCtx.signal[sewAppCtx.signal.map((x) => x.id).indexOf(modem)].operational ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveHover,
           },
         }}
         onClick={(e) => {

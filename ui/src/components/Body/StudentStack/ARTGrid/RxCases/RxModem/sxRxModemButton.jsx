@@ -3,16 +3,18 @@ import { AstroTheme } from '../../../../../../themes/AstroTheme';
 export const sxRxModemButton = params => {
   const { isActive } = params;
   return {
-    backgroundColor: isActive ? AstroTheme.reference.color.palette.green[500] : "none",
-    border: isActive ? '1px solid ' + AstroTheme.reference.color.palette.green[500] : '1px solid ' + AstroTheme.system.colors.backgroundInteractiveDefault,
-    color: isActive ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveDefault,
-    width: '5px',
-    margin: '8px',
-    outline: 'none',
+    backgroundColor: "none",
+    border: '1px solid ' + AstroTheme.system.colors.backgroundInteractiveDefault,
+    color: AstroTheme.system.colors.backgroundInteractiveDefault,
+    outline: isActive && 'var(--border-width-focus-default) solid var(--color-border-focus-default)',
+    outlineOffset: isActive && 'var(--spacing-focus-default)',
+    width: 'fit-content',
+    minWidth: 'var(--spacing-12)',
+    margin: AstroTheme.reference.spacing[2],
     '&:hover': {
-      backgroundColor: isActive ? AstroTheme.reference.color.palette.green[400] : "none",
-      border: isActive ? '1px solid ' + AstroTheme.reference.color.palette.green[400] : '1px solid ' + AstroTheme.system.colors.backgroundInteractiveHover,
-      color: isActive ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveHover,
+      backgroundColor: "none",
+      border: '1px solid ' + AstroTheme.system.colors.backgroundInteractiveHover,
+      color: AstroTheme.system.colors.backgroundInteractiveHover,
     },
   };
 };

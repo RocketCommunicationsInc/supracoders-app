@@ -8,6 +8,8 @@ const sxButton = {
   color: AstroTheme.typography.colors.inverse,
   cursor: 'pointer',
   textTransform: 'Capitalize',
+  display: 'inline-flex',
+  justifySelf: 'center',
   '&:hover': {
     backgroundColor: AstroTheme.system.colors.backgroundInteractiveHover,
   }

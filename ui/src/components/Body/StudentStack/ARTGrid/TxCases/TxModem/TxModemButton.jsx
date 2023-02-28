@@ -8,18 +8,19 @@ import { useSound } from 'use-sound';
 const sxTxModemButton = (params) => {
   const { isTransmitting, isActive } = params;
   return {
-    backgroundColor: isActive ? AstroTheme.reference.color.palette.green[500] : "none",
-    border: isActive ? '1px solid ' + AstroTheme.reference.color.palette.green[500] : '1px solid ' + AstroTheme.system.colors.backgroundInteractiveDefault,
-    color: isActive ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveDefault,
-    outline: isTransmitting && 'var(--border-width-focus-default) solid var(--color-border-focus-default)',
-    outlineOffset: isTransmitting && 'var(--spacing-focus-default)',
-    borderRadius: 'var(--radius-base)',
-    width: '5px',
-    margin: '8px',
+    backgroundColor: isTransmitting ? AstroTheme.reference.color.palette.green[500] : "none",
+    border: isTransmitting ? '1px solid ' + AstroTheme.reference.color.palette.green[500] : '1px solid ' + AstroTheme.system.colors.backgroundInteractiveDefault,
+    color: isTransmitting ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveDefault,
+    outline: isActive && 'var(--border-width-focus-default) solid var(--color-border-focus-default)',
+    outlineOffset: isActive && 'var(--spacing-focus-default)',
+    borderRadius: AstroTheme.reference.radius.base,
+    width: 'fit-content',
+    minWidth: 'var(--spacing-12)',
+    margin: AstroTheme.reference.spacing[2],
     '&:hover': {
-      backgroundColor: isActive ? AstroTheme.reference.color.palette.green[400] : "none",
-      border: isActive ? '1px solid ' + AstroTheme.reference.color.palette.green[400] : '1px solid ' + AstroTheme.system.colors.backgroundInteractiveHover,
-      color: isActive ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveHover,
+      backgroundColor: isTransmitting ? AstroTheme.reference.color.palette.green[400] : "none",
+      border: isTransmitting ? '1px solid ' + AstroTheme.reference.color.palette.green[400] : '1px solid ' + AstroTheme.system.colors.backgroundInteractiveHover,
+      color: isTransmitting ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveHover,
     },
   };
 };
@@ -28,7 +29,7 @@ export const TxModemButton = ({ modemId, isTransmitting, isActive, updateActiveM
   const [playSelectSound] = useSound(selectSound);
   return (
     <Tooltip title={'Transmit Modem ' + modemId.toString()}>
-      <Button
+      <Button size="large"
         sx={sxTxModemButton({ isTransmitting, isActive })}
         onClick={() => {
           playSelectSound();

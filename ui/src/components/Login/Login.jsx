@@ -28,7 +28,7 @@ export const Login = () => {
         }}
         novalidate
         autocomplete='off'>
-        <Grid container spacing={1} p={2} width={300}>
+        <Grid container spacing={1} p={2} width={350}>
           <TeamSelect />
           <ServerSelect />
           <JoinButton />

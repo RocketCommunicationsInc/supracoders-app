@@ -23,7 +23,7 @@ export const RxModemInput = ({ currentRow }) => {
     color: AstroTheme.typography.colors.inverse,
     cursor: 'pointer',
     textTransform: 'Capitalize',
-    marginTop: '20px',
+    marginTop: AstroTheme.reference.spacing[1],
     '&:hover': {
       backgroundColor: AstroTheme.system.colors.backgroundInteractiveHover,
     },

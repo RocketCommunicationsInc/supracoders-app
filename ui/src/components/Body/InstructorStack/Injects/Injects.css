@@ -18,7 +18,6 @@ input {
   justify-content: flex-start;
   position: relative;
   box-sizing: border-box;
-  order: 2;
   box-shadow: var(--color-border-interactive-muted) 0 0 0 1px inset;
   border-radius: var(--radius-base);
   font-family: var(--font-control-body-1-font-family);
@@ -53,6 +52,7 @@ select {
   line-height: var(--font-control-body-1-line-height);
   letter-spacing: var(--font-control-body-1-letter-spacing);
   user-select: none;
+  min-width: var(--spacing-14);
 }
 label {
   justify-self: end;

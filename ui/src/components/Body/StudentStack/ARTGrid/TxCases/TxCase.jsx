@@ -30,7 +30,7 @@ export const TxCase = ({ unit }) => {
         icon={
           <Tooltip title={isTransmitting ? 'Transmitting' : 'Not Transmitting'}>
             <PodcastsIcon
-              sx={{ color: isTransmitting ? AstroTheme.palette.normal.main : AstroTheme.palette.standby.main }}
+              sx={{ color: isTransmitting ? AstroTheme.palette.normal.main : AstroTheme.palette.disabled.main }}
             />
           </Tooltip>
         }>
