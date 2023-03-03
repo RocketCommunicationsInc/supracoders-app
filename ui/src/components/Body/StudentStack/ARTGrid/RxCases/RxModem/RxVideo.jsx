@@ -157,6 +157,7 @@ export const RxVideo = ({ currentRow }) => {
               justifyContent: 'center',
               alignItems: 'center',
               height: '100%',
+              color: 'var(--color-text-primary)'
             }}>
             No Signal
           </Typography>
