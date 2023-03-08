@@ -20,14 +20,14 @@ body {
   user-select: none;
 }
 h2 {
-font-style: normal;
-font-weight: 400;
-font-size: 24px;
-line-height: 28px;
-margin-block: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 28px;
+  margin-block: 0;
 }
 
-p{
+p {
   margin-top: 0;
 }
 
@@ -40,7 +40,7 @@ p{
 }
 
 .helpIcon {
-  color: #FFFFFF;
+  color: #ffffff;
   cursor: pointer;
 }
 
@@ -59,12 +59,13 @@ rux-select::part(select) {
   align-items: center;
 }
 
-rux-input::part(label), rux-select::part(label) {
+rux-input::part(label),
+rux-select::part(label) {
   margin-right: var(--spacing-2);
   min-width: var(--spacing-14);
   margin-bottom: 0;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
 }
 

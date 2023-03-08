@@ -4,12 +4,12 @@ input {
   box-sizing: border-box;
   margin-left: 8px;
   margin-right: 8px;
-  justify-self: end;
+  justify-self: flex-end;
   text-align: center;
 }
 
 label {
-  justify-self: end;
+  justify-self: flex-end;
   align-self: center;
 }
 
@@ -25,17 +25,17 @@ label {
   height: calc(100% - 2rem);
 }
 
-.instructor_wrapper rux-container::part(container){
-  height:100%;
+.instructor_wrapper rux-container::part(container) {
+  height: 100%;
   box-sizing: border-box;
 }
 
-rux-input.instructor_input::part(label), rux-select.instructor_select::part(label) {
+rux-input.instructor_input::part(label),
+rux-select.instructor_select::part(label) {
   min-width: var(--spacing-24);
 }
 
-.modem-button-box rux-button{
+.modem-button-box rux-button {
   width: 3rem;
-  margin: .25rem;
-
+  margin: 0.25rem;
 }
