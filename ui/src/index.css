@@ -19,6 +19,17 @@ body {
   -ms-user-select: none;
   user-select: none;
 }
+h2 {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 28px;
+  margin-block: 0;
+}
+
+p {
+  margin-top: 0;
+}
 
 #root {
   /* Full Screen  */
@@ -26,4 +37,39 @@ body {
   display: flex;
   flex-direction: column;
   flex: 1;
+}
+
+.helpIcon {
+  color: #ffffff;
+  cursor: pointer;
+}
+
+rux-input::part(form-field) {
+  flex-direction: row;
+  align-items: center;
+}
+
+rux-select {
+  display: flex;
+  align-items: center;
+}
+
+rux-select::part(select) {
+  flex-direction: row;
+  align-items: center;
+}
+
+rux-input::part(label),
+rux-select::part(label) {
+  margin-right: var(--spacing-2);
+  min-width: var(--spacing-14);
+  margin-bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+rux-switch {
+  margin-left: var(--spacing-16);
+  margin-top: var(--spacing-1);
 }
