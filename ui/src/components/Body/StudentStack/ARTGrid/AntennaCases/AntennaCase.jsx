@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { RuxTooltip } from '@astrouxds/react'
-import { Grid } from '@mui/material';
 import { AntennaController } from '../../../..';
 import { EquipmentCase } from '../EquipmentCase';
 import AntennaHelp from '../../HelpModals/AntennaHelp';
@@ -55,24 +54,23 @@ export const AntennaCase = ({ unit }) => {
   }, [sewAppCtx.antenna]);
 
   return (
-    <Grid xs={true} item minWidth={675}>
-      <EquipmentCase
-        helpTitle='Antenna'
-        helpComponent={AntennaHelp}
-        unit={unit}
-        icon={
-          <>
-            <RuxTooltip message={antState}>
-              <SettingsInputAntennaIcon sx={{ color: antColor }} />
-            </RuxTooltip>
-            <RuxTooltip message={lockState}>
-              <LockIcon sx={{ color: lockColor }} />
-            </RuxTooltip>
-          </>
-        }>
-        <AntennaController unit={unit} />
-      </EquipmentCase>
-    </Grid>
+        <EquipmentCase
+          title='Antenna'
+          helpTitle='Antenna Help'
+          helpComponent={AntennaHelp}
+          unit={unit}
+          icon={
+            <>
+              <RuxTooltip message={antState}>
+                <SettingsInputAntennaIcon sx={{ color: antColor }} />
+              </RuxTooltip>
+              <RuxTooltip message={lockState}>
+                <LockIcon sx={{ color: lockColor }} />
+              </RuxTooltip>
+            </>
+          }>
+          <AntennaController unit={unit} />
+        </EquipmentCase>
   );
 };
 AntennaCase.propTypes = {

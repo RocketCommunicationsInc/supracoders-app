@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { RuxButton, RuxPushButton, RuxTooltip, RuxSelect, RuxOption, RuxInput } from '@astrouxds/react'
+import { RuxButton, RuxPushButton, RuxSelect, RuxOption, RuxInput } from '@astrouxds/react'
 import { Box, Grid, Typography, Card } from '@mui/material';
 import { useSewApp } from '../../../../../../context/sewAppContext';
 import { CRUDdataTable } from '../../../../../../crud';
@@ -211,20 +211,11 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
           justifyContent={'flex-end'}
           flexGrow={true}
           display={'flex'}>
-          <RuxTooltip message='Commit Changes'>
-            <RuxButton style={{ marginRight: '8px' }} onClick={(e) => handleApply(e)}>
-              Apply
-            </RuxButton>
-          </RuxTooltip>
-          <RuxTooltip
-            message={
-              !unitData.filter((x) => x.modem_number == activeModem)[0].transmitting
-                ? 'Enable Transmitter'
-                : 'Disable Transmitter'
-            }>
-            <RuxPushButton label='TX' onRuxchange={(e) => handleTransmit(e)} checked={
-              unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? true : false}/>
-          </RuxTooltip>
+          <RuxButton style={{ marginRight: '8px' }} onClick={(e) => handleApply(e)}>
+            Apply
+          </RuxButton>
+          <RuxPushButton label='Enable' onRuxchange={(e) => handleTransmit(e)} checked={
+            unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? true : false}/>
         </Grid>
       </Grid>
     </>

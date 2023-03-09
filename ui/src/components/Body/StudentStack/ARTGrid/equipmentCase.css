@@ -1,3 +1,67 @@
-.container_equipment-case::part(body) {
-    padding: 16px 16px 16px 8px;
+.container_equipment-case{
+ padding-top: var(--spacing-4);
+ padding-left: var(--spacing-4);
 }
+.container_equipment-case::part(body) {
+    padding: var(--spacing-4) var(--spacing-4) var(--spacing-4) var(--spacing-2);
+}
+
+.container-case{
+    padding-left: var(--spacing-4);
+    padding-top: var(--spacing-4);
+}
+.container-case::part(body){
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: var(--spacing-0);
+    padding-left: var(--spacing-0);
+}
+
+/*Transmitter*/
+.container-case.transmitter > div {
+    display: flex;
+    flex-basis: 50%;
+}
+.container-case.transmitter .container_equipment-case{
+    min-width:450px;
+    flex-grow: 1;
+}
+
+@media screen and (max-width: 1945px){
+    .container-case.transmitter > div{
+        flex-basis: 100%;
+    }
+}
+
+@media screen and (max-width: 1028px){
+    .container-case.transmitter > div{
+        flex-wrap: wrap;
+    }
+}
+
+
+/*Antenna*/
+@media screen and (min-width:1490px){
+    .container-case.antenna::part(body){
+        flex-wrap: nowrap;
+    }
+    .container-case.antenna > .container_equipment-case{
+        display: flex;
+        flex-basis: 50%;
+    }
+}
+
+/*Receiver*/
+    .container-case.receiver::part(body){
+       flex-wrap: wrap;
+    }
+
+@media screen and (min-width:1490px){
+
+    .container-case.receiver > div{
+        display: flex;
+        flex-wrap: nowrap;
+    }
+}
+
+

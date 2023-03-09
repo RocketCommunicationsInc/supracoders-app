@@ -1,7 +1,6 @@
 import React from 'react';
 import { RuxTooltip } from '@astrouxds/react'
 import { RxModem } from '../../../..';
-import { Grid } from '@mui/material';
 import { EquipmentCase } from '../EquipmentCase';
 import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
 import { useSewApp } from './../../../../../context/sewAppContext';
@@ -46,8 +45,8 @@ export const RxCase = ({ unit }) => {
 
   const { color, description } = determineEquipmentStatus(unit);
   return (
-    <Grid item xs={true} minWidth={650} key={unit}>
       <EquipmentCase
+        title='Receiver Case'
         helpTitle='Reciever Modem Help'
         helpComponent={RxCaseHelp}
         unit={unit}
@@ -58,7 +57,6 @@ export const RxCase = ({ unit }) => {
         }>
         <RxModem unit={unit} />
       </EquipmentCase>
-    </Grid>
   );
 };
 RxCase.propTypes = {

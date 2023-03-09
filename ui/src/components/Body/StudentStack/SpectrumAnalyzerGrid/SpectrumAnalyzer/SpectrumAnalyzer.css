@@ -1,12 +1,17 @@
 rux-card::part(body) {
-  padding: 0;
+  padding: var(--spacing-2);
 }
+
+rux-card::part(footer) {
+  padding-top: 0;
+}
+
 canvas {
   background-color: var(--color-palette-neutral-1000);
 }
 
 rux-select.antenna-select::part(label) {
-  min-width: var(--spacing-6);
+  margin-left: var(--spacing-2);
 }
 
 .analyzer-config::part(footer) {

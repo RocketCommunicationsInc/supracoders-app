@@ -1,29 +1,44 @@
 import React from 'react';
-import { RuxContainer } from '@astrouxds/react'
+import { RuxTabs } from '@astrouxds/react'
 import PropTypes from 'prop-types';
-// import { Box } from '@mui/material';
 import { TxModemButton } from './TxModemButton';
-// import { sxModemButtonBox } from '../../../../../styles/sxModemButtonBox';
 
 export const TxModemButtonBox = ({ unitData, unit, activeModem, updateActiveModem }) => {
   return (
-    <RuxContainer className="modemButtonBox">
+    // <RuxContainer className="modemButtonBox">
+    <RuxTabs small id={`modem-case-${unit}`}>
       {unitData
         .sort((a, b) => a.id - b.id)
         .map((x, index) => {
           if (x.unit == unit) {
             return (
-              <TxModemButton
-                key={index}
-                modemId={x.modem_number}
-                isTransmitting={x.transmitting}
-                isActive={x.modem_number === activeModem}
-                updateActiveModem={updateActiveModem}
-              />
+                <TxModemButton
+                  key={index}
+                  modemId={x.modem_number}
+                  isTransmitting={x.transmitting}
+                  isActive={x.modem_number === activeModem}
+                  updateActiveModem={updateActiveModem}
+                />
             );
           }
         })}
-    </RuxContainer>
+    </RuxTabs>
+      // {unitData
+      //   .sort((a, b) => a.id - b.id)
+      //   .map((x, index) => {
+      //     if (x.unit == unit) {
+      //       return (
+      //         <TxModemButton
+      //           key={index}
+      //           modemId={x.modem_number}
+      //           isTransmitting={x.transmitting}
+      //           isActive={x.modem_number === activeModem}
+      //           updateActiveModem={updateActiveModem}
+      //         />
+      //       );
+      //     }
+      //   })}
+    // </RuxContainer>
   );
 };
 TxModemButtonBox.propTypes = {

@@ -1,20 +1,21 @@
 import React from 'react';
-import { Grid } from '@mui/material';
+import { RuxContainer } from '@astrouxds/react'
 import { RxCase } from './RxCase';
 
 export const RxCases = () => {
   return (
-    <>
-      <Grid item xs={true} container rowSpacing={2}>
+    <RuxContainer className="container-case receiver">
+      <div slot='header'>Receivers</div>
+      <div>
         {[1, 2].map((unit) => (
           <RxCase unit={unit} key={unit} />
         ))}
-      </Grid>
-      <Grid item xs={true} container rowSpacing={2}>
+      </div>
+      <div>
         {[3, 4].map((unit) => (
           <RxCase unit={unit} key={unit} />
         ))}
-      </Grid>
-    </>
+      </div>
+    </RuxContainer>
   );
 };

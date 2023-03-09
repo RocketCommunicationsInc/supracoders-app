@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
-import { RuxContainer, RuxIcon, RuxTooltip } from '@astrouxds/react'
+import { RuxCard, RuxIcon, RuxTooltip } from '@astrouxds/react'
 import PropTypes from 'prop-types';
 import { Grid } from '@mui/material';
 import { EquipmentCaseId } from './EquipmentCaseId';
-import { InstructionsIcon } from '../HelpModals/InstructionsIcon';
 import './equipmentCase.css';
-
-export const EquipmentCase = ({ children, helpTitle, helpComponent, unit, icon }) => {
+import { InstructionsIcon } from '../HelpModals/InstructionsIcon';
+export const EquipmentCase = ({ children, title, helpTitle, helpComponent, unit, icon, tabs, tabPanels }) => {
   const [helpState, setHelpState] = useState(false);
 
   return (
     <>
       {helpComponent({ modalState: helpState, setModalState: setHelpState })}
-      <RuxContainer className="container_equipment-case">
+      <RuxCard className="container_equipment-case">
+        <div slot="header">{title + ` ` + unit}
+        <div>{tabs}</div>
+        </div>
         <Grid container>
+          <div>{tabPanels}</div>
           <Grid item mr={1} width={30}>
             <EquipmentCaseId unit={unit} icon={icon} />
           </Grid>
@@ -28,21 +31,22 @@ export const EquipmentCase = ({ children, helpTitle, helpComponent, unit, icon }
               style={{ paddingLeft: '8px' }}
                 onClick={() => {
                   setHelpState(true);
-                }}>
-                <InstructionsIcon />
-              </RuxIcon>
+                }} />
             </RuxTooltip>
           </Grid>
         </Grid>
-      </RuxContainer>
+      </RuxCard>
     </>
   );
 };
 
 EquipmentCase.propTypes = {
   children: PropTypes.node.isRequired,
+  title: PropTypes.string.isRequired,
   helpTitle: PropTypes.string.isRequired,
   helpComponent: PropTypes.func.isRequired,
   unit: PropTypes.number.isRequired,
   icon: PropTypes.node,
+  tabs: PropTypes.node,
+  tabPanels: PropTypes.node,
 };

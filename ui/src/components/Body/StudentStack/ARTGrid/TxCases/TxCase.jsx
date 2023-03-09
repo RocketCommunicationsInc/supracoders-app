@@ -1,6 +1,6 @@
-import React from 'react';
-import { RuxTooltip } from '@astrouxds/react'
-import { Grid } from '@mui/material';
+import React, { Fragment, useEffect, useState } from 'react';
+import { RuxTooltip, RuxTabPanel, RuxTabPanels } from '@astrouxds/react'
+import { TxModemButtonBox } from '../TxCases/TxModem/TxModemButtonBox';
 import { TxModem } from '../../../..';
 import { EquipmentCase } from '../EquipmentCase';
 import PodcastsIcon from '@mui/icons-material/Podcasts';
@@ -21,9 +21,28 @@ export const TxCase = ({ unit }) => {
       )
       .filter((tx) => tx.transmitting).length > 0;
 
+      const [activeModem, setActiveModem] = useState(1);
+      const [currentRow, setCurrentRow] = useState(1);
+      const unitData = sewAppCtx.tx.filter(
+        x => x.unit == unit && x.team_id == sewAppCtx.user.team_id && x.server_id == sewAppCtx.user.server_id
+      );
+    
+      const updateActiveModem = modem => {
+        setActiveModem(modem);
+      };
+    
+      useEffect(() => {
+        const currentModem = unitData.find(x => {
+          return x.modem_number == activeModem;
+        });
+        const _currentRow = sewAppCtx.tx.findIndex(x => x.id == currentModem.id);
+        setCurrentRow(_currentRow);
+      }, [activeModem]);
+
   return (
-    <Grid item xs={true} minWidth={500} key={unit}>
+    <Fragment key={unit}>
       <EquipmentCase
+        title='Transmit Case'
         helpTitle='Transmit Modem Help'
         helpComponent={TxCaseHelp}
         unit={unit}
@@ -33,10 +52,21 @@ export const TxCase = ({ unit }) => {
               sx={{ color: isTransmitting ? 'var(--color-status-normal)' : 'var(--color-status-off)' }}
             />
           </RuxTooltip>
-        }>
-        <TxModem unit={unit} />
+        }
+        tabs={
+          <TxModemButtonBox
+            unitData={unitData}
+            activeModem={activeModem}
+            unit={unit}
+            updateActiveModem={updateActiveModem}
+          />
+        }
+        >
+          <RuxTabPanels ariaLabelledby={`modem-case-${unit}`}>
+            <RuxTabPanel ariaLabelledby={`modem-${unit}`}><TxModem unitData={unitData} activeModem={activeModem} currentRow={currentRow} /></RuxTabPanel>
+          </RuxTabPanels>
       </EquipmentCase>
-    </Grid>
+    </Fragment>
   );
 };
 TxCase.propTypes = {
