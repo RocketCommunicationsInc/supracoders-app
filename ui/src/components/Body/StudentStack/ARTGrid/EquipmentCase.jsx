@@ -10,7 +10,7 @@ export const EquipmentCase = ({ children, title, unit, icon, tabs }) => {
         <div slot="header">
           <div style={{ display: 'flex', alignItems: 'center', }}>
             {title + ` ` + unit} {icon}</div>
-          <div>{tabs}</div>
+          <div className="tabs">{tabs}</div>
         </div>
         <Grid container>
           <Grid item xs={true}>
