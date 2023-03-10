@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Box, Typography } from '@mui/material';
 
 export const EquipmentCaseId = ({ unit, icon }) => {
+  console.log(icon)
   return (
     <Box textAlign={'center'}>
       {icon}

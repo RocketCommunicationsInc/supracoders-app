@@ -5,7 +5,6 @@ import { TxModemButton } from './TxModemButton';
 
 export const TxModemButtonBox = ({ unitData, unit, activeModem, updateActiveModem }) => {
   return (
-    // <RuxContainer className="modemButtonBox">
     <RuxTabs small id={`modem-case-${unit}`}>
       {unitData
         .sort((a, b) => a.id - b.id)
@@ -23,22 +22,6 @@ export const TxModemButtonBox = ({ unitData, unit, activeModem, updateActiveMode
           }
         })}
     </RuxTabs>
-      // {unitData
-      //   .sort((a, b) => a.id - b.id)
-      //   .map((x, index) => {
-      //     if (x.unit == unit) {
-      //       return (
-      //         <TxModemButton
-      //           key={index}
-      //           modemId={x.modem_number}
-      //           isTransmitting={x.transmitting}
-      //           isActive={x.modem_number === activeModem}
-      //           updateActiveModem={updateActiveModem}
-      //         />
-      //       );
-      //     }
-      //   })}
-    // </RuxContainer>
   );
 };
 TxModemButtonBox.propTypes = {

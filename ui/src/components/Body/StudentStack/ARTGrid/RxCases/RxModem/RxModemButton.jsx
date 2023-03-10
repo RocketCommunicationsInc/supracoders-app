@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { RuxTooltip, RuxButton } from '@astrouxds/react'
+import { RuxTab } from '@astrouxds/react'
 import PropTypes from 'prop-types';
 import { useSound } from 'use-sound';
 import { selectSound } from '../../../../../../audio';
@@ -12,16 +12,24 @@ export const RxModemButton = ({ modemId, isActive, updateActiveModem }) => {
   }, [isActive])
 
   return (
-    <RuxTooltip message={`Receive Modem ${modemId}`}>
-      <RuxButton
-        secondary
-        onClick={() => {
-          playSelectSound();
-          updateActiveModem(modemId);
-        }} ref={el}>
-        {modemId}
-      </RuxButton>
-    </RuxTooltip>
+    <RuxTab 
+      id={`modem-${modemId}`} 
+      onClick={() => {
+        playSelectSound();
+        updateActiveModem(modemId);
+      }} 
+      ref={el}
+    >
+     Modem {modemId}
+    </RuxTab>
+    // <RuxButton
+    //   secondary
+    //   onClick={() => {
+    //     playSelectSound();
+    //     updateActiveModem(modemId);
+    //   }} ref={el}>
+    //   {modemId}
+    // </RuxButton>
   );
 };
 RxModemButton.propTypes = {

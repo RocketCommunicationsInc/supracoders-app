@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { RuxButton, RuxPushButton, RuxTooltip, RuxSwitch, RuxNotification, RuxSelect, RuxOption, RuxInput } from '@astrouxds/react'
+import { RuxButton, RuxPushButton, RuxTooltip, RuxSwitch, RuxSelect, RuxOption, RuxInput, RuxIcon } from '@astrouxds/react'
 import PropTypes from 'prop-types';
 import { Grid, Card } from '@mui/material';
 import { outputStyle } from '../../../../styles';
@@ -33,15 +33,6 @@ export const AntennaInput = ({ unit }) => {
   useEffect(() => {
     setInputData(sewAppCtx.antenna[antennaIdx]);
   }, [sewAppCtx.antenna]);
-
-  useEffect(() => {
-    el.current.addEventListener('click', () => {
-      if(el.current.disabled){
-        playErrorSound()
-        setErrorActive(true)
-      }
-    })
-  },[])
 
   const handleInputChange = ({ param, val }) => {
     if (param === 'offset') {
@@ -89,7 +80,7 @@ export const AntennaInput = ({ unit }) => {
   };
 
   const checkTrackState = () =>{
-    setIsTrackable(true)
+      setIsTrackable(true)
       const newValue = !inputData.track;
       playBreakerSound();
       handleTrackLocked({ param: 'track', val: newValue });
@@ -104,15 +95,6 @@ export const AntennaInput = ({ unit }) => {
 
   return (
     <>
-      <RuxNotification 
-        open={isErrorActive} 
-        status='critical' 
-        closeAfter={3}
-        hideClose 
-        onRuxclosed={() => { setErrorActive(false) }}
-        >
-        Antenna is currently not operational. Try enabling it first!
-      </RuxNotification>
       <Grid container pl={2} height={'100%'}>
         <Grid container item xs={12} spacing={0.5}>
           <Grid container item xs={12}>
@@ -189,14 +171,24 @@ export const AntennaInput = ({ unit }) => {
             </Grid>
           </Grid>
           <Grid container item xs={12}>
-            <Grid item xs={true}>
+            <Grid item xs={12}>
               <RuxSwitch
                 ref={el}
                 label='Auto-Track'
                 disabled={!isTrackable}
-                onRuxchange={(e) => checkTrackState(e)}></RuxSwitch>
+                onRuxchange={(e) => checkTrackState(e)}
+                onClick={() => {
+                  if(el.current.disabled){
+                    playErrorSound()
+                    setErrorActive(true)
+                    setTimeout(() => {
+                      setErrorActive(false)
+                    }, 5000);
+                  }
+                }}></RuxSwitch>
+                <small style={{color: 'var(--color-text-error)', marginLeft: `var(--spacing-16)`, fontWeight: 'bold', display: 'flex', alignContent: 'center', minHeight: '2rem'}}>
+                  {isErrorActive && <><RuxIcon icon="warning" size="1.15rem" style={{color: 'inherit', marginRight: 'var(--spacing-2)'}}/>Power the Antenna to enable Auto-Track capability</>}</small>
             </Grid>
-            <Grid item xs={true}></Grid>
           </Grid>
         </Grid>
         <Grid
@@ -207,14 +199,12 @@ export const AntennaInput = ({ unit }) => {
           justifyContent={'flex-end'}
           flexGrow={true}
           display={'flex'}>
-          <RuxTooltip message='Commit Changes'>
-            <RuxButton style={{ marginRight: '8px' }} onClick={(e) => handleApply(e)}>
-              Apply
-            </RuxButton>
-          </RuxTooltip>
           <RuxTooltip message={!sewAppCtx.antenna[antennaIdx]?.operational ? 'Enable Antenna' : 'Disable Antenna'}>
-            <RuxPushButton label={sewAppCtx.antenna[antennaIdx]?.operational ? 'Power' : 'Power'} onRuxchange={(e) => handleEnable(e)} />
+            <RuxPushButton label={sewAppCtx.antenna[antennaIdx]?.operational ? 'Disable' : 'Enable'} onRuxchange={(e) => handleEnable(e)} />
           </RuxTooltip>
+          <RuxButton style={{ marginLeft: '8px' }} onClick={(e) => handleApply(e)}>
+            Apply
+          </RuxButton>
         </Grid>
       </Grid>
     </>

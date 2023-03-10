@@ -9,6 +9,10 @@ rux-button.isTransmitting::part(container){
   color: var(--color-text-black);
 }
 
+rux-push-button::part(container) {
+  min-width: var(--spacing-14);
+}
+
 .modemButtonBox{
     display: flex;
     height: calc(100% + 2rem);

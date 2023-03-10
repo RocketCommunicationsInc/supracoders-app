@@ -72,3 +72,7 @@ rux-switch {
   margin-left: var(--spacing-16);
   margin-top: var(--spacing-1);
 }
+
+rux-tab rux-icon{
+  margin-right: var(--spacing-1);
+}

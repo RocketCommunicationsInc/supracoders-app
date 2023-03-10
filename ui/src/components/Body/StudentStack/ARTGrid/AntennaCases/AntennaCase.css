@@ -4,13 +4,12 @@
 
 .loopback_container {
     display: flex;
-    height: calc(100% + 2rem);
-    width: 160px;
+    width: 240px;
     margin-top: -1rem;
 }
 
 .loopback_container::part(container) {
-    background: var(--color-background-base-default);
+    background: var(--color-background-surface-default);
     border: none;
     display: flex;
 }

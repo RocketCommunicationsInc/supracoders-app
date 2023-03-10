@@ -211,11 +211,11 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
           justifyContent={'flex-end'}
           flexGrow={true}
           display={'flex'}>
-          <RuxButton style={{ marginRight: '8px' }} onClick={(e) => handleApply(e)}>
+          <RuxPushButton label={!unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? 'Enable' : 'Disable' } onRuxchange={(e) => handleTransmit(e)} checked={
+            unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? true : false}/>
+          <RuxButton style={{ marginLeft: '8px' }} onClick={(e) => handleApply(e)}>
             Apply
           </RuxButton>
-          <RuxPushButton label='Enable' onRuxchange={(e) => handleTransmit(e)} checked={
-            unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? true : false}/>
         </Grid>
       </Grid>
     </>

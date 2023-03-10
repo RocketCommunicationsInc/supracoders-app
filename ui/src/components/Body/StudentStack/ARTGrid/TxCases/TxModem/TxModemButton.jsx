@@ -17,18 +17,14 @@ export const TxModemButton = ({ modemId, updateActiveModem, isActive, isTransmit
   return (
     <RuxTab 
       id={`modem-${modemId}`} 
-      onRuxselected={()=>{
+      onClick={()=>{
         playSelectSound();
         updateActiveModem(modemId);
       }} 
       ref={el}
     >
-     {isTransmitting ? <RuxIcon icon='satellite-transmit' size='24px' style={{ color: 'var(--color-status-normal)', paddingRight: '4px' }} /> : <RuxIcon icon='satellite-transmit' size='24px' style={{ paddingRight: '4px' }} />} Modem {modemId}
+     {isTransmitting ? <RuxIcon icon='antenna-transmit' size='24px' style={{ color: 'var(--color-status-normal)', paddingRight: '4px' }} /> : <RuxIcon icon='antenna-transmit' size='24px' style={{ paddingRight: '4px' }} />} Modem {modemId}
     </RuxTab>
-      // <RuxButton onClick={()=>{
-      //       playSelectSound();
-      //       updateActiveModem(modemId);
-      // }} ref={el} secondary>Modem {modemId}</RuxButton>
   );
 };
 

@@ -208,7 +208,7 @@ export const SpectrumAnalyzerBox = (props) => {
   return (
     <>
       <RuxCard>
-        <div slot='header'>
+        <div slot='header' style={{textAlign: 'center'}}>
           Span: {sewAppCtx.sewApp[`specA${whichSpecA}`]?.bw / 1e6} MHz
           
         </div>
@@ -263,7 +263,8 @@ export const SpectrumAnalyzerBox = (props) => {
             <RuxButtonGroup style={{ marginLeft: 'auto', marginTop: 'auto', }} hAlign='right'>
                 <RuxButton
                   style={{ marginLeft: '8px', marginRight: '8px', }}
-                  borderless
+                  secondary
+                  icon="settings"
                   onClick={() => {
                     playSelectSound();
                     props.handleConfigClick(
@@ -273,7 +274,7 @@ export const SpectrumAnalyzerBox = (props) => {
                   }}>
                   Config
                 </RuxButton>
-                <RuxButton secondary icon={sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause ? 'play-arrow' : 'pause'} onClick={() => handlePauseClicked()} />
+                <RuxButton icon={sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause ? 'play-arrow' : 'pause'} onClick={() => handlePauseClicked()} />
             </RuxButtonGroup>
           </div>
         </div>

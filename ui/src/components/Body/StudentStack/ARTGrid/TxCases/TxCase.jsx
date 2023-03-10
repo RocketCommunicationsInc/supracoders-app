@@ -1,12 +1,10 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { RuxTooltip, RuxTabPanel, RuxTabPanels } from '@astrouxds/react'
+import { RuxTooltip, RuxTabPanel, RuxTabPanels, RuxIcon } from '@astrouxds/react'
 import { TxModemButtonBox } from '../TxCases/TxModem/TxModemButtonBox';
 import { TxModem } from '../../../..';
 import { EquipmentCase } from '../EquipmentCase';
-import PodcastsIcon from '@mui/icons-material/Podcasts';
 import { useSewApp } from '../../../../../context/sewAppContext';
 import { PropTypes } from 'prop-types';
-import TxCaseHelp from './../../HelpModals/TxCaseHelp';
 
 export const TxCase = ({ unit }) => {
   const sewAppCtx = useSewApp();
@@ -20,6 +18,7 @@ export const TxCase = ({ unit }) => {
           tx.id === (unit - 1) * 4 + 4
       )
       .filter((tx) => tx.transmitting).length > 0;
+      console.log(sewAppCtx.tx)
 
       const [activeModem, setActiveModem] = useState(1);
       const [currentRow, setCurrentRow] = useState(1);
@@ -43,13 +42,11 @@ export const TxCase = ({ unit }) => {
     <Fragment key={unit}>
       <EquipmentCase
         title='Transmit Case'
-        helpTitle='Transmit Modem Help'
-        helpComponent={TxCaseHelp}
         unit={unit}
         icon={
           <RuxTooltip message={isTransmitting ? 'Transmitting' : 'Not Transmitting'}>
-            <PodcastsIcon
-              sx={{ color: isTransmitting ? 'var(--color-status-normal)' : 'var(--color-status-off)' }}
+            <RuxIcon icon="antenna" size="1.75rem"
+              style={{ color: isTransmitting ? 'var(--color-status-normal)' : 'var(--color-status-off)', paddingLeft: 'var(--spacing-3)'}}
             />
           </RuxTooltip>
         }
@@ -63,7 +60,20 @@ export const TxCase = ({ unit }) => {
         }
         >
           <RuxTabPanels ariaLabelledby={`modem-case-${unit}`}>
-            <RuxTabPanel ariaLabelledby={`modem-${unit}`}><TxModem unitData={unitData} activeModem={activeModem} currentRow={currentRow} /></RuxTabPanel>
+            {unitData
+              .sort((a, b) => a.id - b.id)
+              .map((x, index) => {
+                if (x.unit == unit) {
+                  return (
+                  <RuxTabPanel key={index} ariaLabelledby={`modem-${x.modem_number}`} style={{ display: 'flex' }}>
+                    <h2 style={{ fontFamily: 'Nasa', minWidth: 'calc(var(--spacing-1) * 5)', textAlign: 'center'}}>{x.modem_number}</h2>
+                    <TxModem
+                     unitData={unitData} activeModem={activeModem} currentRow={currentRow} />
+                  </RuxTabPanel>
+                  );
+                }
+              })}
+            
           </RuxTabPanels>
       </EquipmentCase>
     </Fragment>

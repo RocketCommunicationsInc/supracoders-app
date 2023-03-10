@@ -1,5 +1,5 @@
 import React from 'react';
-import { RuxContainer, RuxButton, RuxPushButton, RuxTooltip } from '@astrouxds/react'
+import { RuxCard, RuxButton, RuxTooltip, RuxSwitch } from '@astrouxds/react'
 import PropTypes from 'prop-types';
 import { Box, Typography } from '@mui/material';
 import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore';
@@ -59,38 +59,41 @@ export const LoopbackSwitch = ({ unit }) => {
     CRUDdataTable({ method: 'PATCH', path: 'antenna', data: tmpData[antennaIdx] });
   };
   return (
-    <RuxContainer className='loopback_container'>
-      <RuxTooltip style={{ display: 'flex', }} message='Intermediate Frequency'>
-        <Typography align='center'>IF</Typography>
-      </RuxTooltip>
-      <Box sx={sxLoopbackSwitch} width={'100%'}>
-        <RuxTooltip message='Loopback'>
-          <SettingsBackupRestoreIcon />
+    <RuxCard className='loopback_container'>
+      <p style={{ textAlign: 'center' }}>Pathway Switch</p>
+        <RuxTooltip style={{ display: 'flex', }} message='Intermediate Frequency'>
+          <Typography align='center'>IF</Typography>
         </RuxTooltip>
-        <RuxButton
-          borderless
-          onClick={toggleSwitch}
-          >
-          <img
-            src={`baseball_switch${sewAppCtx.antenna[antennaIdx].loopback ? '' : '2'}.png`}
-            alt='baseball_switch'
-            style={{ width: '100%' }}
-          />
-        </RuxButton>
-        <RuxTooltip message='Antenna'>
-          <CellTowerIcon sx={sxTx} />
+        <Box sx={sxLoopbackSwitch} width={'100%'}>
+          <RuxTooltip message='Loopback'>
+            <SettingsBackupRestoreIcon />
+          </RuxTooltip>
+          <RuxButton
+            borderless
+            onClick={toggleSwitch}
+            >
+            <img
+              src={`baseball_switch${sewAppCtx.antenna[antennaIdx].loopback ? '' : '2'}.png`}
+              alt='baseball_switch'
+              style={{ width: '80px' }}
+            />
+          </RuxButton>
+          <RuxTooltip message='Antenna'>
+            <CellTowerIcon sx={sxTx} />
+          </RuxTooltip>
+        </Box>
+        <RuxTooltip message='Ground' style={{ display: 'flex', }}>
+          <AlignHorizontalCenterIcon style={{ display: 'flex', justifyContent: 'center', width: '100%', }} />
         </RuxTooltip>
-      </Box>
-      <RuxTooltip message='Ground' style={{ display: 'flex', }}>
-        <AlignHorizontalCenterIcon style={{ display: 'flex', justifyContent: 'center', width: '100%', }} />
-      </RuxTooltip>
+      
       <RuxTooltip
         message={!sewAppCtx.antenna[antennaIdx].hpa ? 'Enable High Powered Amplifier' : 'Disable High Powered Amplifier'}
         style={{ display: 'flex', }}
         >
-        <RuxPushButton label='HPA' onRuxchange={(e) => handleHPA(e)} style={{ display: 'flex', justifyContent: 'center', marginTop: 'var(--spacing-2)', }} />
+        <RuxSwitch style={{ marginLeft: '0' }} label='High Powered Amplifier' onRuxchange={(e) => handleHPA(e)}></RuxSwitch>
+        {/* <RuxPushButton label='HPA' onRuxchange={(e) => handleHPA(e)} style={{ display: 'flex', justifyContent: 'center', marginTop: 'var(--spacing-2)', }} /> */}
       </RuxTooltip>
-    </RuxContainer>
+    </RuxCard>
   );
 };
 LoopbackSwitch.propTypes = {

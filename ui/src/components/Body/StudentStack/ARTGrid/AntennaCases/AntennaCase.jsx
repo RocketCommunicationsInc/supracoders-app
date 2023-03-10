@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { RuxTooltip } from '@astrouxds/react'
+import { RuxTooltip, RuxIcon } from '@astrouxds/react'
 import { AntennaController } from '../../../..';
 import { EquipmentCase } from '../EquipmentCase';
-import AntennaHelp from '../../HelpModals/AntennaHelp';
-import SettingsInputAntennaIcon from '@mui/icons-material/SettingsInputAntenna';
 import { PropTypes } from 'prop-types';
 import { useSewApp } from '../../../../../context/sewAppContext';
-import LockIcon from '@mui/icons-material/Lock';
 
 export const AntennaCase = ({ unit }) => {
   const [antColor, setAntColor] = useState('var(--color-status-standby)');
@@ -56,16 +53,19 @@ export const AntennaCase = ({ unit }) => {
   return (
         <EquipmentCase
           title='Antenna'
-          helpTitle='Antenna Help'
-          helpComponent={AntennaHelp}
           unit={unit}
           icon={
             <>
               <RuxTooltip message={antState}>
-                <SettingsInputAntennaIcon sx={{ color: antColor }} />
+                <RuxIcon icon="antenna" size="1.75rem"
+                  style={{ color: antColor, paddingLeft: 'var(--spacing-3)'}}
+                />
+
               </RuxTooltip>
               <RuxTooltip message={lockState}>
-                <LockIcon sx={{ color: lockColor }} />
+                {lockState === 'Locked' ? <RuxIcon icon="lock" size="1.75rem" style={{ color: lockColor, paddingLeft: 'var(--spacing-3)'}}/> : 
+                 <RuxIcon icon="lock-open" size="1.75rem" style={{ color: lockColor, paddingLeft: 'var(--spacing-3)'}}/>
+                }
               </RuxTooltip>
             </>
           }>
