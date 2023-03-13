@@ -7,21 +7,21 @@ import { AstroTheme } from './themes/AstroTheme';
 
 const App = () => {
   return (
-    <ThemeProvider theme={createTheme(AstroTheme)}>
-      <Router basename={`${process.env.PUBLIC_URL}/`}>
-        <Header />
-        <Body>
-          <Routes>
-            <Route path='/' element={<Login />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/student' element={<StudentStack />} />
-            <Route path='/instructor' element={<InstructorStack />} />
-            <Route path='*' element={<Login />} />
-          </Routes>
-        </Body>
-        <Footer />
-      </Router>
-    </ThemeProvider>
+      <ThemeProvider theme={createTheme(AstroTheme)}>
+        <Router basename={`${process.env.PUBLIC_URL}/`}>
+          <Header />
+          <Body>
+            <Routes>
+              <Route path='/' element={<Login />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/student' element={<StudentStack />} />
+              <Route path='/instructor' element={<InstructorStack />} />
+              <Route path='*' element={<Login />} />
+            </Routes>
+          </Body>
+          <Footer />
+        </Router>
+      </ThemeProvider>
   );
 };
 

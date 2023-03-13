@@ -28,20 +28,25 @@ export const AntennaInput = ({ unit }) => {
   const [inputData, setInputData] = useState(sewAppCtx.antenna[antennaIdx]);
 
   const sxButton = {
-    backgroundColor: AstroTheme.palette.tertiary.light3,
-    boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.75)',
-    color: 'black',
+    backgroundColor: AstroTheme.system.colors.backgroundInteractiveDefault,
+    //boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.75)',
+    color: AstroTheme.typography.colors.inverse,
     cursor: 'pointer',
+    textTransform: 'Capitalize',
+    '&:hover': {
+      backgroundColor: AstroTheme.system.colors.backgroundInteractiveHover,
+    }
   };
 
   const sxEnable = {
     marginLeft: '10px',
-    border: '1px solid red',
-    backgroundColor: inputData.operational ? 'red' : AstroTheme.palette.tertiary.light3,
-    color: inputData.operational ? 'white' : 'black',
+    border: inputData.operational ? '1px solid ' + AstroTheme.reference.color.palette.green[500] : '1px solid ' + AstroTheme.system.colors.borderInteractiveDefault,
+    backgroundColor: inputData.operational ? AstroTheme.reference.color.palette.green[500] : AstroTheme.system.colors.backgroundSurfaceDefault,
+    color: inputData.operational ? AstroTheme.typography.colors.black : AstroTheme.typography.colors.interactive,
     '&:hover': {
-      backgroundColor: inputData.operational ? AstroTheme.palette.error.main : AstroTheme.palette.critical.main,
-      color: inputData.operational ? 'black' : 'white',
+      border: inputData.operational ? '1px solid ' + AstroTheme.reference.color.palette.green[400] : '1px solid ' + AstroTheme.system.colors.borderInteractiveHover,
+      backgroundColor: inputData.operational ? AstroTheme.reference.color.palette.green[400] : AstroTheme.system.colors.backgroundSurfaceDefault,
+      color: inputData.operational ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveHover,
     },
   };
 
@@ -172,6 +177,7 @@ export const AntennaInput = ({ unit }) => {
             <Grid item xs={true}>
               <Switch
                 checked={inputData.track}
+                // disabled={ !inputData.operational ? true : false }
                 onChange={() => {
                   if (!inputData.operational) {
                     setErrorActive(true);

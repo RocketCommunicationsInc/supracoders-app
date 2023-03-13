@@ -13,10 +13,10 @@ export const TeamSelect = () => {
 
   return (
     <Grid container item xs={12}>
-      <Grid item xs={4}>
+      <Grid item xs={2} sx={{display: 'flex', justifyContent: 'end',}}>
         <label htmlFor='team'>Team</label>
       </Grid>
-      <Grid item xs={8}>
+      <Grid item xs={10}>
         <select
           name='team'
           type='string'

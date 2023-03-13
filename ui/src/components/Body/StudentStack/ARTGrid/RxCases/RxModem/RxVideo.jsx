@@ -138,7 +138,7 @@ export const RxVideo = ({ currentRow }) => {
         {matchFound && !isDenied && isOperational && isLocked ? (
           <ReactPlayer
             config={{ file: { attributes: { controlsList: 'nodownload' } } }}
-            onContextMenu={(e) => e.preventDefault()}
+            //onContextMenu={(e) => e.preventDefault()}
             url={`./videos/${vidFeed}`}
             width='100%'
             height='100%'
@@ -157,6 +157,7 @@ export const RxVideo = ({ currentRow }) => {
               justifyContent: 'center',
               alignItems: 'center',
               height: '100%',
+              color: 'var(--color-text-primary)'
             }}>
             No Signal
           </Typography>

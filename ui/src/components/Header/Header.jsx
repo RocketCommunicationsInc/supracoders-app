@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -10,7 +10,7 @@ import Logout from '@mui/icons-material/Logout';
 import { AstroTheme } from '../../themes/AstroTheme';
 import './Header.css';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Button, Grid, Modal, Tooltip } from '@mui/material';
+import { Button, Grid, Modal, Tooltip, Switch } from '@mui/material';
 import { sxModal } from '../styles/sxModal';
 
 export const Header = () => {
@@ -23,10 +23,23 @@ export const Header = () => {
     navigate('/');
   };
 
+  /*Add Theme Switcher*/
+  const [checked, setChecked] = useState(false);
+  useEffect(()=>{
+    const body = document.querySelector('body');
+    if(checked){
+      body.classList.add('light-theme')
+    } else {
+      body.classList.remove('light-theme')
+    } 
+  },[checked])
+
+  const light = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Brightness 5</title><path fillRule="evenodd" d="m22.6 12.71-2.6 2.6V19c0 .55-.45 1-1 1h-3.7l-2.6 2.6a.996.996 0 0 1-1.41 0L8.69 20H5c-.55 0-1-.45-1-1v-3.7l-2.6-2.6a.996.996 0 0 1 0-1.41L4 8.69V5c0-.55.45-1 1-1h3.69l2.61-2.6a.996.996 0 0 1 1.41 0l2.6 2.6H19c.55 0 1 .45 1 1v3.69l2.6 2.61c.39.39.39 1.02 0 1.41ZM6 12c0 3.31 2.69 6 6 6s6-2.69 6-6-2.69-6-6-6-6 2.69-6 6Z"></path><metadata>5, brightness, circle, control, crescent, level, moon, screen, sun</metadata></svg>
+  const dark = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Brightness 4</title><path fillRule="evenodd" d="m20 8.69 2.6 2.6c.39.39.39 1.03 0 1.42l-2.6 2.6V19c0 .55-.45 1-1 1h-3.7l-2.6 2.6a.996.996 0 0 1-1.41 0L8.69 20H5c-.55 0-1-.45-1-1v-3.7l-2.6-2.6a.996.996 0 0 1 0-1.41L4 8.69V5c0-.55.45-1 1-1h3.69l2.61-2.6a.996.996 0 0 1 1.41 0l2.6 2.6H19c.55 0 1 .45 1 1v3.69Zm-5.96 8.95a5.997 5.997 0 0 0 3.88-4.66c.05-.33.07-.66.08-.98 0-.32-.02-.65-.07-.98-.34-2.12-1.86-3.94-3.88-4.66a6.032 6.032 0 0 0-3.5-.18c-.42.11-.48.66-.13.9A5.97 5.97 0 0 1 13 12c0 2.04-1.02 3.84-2.59 4.92-.35.25-.28.8.13.9 1.09.27 2.29.25 3.5-.18Z"></path><metadata>4, brightness, circle, control, crescent, level, moon, screen, sun</metadata></svg>
   return (
     <>
       <Modal open={isHelpModalActive} onClose={() => setIsHelpModalActive(false)}>
-        <Box sx={{ ...sxModal, ...{ color: AstroTheme.palette.tertiary.light4 } }}>
+        <Box sx={{ ...sxModal, ...{ color: AstroTheme.typography.colors.primary } }}>
           <Typography m={1} variant='h3'>
             IRIS Space Electronic Warfare Sandbox
           </Typography>
@@ -77,7 +90,7 @@ export const Header = () => {
         </Box>
       </Modal>
       <AppBar className={'appBar'} position='static'>
-        <Toolbar sx={{ backgroundColor: theme.palette.tertiary.dark }}>
+        <Toolbar sx={{ backgroundColor: theme.system.colors.backgroundBaseHeader }}>
           <Grid container>
             <Grid item xs={'auto'}>
               <Tooltip title='Home' placement='bottom'>
@@ -88,12 +101,12 @@ export const Header = () => {
             </Grid>
             <Grid item xs={true} container spacing={1}>
               <Grid item xs={12} mt={-1} mb={-5}>
-                <Typography fontSize={'64px'} fontFamily={'Nasa'}>
+                <Typography fontSize={'64px'} fontFamily={'Nasa'} color={AstroTheme.typography.colors.primary}>
                   IRIS
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Typography fontSize={'24px'} sx={{ fontFamily: 'Nasa', color: AstroTheme.palette.tertiary.light3 }}>
+                <Typography fontSize={'24px'} sx={{ fontFamily: 'Nasa', color: AstroTheme.typography.colors.secondary }}>
                   Space Electronic Warfare Sandbox
                 </Typography>
               </Grid>
@@ -107,8 +120,13 @@ export const Header = () => {
                 justifyContent: 'flex-end',
                 alignItems: 'center',
               }}>
+                <span className="switch-indicator" style={{height: '2.25rem', width: '2.25rem'}}>{checked ? light : dark}</span>
+              <Switch
+              id="light-dark-switch"
+              checked={checked}
+              onClick={()=>setChecked(!checked)} />
               <Tooltip title='View Code on Github' placement='bottom'>
-                <IconButton target='_blank' href='http://github.com/thkruz/iris' size='large' color='inherit'>
+                <IconButton target='_blank' href='http://github.com/thkruz/iris' size='large' sx={{ color: AstroTheme.typography.colors.primary}}>
                   <GitHubIcon />
                 </IconButton>
               </Tooltip>
@@ -118,13 +136,13 @@ export const Header = () => {
                   onClick={() => {
                     setIsHelpModalActive(true);
                   }}
-                  color='inherit'>
+                  sx={{ color: AstroTheme.typography.colors.primary}}>
                   <HelpCenterIcon />
                 </IconButton>
               </Tooltip>
               {state?.isAuthenticated && (
                 <Tooltip title='Logout' placement='bottom'>
-                  <IconButton size='large' onClick={handleLogout} color='inherit'>
+                  <IconButton size='large' onClick={handleLogout} sx={{ color: AstroTheme.typography.colors.primary}}>
                     <Logout />
                   </IconButton>
                 </Tooltip>

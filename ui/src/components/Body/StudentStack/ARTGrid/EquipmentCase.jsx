@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Grid, IconButton, Tooltip } from '@mui/material';
+import { AstroTheme } from '../../../../themes/AstroTheme';
 import { EquipmentCaseId } from './EquipmentCaseId';
 import { InstructionsIcon } from '../HelpModals/InstructionsIcon';
 import { sxEquipmentCase } from '../../../styles';
@@ -21,7 +22,11 @@ export const EquipmentCase = ({ children, helpTitle, helpComponent, unit, icon }
           </Grid>
           <Grid item xs={'auto'} ml={0}>
             <Tooltip title={helpTitle} placement='top'>
-              <IconButton
+              <IconButton sx={{
+                '& svg': {
+                  color: AstroTheme.system.colors.backgroundInteractiveDefault,
+                } 
+              }}
                 onClick={() => {
                   setHelpState(true);
                 }}>

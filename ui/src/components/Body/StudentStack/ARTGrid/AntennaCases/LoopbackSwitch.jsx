@@ -21,32 +21,33 @@ export const LoopbackSwitch = ({ unit }) => {
   const antennaIdx = sewAppCtx.antenna.map((x) => x.id).indexOf(unitData[0].id);
 
   const sxHPA = {
-    marginTop: '5px',
-    backgroundColor: sewAppCtx.antenna[antennaIdx].hpa ? 'red' : AstroTheme.palette.tertiary.light3,
-    color: sewAppCtx.antenna[antennaIdx].hpa ? 'white' : 'black',
-    boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.5)',
-    border: '1px solid red',
+    marginTop: AstroTheme.reference.spacing[4],
+    width: 'fit-content',
+    border: sewAppCtx.antenna[antennaIdx].hpa ? '1px solid ' + AstroTheme.reference.color.palette.green[500] : '1px solid ' + AstroTheme.system.colors.borderInteractiveDefault,
+    backgroundColor: sewAppCtx.antenna[antennaIdx].hpa ? AstroTheme.reference.color.palette.green[500] : "none",
+    color: sewAppCtx.antenna[antennaIdx].hpa ? AstroTheme.typography.colors.black : AstroTheme.typography.colors.interactive,
     '&:hover': {
-      backgroundColor: sewAppCtx.antenna[antennaIdx].hpa
-        ? AstroTheme.palette.error.main
-        : AstroTheme.palette.critical.main,
-      color: sewAppCtx.antenna[antennaIdx].hpa ? 'black' : 'white',
+      border: sewAppCtx.antenna[antennaIdx].hpa ? '1px solid ' + AstroTheme.reference.color.palette.green[400] : '1px solid ' + AstroTheme.system.colors.borderInteractiveHover,
+      backgroundColor: sewAppCtx.antenna[antennaIdx].hpa ? AstroTheme.reference.color.palette.green[400] : "none",
+      color: sewAppCtx.antenna[antennaIdx].hpa ? AstroTheme.typography.colors.black : AstroTheme.system.colors.backgroundInteractiveHover,
     },
   };
   const sxTx = {
-    backgroundColor: sewAppCtx.antenna[antennaIdx].loopback
-      ? AstroTheme.palette.tertiary.light2
+    color: sewAppCtx.antenna[antennaIdx].loopback
+      ? AstroTheme.palette.disabled.main
       : sewAppCtx.antenna[antennaIdx].hpa
-      ? 'red'
-      : 'green',
-    borderRadius: '10px',
+      ? AstroTheme.palette.normal.main
+      : AstroTheme.palette.critical.main,
+    borderRadius: AstroTheme.reference.radius.circle,
+    padding: AstroTheme.reference.spacing[1],
   };
 
   const sxLoopback = {
-    width: '100px',
-    backgroundColor: AstroTheme.palette.tertiary.light3,
-    border: '1px solid' + AstroTheme.palette.tertiary.light,
-    padding: '10px 30px',
+    width: 'calc(var(--spacing-1) + var(--spacing-24))',
+    backgroundColor: AstroTheme.system.colors.backgroundBaseDefault,
+    border: '1px solid ' + AstroTheme.component.card.cardColorBorder,
+    //padding: '10px 30px',
+    padding: 'calc(var(--spacing-050) + var(--spacing-2)) calc(var(--spacing-2) + var(--spacing-6))',
     marginTop: '-1px',
     marginBottom: '-1px',
     display: 'flex',
@@ -81,11 +82,11 @@ export const LoopbackSwitch = ({ unit }) => {
   return (
     <Box sx={sxLoopback}>
       <Tooltip title='Intermediate Frequency'>
-        <Typography align='center'>IF</Typography>
+        <Typography sx={{ padding: AstroTheme.reference.spacing[1] }} align='center'>IF</Typography>
       </Tooltip>
       <Box sx={sxLoopbackSwitch} width={'100%'}>
         <Tooltip title='Loopback'>
-          <SettingsBackupRestoreIcon />
+          <SettingsBackupRestoreIcon sx={{ padding: AstroTheme.reference.spacing[1] }} />
         </Tooltip>
         <IconButton
           onClick={toggleSwitch}
@@ -107,7 +108,7 @@ export const LoopbackSwitch = ({ unit }) => {
         </Tooltip>
       </Box>
       <Tooltip title='Ground'>
-        <AlignHorizontalCenterIcon />
+        <AlignHorizontalCenterIcon sx={{ padding: AstroTheme.reference.spacing[1] }} />
       </Tooltip>
       <Tooltip
         title={!sewAppCtx.antenna[antennaIdx].hpa ? 'Enable High Powered Amplifier' : 'Disable High Powered Amplifier'}>

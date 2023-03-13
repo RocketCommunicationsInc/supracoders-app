@@ -9,7 +9,7 @@ export const RxModemButton = ({ modemId, isActive, updateActiveModem }) => {
   const [playSelectSound] = useSound(selectSound);
   return (
     <Tooltip title={`Receive Modem ${modemId}`}>
-      <Button
+      <Button size="large"
         sx={sxRxModemButton({ isActive })}
         onClick={() => {
           playSelectSound();

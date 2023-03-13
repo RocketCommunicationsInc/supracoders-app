@@ -26,10 +26,10 @@ export const ServerSelect = () => {
 
   return (
     <Grid container item xs={12}>
-      <Grid item xs={4}>
+      <Grid item xs={2} sx={{display: 'flex',justifyContent: 'end',}}>
         <label htmlFor='server'>Server</label>
       </Grid>
-      <Grid item xs={8}>
+      <Grid item xs={10}>
         <select
           name='server'
           type='string'
