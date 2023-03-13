@@ -62,7 +62,6 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
       sewAppCtx.updateTx(tmpData);
       setModemPower(newModemPower);
       setRawPower(newRawPower)
-      console.log(newModemPower)
       CRUDdataTable({ method: 'PATCH', path: 'transmitter', data: tmpData[currentRow] });
     } else {
       setErrorActive(true);
@@ -81,7 +80,6 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
     if (validatePowerConsumption()) {
       tmpData[currentRow].transmitting = !tmpData[currentRow].transmitting;
       sewAppCtx.updateTx(tmpData);
-      // console.log('CRUD Tx: ', tmpData[currentRow]);
       CRUDdataTable({ method: 'PATCH', path: 'transmitter', data: tmpData[currentRow] });
     } else {
       setErrorActive(true);
@@ -212,11 +210,11 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
           </Grid>
           <Grid container item xs={12} alignItems='center' justify='center'>
             <Grid item xs={true}>
-              {Math.min(100, rawPower) >= MED && Math.min(100, rawPower) < HIGH && <p className='progress-error' style={{ color: 'var(--color-text-error)', fontWeight: '700', marginBottom: '0', marginLeft: 'calc(var(--spacing-16) + var(--spacing-2))' }}>*Power warning</p>}
+              {Math.min(100, rawPower) >= MED && Math.min(100, rawPower) < HIGH && <p className='progress-error'>*Power warning</p>}
               {Math.min(100, rawPower) >= HIGH && (
                 rawPower > 100 
-                ? <p className='progress-error' style={{ color: 'var(--color-text-error)', fontWeight: '700', marginBottom: '0', marginLeft: 'calc(var(--spacing-16) + var(--spacing-2))' }}>*Power exceeded</p>
-                : <p className='progress-error' style={{ color: 'var(--color-text-error)', fontWeight: '700', marginBottom: '0', marginLeft: 'calc(var(--spacing-16) + var(--spacing-2))' }}>*Power critical</p>
+                ? <p className='progress-error'>*Power exceeded</p>
+                : <p className='progress-error'>*Power critical</p>
               )}
             </Grid>
           </Grid>

@@ -1,9 +1,9 @@
-rux-button.isActive::part(container){
+rux-button.isActive::part(container) {
   outline: var(--border-width-focus-default) solid var(--color-border-focus-default);
   outline-offset: var(--spacing-focus-default);
 }
 
-rux-button.isTransmitting::part(container){
+rux-button.isTransmitting::part(container) {
   background: var(--color-palette-green-500);
   box-shadow: var(--color-palette-green-500);
   color: var(--color-text-black);
@@ -13,19 +13,26 @@ rux-push-button::part(container) {
   min-width: var(--spacing-14);
 }
 
-.modemButtonBox{
-    display: flex;
-    height: calc(100% + 2rem);
-    margin-top: -1rem;
+.modemButtonBox {
+  display: flex;
+  height: calc(100% + 2rem);
+  margin-top: -1rem;
 }
-.modemButtonBox::part(container){
+.modemButtonBox::part(container) {
   background: var(--color-background-base-default);
   border: none;
-  display:flex;
+  display: flex;
 }
-.modemButtonBox::part(body){
-  display:flex;
+.modemButtonBox::part(body) {
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-self: stretch;
+}
+
+.progress-error {
+  color: var(--color-text-error);
+  font-weight: 700;
+  margin-bottom: 0;
+  margin-left: calc(var(--spacing-16) + var(--spacing-2));
 }

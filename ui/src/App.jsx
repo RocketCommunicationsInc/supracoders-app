@@ -8,7 +8,7 @@ import { AstroTheme } from './themes/AstroTheme';
 const App = () => {
   return (
     <ThemeProvider theme={createTheme(AstroTheme)}>
-      <Router basename={`${process.env.PUBLIC_URL}/`}>
+      <Router>
         <Header />
         <Body>
           <Routes>
