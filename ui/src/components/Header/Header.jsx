@@ -1,6 +1,6 @@
 import React, { useEffect, useState }from 'react';
 import { RuxDialog, RuxGlobalStatusBar, RuxTooltip, RuxButton, RuxIcon, RuxSwitch } from '@astrouxds/react'
-import { RuxIconAntenna, RuxIconLockOpen, RuxIconLock, RuxIconHelpOutline } from '@astrouxds/react/dist/components';
+import { RuxIconAntenna, RuxIconLockOpen, RuxIconLock, RuxIconHelpOutline, RuxIconWarning, RuxIconSignalCellularAlt, RuxIconAntennaTransmit, RuxIconExitToApp, RuxIconClose, RuxIconWbSunny, RuxIconBrightness3 } from '@astrouxds/react/dist/components';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import './Header.css';
@@ -38,7 +38,7 @@ export const Header = () => {
 
   return (
     <>
-      <RuxIconAntenna /><RuxIconLock /><RuxIconLockOpen /><RuxIconHelpOutline />
+      <span style={{display: 'none'}}><RuxIconAntenna /><RuxIconLock /><RuxIconLockOpen /><RuxIconHelpOutline /><RuxIconSignalCellularAlt /><RuxIconWarning /><RuxIconExitToApp /><RuxIconAntennaTransmit /><RuxIconClose /><RuxIconWbSunny /><RuxIconBrightness3 /></span>
       <RuxDialog clickToClose header='IRIS Space Electronic Warfare Sandbox' class="main-help">
         <div>
           <Typography m={1} variant='h5'>
