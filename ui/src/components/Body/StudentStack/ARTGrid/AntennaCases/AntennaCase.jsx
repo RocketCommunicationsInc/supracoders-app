@@ -52,6 +52,8 @@ export const AntennaCase = ({ unit }) => {
   }, [sewAppCtx.antenna]);
 
   return (
+    <>
+    <RuxIconAntenna /><RuxIconLock /><RuxIconLockOpen />
         <EquipmentCase
           title='Antenna'
           unit={unit}
@@ -72,6 +74,7 @@ export const AntennaCase = ({ unit }) => {
           }>
           <AntennaController unit={unit} />
         </EquipmentCase>
+        </>
   );
 };
 AntennaCase.propTypes = {
