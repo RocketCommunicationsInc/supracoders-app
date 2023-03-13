@@ -60,6 +60,7 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
     ) {
       sewAppCtx.updateTx(tmpData);
       setModemPower(newModemPower);
+      console.log(newModemPower)
       CRUDdataTable({ method: 'PATCH', path: 'transmitter', data: tmpData[currentRow] });
     } else {
       setErrorActive(true);

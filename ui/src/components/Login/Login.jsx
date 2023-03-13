@@ -28,10 +28,10 @@ export const Login = () => {
               <TeamSelect />
               <ServerSelect />
               <JoinButton />
+              <RuxIcon icon="star" size="4rem" />
             </Grid>
           </Box>
         </RuxCard>
-        <RuxIcon icon="star" size="4rem" />
       </RuxContainer>
   );
 };
