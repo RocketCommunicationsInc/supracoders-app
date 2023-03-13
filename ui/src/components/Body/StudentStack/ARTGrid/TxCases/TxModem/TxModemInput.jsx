@@ -21,6 +21,7 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
   const [isErrorActive, setErrorActive] = useState(false);
   const [inputData, setInputData] = useState(sewAppCtx.tx[currentRow]);
   const [modemPower, setModemPower] = useState(inputData.bandwidth * Math.pow(10, (120 + inputData.power) / 10));
+  const [rawPower, setRawPower] = useState(Math.round((100 * (inputData.bandwidth * Math.pow(10, (120 + inputData.power) / 10)))) / powerBudget);
 
   // const MED = 75;
   // const HIGH = 90;
@@ -31,6 +32,7 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
     const newInputData = sewAppCtx.tx[currentRow];
     setInputData(newInputData);
     setModemPower(newInputData.bandwidth * Math.pow(10, (120 + newInputData.power) / 10));
+    setRawPower(Math.round((100 * (newInputData.bandwidth * Math.pow(10, (120 + newInputData.power) / 10)))) / powerBudget)
   }, [currentRow]);
 
   const handleInputChange = ({ param, val }) => {
@@ -53,6 +55,8 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
     let tmpData = [...sewAppCtx.tx];
     tmpData[currentRow] = { ...inputData };
     const newModemPower = inputData.bandwidth * Math.pow(10, (120 + inputData.power) / 10)
+    const newRawPower =  Math.round((100 * newModemPower) / powerBudget)
+    console.log(newRawPower)
 
     if (
       validatePowerConsumption(newModemPower) ||
@@ -60,6 +64,7 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
     ) {
       sewAppCtx.updateTx(tmpData);
       setModemPower(newModemPower);
+      setRawPower(newRawPower)
       console.log(newModemPower)
       CRUDdataTable({ method: 'PATCH', path: 'transmitter', data: tmpData[currentRow] });
     } else {
@@ -205,7 +210,7 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
             <Grid item xs={true} sx={{ display: 'flex', paddingTop: 'var(--spacing-2)' }}>
               <span style={{ marginRight: 'var(--spacing-2)', minWidth: 'calc(var(--spacing-16) + var(--spacing-2))', marginBottom: 'var(--spacing-0)', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', }}>Power %</span>
               {/* <Box sx={{ width: rawPw < 100 ? '100%' : 'auto', mr: 1, ml: 1 }}> */}
-              <RuxProgress value={Math.min(100, Math.round((100 * modemPower) / powerBudget))} style={{ width: '100%' }}  />
+              <RuxProgress value={Math.min(100, rawPower)} style={{ width: '100%' }}  />
                 {/* {pw < MED ? <RuxProgress value={Math.min(100, Math.round((100 * modemPower) / powerBudget))}  /> : null}
                 {pw >= MED && pw < HIGH ? <RuxProgress value={Math.min(100, Math.round((100 * modemPower) / powerBudget))} color={'error'} hideLabel /> : null}
                 {pw >= HIGH ? (

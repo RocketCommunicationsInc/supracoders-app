@@ -1,5 +1,5 @@
 import React from 'react';
-import { RuxContainer, RuxCard, RuxIcon } from '@astrouxds/react'
+import { RuxContainer, RuxCard, RuxIconStar } from '@astrouxds/react'
 import Box from '@mui/material/Box';
 import { Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -28,7 +28,7 @@ export const Login = () => {
               <TeamSelect />
               <ServerSelect />
               <JoinButton />
-              <RuxIcon icon="star" size="4rem" />
+              <RuxIconStar icon="star" />
             </Grid>
           </Box>
         </RuxCard>
