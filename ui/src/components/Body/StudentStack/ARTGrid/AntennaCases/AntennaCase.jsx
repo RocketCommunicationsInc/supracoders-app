@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { RuxTooltip, RuxIcon } from '@astrouxds/react'
+// eslint-disable-next-line no-unused-vars
+import { RuxTooltip, RuxIcon, RuxIconAntenna, RuxIconLockOpen } from '@astrouxds/react'
 import { AntennaController } from '../../../..';
 import { EquipmentCase } from '../EquipmentCase';
 import { PropTypes } from 'prop-types';

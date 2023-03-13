@@ -2,13 +2,11 @@ import { createTheme, ThemeProvider } from '@mui/material';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { StudentStack, InstructorStack, Body, Header, Footer } from './components';
-import { RuxIcon } from '@astrouxds/react';
 import Login from './components/Login/Login';
 import { AstroTheme } from './themes/AstroTheme';
 
 const App = () => {
   return (
-    <>
     <ThemeProvider theme={createTheme(AstroTheme)}>
       <Router basename={`${process.env.PUBLIC_URL}/`}>
         <Header />
@@ -24,8 +22,6 @@ const App = () => {
         <Footer />
       </Router>
     </ThemeProvider>
-    <RuxIcon icon="star" />
-    </>
   );
 };
 
