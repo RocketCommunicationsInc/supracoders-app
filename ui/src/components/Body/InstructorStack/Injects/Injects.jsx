@@ -21,9 +21,11 @@ export const Injects = () => {
   const [activeModem, setActiveModem] = useState(0);
 
   const sxCaseId = {
-    color: 'white',
-    margin: '8px',
+    color: 'var(--color-text-primary)',
+    margin: 'var(--spacing-2',
+    marginTop: 'var(--spacing-4)',
     textAlign: 'center',
+    lineHeight: 'var(--spacing-8)'
   };
   const sxValues = {
     fontWeight: 'bold',
@@ -45,12 +47,12 @@ export const Injects = () => {
   const sidebar = [];
   ['S', 'I', 'G', 'N', 'A', 'L', 'S'].forEach((x, index) => {
     sidebar.push(
-      <Typography key={index}>
+      <div key={index}>
               {x}
-      </Typography>
+      </div>
     );
   });
-  const RxCaseId = () => <Box sx={sxCaseId}>{sidebar}</Box>;
+  const RxCaseId = () => <div style={sxCaseId}>{sidebar}</div>;
   // Modem selector buttons
   const RxModemButtonBox = () => (
     <RuxContainer class="modem-button-box">

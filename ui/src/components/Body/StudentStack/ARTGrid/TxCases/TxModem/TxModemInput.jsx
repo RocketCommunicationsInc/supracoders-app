@@ -198,6 +198,23 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
               <Typography>Power %</Typography>
             </Grid>
             <Grid item xs={true}>
+              {/* <Box sx={{ width: rawPw < 100 ? '100%' : 'auto', mr: 1, ml: 1 }}>
+                {pw < MED ? <RuxProgress value={pw} hideLabel /> : null}
+                {pw >= MED && pw < HIGH ? <RuxProgress value={pw} color={'error'} hideLabel /> : null}
+                {pw >= HIGH ? (
+                  rawPw > 100 
+                  ? <RuxIndeterminateProgress
+                    {...props}
+                    value={pw}
+                    color={'critical'}
+                  ></RuxIndeterminateProgress> 
+                  : <RuxProgress
+                    {...props}
+                    value={pw}
+                    color={'critical'}
+                  ></RuxProgress>
+                ) : null}
+              </Box> */}
               <LinearProgressWithLabel value={Math.round((100 * modemPower) / powerBudget)} />
             </Grid>
           </Grid>

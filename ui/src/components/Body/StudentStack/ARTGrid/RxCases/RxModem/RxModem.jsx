@@ -49,7 +49,7 @@ export const RxModem = ({ unitData, activeModem, currentRow }) => {
 
 RxModem.propTypes = {
   unit: PropTypes.number,
-  unitData: PropTypes.object,
+  unitData: PropTypes.array,
   activeModem: PropTypes.number,
   currentRow: PropTypes.number,
   tmpRxData: PropTypes.array,

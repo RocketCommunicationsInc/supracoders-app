@@ -4,37 +4,37 @@ input {
   box-sizing: border-box;
   margin-left: var(--spacing-2);
   margin-right: var(--spacing-2);
-  justify-self: end;
+  justify-self: flex-end;
   text-align: center;
 }
 
 label {
-  justify-self: end;
+  justify-self: flex-end;
   align-self: center;
 }
 
-.modemButtonBox{
+.modemButtonBox {
   display: flex;
   height: calc(100% + 2rem);
   margin-top: -1rem;
 }
-.modemButtonBox::part(container){
-background: var(--color-background-base-default);
-border: none;
-display: flex;
+.modemButtonBox::part(container) {
+  background: var(--color-background-base-default);
+  border: none;
+  display: flex;
 }
-.modemButtonBox::part(body){
-display:flex;
-flex-direction: column;
-justify-content: space-between;
-align-self: stretch;
+.modemButtonBox::part(body) {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: stretch;
 }
 
 rux-button::part(container) {
   min-width: 42px;
 }
 
-rux-button.isActive::part(container){
+rux-button.isActive::part(container) {
   outline: var(--border-width-focus-default) solid var(--color-border-focus-default);
   outline-offset: var(--spacing-focus-default);
 }

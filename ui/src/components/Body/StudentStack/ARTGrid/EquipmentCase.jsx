@@ -6,11 +6,12 @@ import './equipmentCase.css';
 export const EquipmentCase = ({ children, title, unit, icon, tabs }) => {
 
   return (
-      <RuxCard className="container_equipment-case">
+      <RuxCard className={ tabs ? 'container_equipment-case tab-case' : 'container_equipment-case'} style={{overflow: 'hidden'}}>
         <div slot="header">
           <div style={{ display: 'flex', alignItems: 'center', }}>
-            {title + ` ` + unit} {icon}</div>
-          <div className="tabs">{tabs}</div>
+            {title + ` ` + unit} {icon}
+          </div>
+          { tabs ? <div className="tabs">{tabs}</div> : null}
         </div>
         <Grid container>
           <Grid item xs={true}>

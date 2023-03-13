@@ -274,7 +274,7 @@ export const SpectrumAnalyzerBox = (props) => {
                   }}>
                   Config
                 </RuxButton>
-                <RuxButton icon={sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause ? 'play-arrow' : 'pause'} onClick={() => handlePauseClicked()} />
+                <RuxButton icon-only icon={sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause ? 'play-arrow' : 'pause'} onClick={() => handlePauseClicked()} />
             </RuxButtonGroup>
           </div>
         </div>

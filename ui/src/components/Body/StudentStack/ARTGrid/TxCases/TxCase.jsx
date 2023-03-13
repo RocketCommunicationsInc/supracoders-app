@@ -18,7 +18,6 @@ export const TxCase = ({ unit }) => {
           tx.id === (unit - 1) * 4 + 4
       )
       .filter((tx) => tx.transmitting).length > 0;
-      console.log(sewAppCtx.tx)
 
       const [activeModem, setActiveModem] = useState(1);
       const [currentRow, setCurrentRow] = useState(1);
@@ -59,13 +58,13 @@ export const TxCase = ({ unit }) => {
           />
         }
         >
-          <RuxTabPanels ariaLabelledby={`modem-case-${unit}`}>
+          <RuxTabPanels ariaLabelledby={`tx-modem-case-${unit}`}>
             {unitData
               .sort((a, b) => a.id - b.id)
               .map((x, index) => {
                 if (x.unit == unit) {
                   return (
-                  <RuxTabPanel key={index} ariaLabelledby={`modem-${x.modem_number}`} style={{ display: 'flex' }}>
+                  <RuxTabPanel key={index} ariaLabelledby={`tx-modem-${x.modem_number}`} style={{ display: 'flex' }}>
                     <h2 style={{ fontFamily: 'Nasa', minWidth: 'calc(var(--spacing-1) * 5)', textAlign: 'center'}}>{x.modem_number}</h2>
                     <TxModem
                      unitData={unitData} activeModem={activeModem} currentRow={currentRow} />

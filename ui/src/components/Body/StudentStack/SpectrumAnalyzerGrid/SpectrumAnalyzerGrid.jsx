@@ -79,7 +79,10 @@ export const SpectrumAnalyzerGrid = () => {
       </Grid>
       </RuxContainer>
       {isConfigOpen ? (
-        <RuxDialog open={isConfigOpen} clickToClose onRuxdialogclosed={() => setIsConfigOpen(false)} header='Spectrum Analyzer Config' class="analyzer-config">
+        <RuxDialog open={isConfigOpen} clickToClose onRuxdialogclosed={() => setIsConfigOpen(false)} className="analyzer-config">
+          <div slot="header" className="header">
+            <span>Spectrum Analyzer Config</span><RuxIcon icon="close" size="var(--font-heading-2-font-size)"  onClick={()=>setIsConfigOpen(false)} />
+          </div>
           <AnalyzerControl currentSpecAnalyzer={currentSpecAnalyzer} handleBackgroundClick={handleBackgroundClick} />
         </RuxDialog>
       ) : null}

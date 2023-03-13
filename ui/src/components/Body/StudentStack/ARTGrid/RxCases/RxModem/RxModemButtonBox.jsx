@@ -7,7 +7,7 @@ import { RxModemButton } from './RxModemButton';
 
 export const RxModemButtonBox = ({ unitData, unit, activeModem, updateActiveModem }) => {
   return (
-    <RuxTabs small id={`modem-case-${unit}`}>
+    <RuxTabs small id={`rx-modem-case-${unit}`}>
       {unitData
         .sort((a, b) => a.id - b.id)
         .map((x, index) => {

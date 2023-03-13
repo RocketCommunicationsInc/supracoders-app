@@ -13,7 +13,7 @@ export const RxModemButton = ({ modemId, isActive, updateActiveModem }) => {
 
   return (
     <RuxTab 
-      id={`modem-${modemId}`} 
+      id={`rx-modem-${modemId}`} 
       onClick={() => {
         playSelectSound();
         updateActiveModem(modemId);

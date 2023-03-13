@@ -1,15 +1,16 @@
 .antenna_card::part(body) {
-    padding: var(--spacing-050);
+  padding: var(--spacing-050);
 }
 
 .loopback_container {
-    display: flex;
-    width: 240px;
-    margin-top: -1rem;
+  display: flex;
+  width: 240px;
+  margin-top: -1rem;
+  padding-top: var(--spacing-4);
 }
 
 .loopback_container::part(container) {
-    background: var(--color-background-surface-default);
-    border: none;
-    display: flex;
+  background: var(--color-background-surface-default);
+  border: none;
+  display: flex;
 }
