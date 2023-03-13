@@ -4,10 +4,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { StudentStack, InstructorStack, Body, Header, Footer } from './components';
 import Login from './components/Login/Login';
 import { AstroTheme } from './themes/AstroTheme';
+import { AppIcons } from './AppIcons';
 
 const App = () => {
   return (
     <ThemeProvider theme={createTheme(AstroTheme)}>
+      <AppIcons />
       <Router>
         <Header />
         <Body>
