@@ -1,9 +1,9 @@
 import React from 'react';
-import { RuxCard, RuxButton, RuxTooltip, RuxSwitch } from '@astrouxds/react'
+import { RuxCard, RuxButton, RuxTooltip, RuxSwitch, RuxIcon } from '@astrouxds/react'
 import PropTypes from 'prop-types';
 import { Box, Typography } from '@mui/material';
-import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore';
-import CellTowerIcon from '@mui/icons-material/CellTower';
+// import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore';
+// import CellTowerIcon from '@mui/icons-material/CellTower';
 import AlignHorizontalCenterIcon from '@mui/icons-material/AlignHorizontalCenter';
 import { useSewApp } from '../../../../../context/sewAppContext';
 import { CRUDdataTable } from '../../../../../crud/crud';
@@ -21,16 +21,11 @@ export const LoopbackSwitch = ({ unit }) => {
   const antennaIdx = sewAppCtx.antenna.map((x) => x.id).indexOf(unitData[0].id);
 
   const sxTx = {
-    backgroundColor: sewAppCtx.antenna[antennaIdx].loopback
+    color: sewAppCtx.antenna[antennaIdx].loopback
       ? 'var(--color-status-off)'
       : sewAppCtx.antenna[antennaIdx].hpa
       ? 'var(--color-status-critical)'
       : 'var(--color-status-normal)',
-    color: sewAppCtx.antenna[antennaIdx].loopback
-      ? 'var(--color-text-primary)'
-      : sewAppCtx.antenna[antennaIdx].hpa
-      ? 'var(--color-text-primary)'
-      : 'var(--color-text-inverse)',
     borderRadius: 'var(--radius-circle)',
   };
 
@@ -61,12 +56,12 @@ export const LoopbackSwitch = ({ unit }) => {
   return (
     <RuxCard className='loopback_container'>
       <p style={{ textAlign: 'center' }}>Pathway Switch</p>
-        <RuxTooltip style={{ display: 'flex', }} message='Intermediate Frequency'>
+        <RuxTooltip style={{ display: 'flex' }} message='Intermediate Frequency'>
           <Typography align='center'>IF</Typography>
         </RuxTooltip>
         <Box sx={sxLoopbackSwitch} width={'100%'}>
           <RuxTooltip message='Loopback'>
-            <SettingsBackupRestoreIcon />
+            <RuxIcon icon="loop" size="24px" style={{ color: 'var(--color-text-primary)' }} />
           </RuxTooltip>
           <RuxButton
             borderless
@@ -79,7 +74,8 @@ export const LoopbackSwitch = ({ unit }) => {
             />
           </RuxButton>
           <RuxTooltip message='Antenna'>
-            <CellTowerIcon sx={sxTx} />
+            <RuxIcon icon="antenna" size="24px" style={ sxTx } />
+            {/* <CellTowerIcon sx={sxTx} /> */}
           </RuxTooltip>
         </Box>
         <RuxTooltip message='Ground' style={{ display: 'flex', }}>
