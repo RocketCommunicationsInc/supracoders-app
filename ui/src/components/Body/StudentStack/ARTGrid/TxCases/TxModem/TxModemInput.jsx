@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { RuxButton, RuxPushButton, RuxSelect, RuxOption, RuxInput } from '@astrouxds/react'
+import { RuxButton, RuxPushButton, RuxSelect, RuxOption, RuxInput, RuxProgress } from '@astrouxds/react'
 import { Box, Grid, Typography, Card } from '@mui/material';
 import { useSewApp } from '../../../../../../context/sewAppContext';
 import { CRUDdataTable } from '../../../../../../crud';
@@ -7,7 +7,7 @@ import { sxModalError, outputStyle } from '../../../../../styles';
 import { breakerSound, errorSound, selectSound } from '../../../../../../audio';
 import { useSound } from 'use-sound';
 import { PropTypes } from 'prop-types';
-import { LinearProgressWithLabel } from './LinearProgressWithLabel';
+// import { LinearProgressWithLabel } from './LinearProgressWithLabel';
 
 const popupTimeoutTime = 3000;
 let errorResetTimeout;
@@ -22,9 +22,15 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
   const [inputData, setInputData] = useState(sewAppCtx.tx[currentRow]);
   const [modemPower, setModemPower] = useState(inputData.bandwidth * Math.pow(10, (120 + inputData.power) / 10));
 
+  // const MED = 75;
+  // const HIGH = 90;
+  // let rawPw = Math.round((100 * modemPower) / powerBudget);
+  // let pw = Math.min(100, rawPw);
+
   useEffect(() => {
-    setInputData(sewAppCtx.tx[currentRow]);
-    setModemPower(inputData.bandwidth * Math.pow(10, (120 + inputData.power) / 10));
+    const newInputData = sewAppCtx.tx[currentRow];
+    setInputData(newInputData);
+    setModemPower(newInputData.bandwidth * Math.pow(10, (120 + newInputData.power) / 10));
   }, [currentRow]);
 
   const handleInputChange = ({ param, val }) => {
@@ -46,13 +52,14 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
     playSelectSound();
     let tmpData = [...sewAppCtx.tx];
     tmpData[currentRow] = { ...inputData };
+    const newModemPower = inputData.bandwidth * Math.pow(10, (120 + inputData.power) / 10)
 
     if (
-      validatePowerConsumption(inputData.bandwidth * Math.pow(10, (120 + inputData.power) / 10)) ||
+      validatePowerConsumption(newModemPower) ||
       !tmpData[currentRow].transmitting
     ) {
       sewAppCtx.updateTx(tmpData);
-      setModemPower(inputData.bandwidth * Math.pow(10, (120 + inputData.power) / 10));
+      setModemPower(newModemPower);
       CRUDdataTable({ method: 'PATCH', path: 'transmitter', data: tmpData[currentRow] });
     } else {
       setErrorActive(true);
@@ -194,28 +201,25 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
             </Grid>
           </Grid>
           <Grid container item xs={12} alignItems='center' justify='center'>
-            <Grid item xs={3} textAlign='right'>
-              <Typography>Power %</Typography>
-            </Grid>
-            <Grid item xs={true}>
-              {/* <Box sx={{ width: rawPw < 100 ? '100%' : 'auto', mr: 1, ml: 1 }}>
-                {pw < MED ? <RuxProgress value={pw} hideLabel /> : null}
-                {pw >= MED && pw < HIGH ? <RuxProgress value={pw} color={'error'} hideLabel /> : null}
+            <Grid item xs={true} sx={{ display: 'flex' }}>
+              <span style={{ minWidth: 'var(--spacing-14)' }}>Power %</span>
+              {/* <Box sx={{ width: rawPw < 100 ? '100%' : 'auto', mr: 1, ml: 1 }}> */}
+              <RuxProgress value={Math.min(100, Math.round((100 * modemPower) / powerBudget))} style={{ width: '100%' }}  />
+                {/* {pw < MED ? <RuxProgress value={Math.min(100, Math.round((100 * modemPower) / powerBudget))}  /> : null}
+                {pw >= MED && pw < HIGH ? <RuxProgress value={Math.min(100, Math.round((100 * modemPower) / powerBudget))} color={'error'} hideLabel /> : null}
                 {pw >= HIGH ? (
                   rawPw > 100 
                   ? <RuxIndeterminateProgress
-                    {...props}
-                    value={pw}
+                    value={Math.min(100, Math.round((100 * modemPower) / powerBudget))}
                     color={'critical'}
                   ></RuxIndeterminateProgress> 
                   : <RuxProgress
-                    {...props}
-                    value={pw}
+                    value={Math.min(100, Math.round((100 * modemPower) / powerBudget))}
                     color={'critical'}
                   ></RuxProgress>
-                ) : null}
-              </Box> */}
-              <LinearProgressWithLabel value={Math.round((100 * modemPower) / powerBudget)} />
+                ) : null} */}
+              {/* </Box> */}
+              {/* <LinearProgressWithLabel value={Math.round((100 * modemPower) / powerBudget)} /> */}
             </Grid>
           </Grid>
         </Grid>

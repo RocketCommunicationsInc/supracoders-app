@@ -11,13 +11,11 @@ export const LinearProgressWithLabel = props => {
   //const [pw, setpw] = useState(Math.min(100, rawPw))
   let pw = Math.min(100, rawPw);
 
-  console.log(props)
   
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <Box sx={{ width: rawPw < 100 ? '100%' : 'auto', mr: 1, ml: 1 }}>
         {pw < MED ? <RuxProgress value={pw} hideLabel /> : null}
-        {/* {console.log(props)} */}
         {pw >= MED && pw < HIGH ? <RuxProgress value={pw} color={'error'} hideLabel /> : null}
         {pw >= HIGH ? (
           rawPw > 100 
