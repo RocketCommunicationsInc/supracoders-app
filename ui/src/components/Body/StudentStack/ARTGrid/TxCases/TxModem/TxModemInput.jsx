@@ -201,8 +201,8 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
             </Grid>
           </Grid>
           <Grid container item xs={12} alignItems='center' justify='center'>
-            <Grid item xs={true} sx={{ display: 'flex' }}>
-              <span style={{ minWidth: 'var(--spacing-14)' }}>Power %</span>
+            <Grid item xs={true} sx={{ display: 'flex', paddingTop: 'var(--spacing-2)' }}>
+              <span style={{ marginRight: 'var(--spacing-2)', minWidth: 'calc(var(--spacing-16) + var(--spacing-2))', marginBottom: 'var(--spacing-0)', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', }}>Power %</span>
               {/* <Box sx={{ width: rawPw < 100 ? '100%' : 'auto', mr: 1, ml: 1 }}> */}
               <RuxProgress value={Math.min(100, Math.round((100 * modemPower) / powerBudget))} style={{ width: '100%' }}  />
                 {/* {pw < MED ? <RuxProgress value={Math.min(100, Math.round((100 * modemPower) / powerBudget))}  /> : null}
