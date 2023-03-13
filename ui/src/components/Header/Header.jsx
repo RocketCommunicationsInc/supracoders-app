@@ -1,5 +1,6 @@
 import React, { useEffect, useState }from 'react';
 import { RuxDialog, RuxGlobalStatusBar, RuxTooltip, RuxButton, RuxIcon, RuxSwitch } from '@astrouxds/react'
+import '@astrouxds/react/dist/components';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import './Header.css';
