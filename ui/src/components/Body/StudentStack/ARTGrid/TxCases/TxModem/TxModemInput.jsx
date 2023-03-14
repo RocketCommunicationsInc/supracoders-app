@@ -41,7 +41,7 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
         val = parseInt(val);
       }
     }
-    let tmpData = { ...sewAppCtx.tx[currentRow] };
+    let tmpData = { ...inputData };
     tmpData[param] = val;
     setInputData(tmpData);
   };
