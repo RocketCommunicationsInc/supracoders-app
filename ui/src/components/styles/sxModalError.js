@@ -1,5 +1,3 @@
-import { AstroTheme } from '../../themes/AstroTheme';
-
 export const sxModalError = {
   position: 'fixed',
   zIndex: '100',
