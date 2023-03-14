@@ -1,12 +1,13 @@
 import React from 'react';
+import { RuxContainer } from '@astrouxds/react'
 import PropTypes from 'prop-types';
-import { Box } from '@mui/material';
+// import { Box } from '@mui/material';
 import { TxModemButton } from './TxModemButton';
-import { sxModemButtonBox } from '../../../../../styles/sxModemButtonBox';
+// import { sxModemButtonBox } from '../../../../../styles/sxModemButtonBox';
 
 export const TxModemButtonBox = ({ unitData, unit, activeModem, updateActiveModem }) => {
   return (
-    <Box sx={sxModemButtonBox} width={80}>
+    <RuxContainer className="modemButtonBox">
       {unitData
         .sort((a, b) => a.id - b.id)
         .map((x, index) => {
@@ -22,7 +23,7 @@ export const TxModemButtonBox = ({ unitData, unit, activeModem, updateActiveMode
             );
           }
         })}
-    </Box>
+    </RuxContainer>
   );
 };
 TxModemButtonBox.propTypes = {

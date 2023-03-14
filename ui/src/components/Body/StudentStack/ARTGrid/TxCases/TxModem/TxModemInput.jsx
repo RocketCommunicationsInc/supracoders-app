@@ -1,26 +1,18 @@
-import React, { useState } from 'react';
-import { Box, Button, Grid, Tooltip, Typography } from '@mui/material';
-import { AstroTheme } from '../../../../../../themes/AstroTheme';
+import React, { useState, useEffect } from 'react';
+import { RuxButton, RuxPushButton, RuxTooltip, RuxSelect, RuxOption, RuxInput } from '@astrouxds/react'
+import { Box, Grid, Typography, Card } from '@mui/material';
 import { useSewApp } from '../../../../../../context/sewAppContext';
 import { CRUDdataTable } from '../../../../../../crud';
-import { sxModalError, sxValues, sxValuesGrid } from '../../../../../styles';
+import { sxModalError, outputStyle } from '../../../../../styles';
 import { breakerSound, errorSound, selectSound } from '../../../../../../audio';
 import { useSound } from 'use-sound';
 import { PropTypes } from 'prop-types';
-import { useEffect } from 'react';
 import { LinearProgressWithLabel } from './LinearProgressWithLabel';
 
 const popupTimeoutTime = 3000;
 let errorResetTimeout;
 
-const sxInputApply = {
-  backgroundColor: AstroTheme.palette.tertiary.light3,
-  boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.75)',
-  color: 'black',
-  cursor: 'pointer',
-};
-
-export const TxModemInput = ({ unitData, activeModem, currentRow }) => {
+export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
   const [playSelectSound] = useSound(selectSound);
   const [playBreakerSound] = useSound(breakerSound);
   const [playErrorSound] = useSound(errorSound);
@@ -29,23 +21,6 @@ export const TxModemInput = ({ unitData, activeModem, currentRow }) => {
   const [isErrorActive, setErrorActive] = useState(false);
   const [inputData, setInputData] = useState(sewAppCtx.tx[currentRow]);
   const [modemPower, setModemPower] = useState(inputData.bandwidth * Math.pow(10, (120 + inputData.power) / 10));
-
-  const sxTransmit = {
-    cursor: 'pointer',
-    marginLeft: '10px',
-    boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.5)',
-    border: '1px solid red',
-    backgroundColor: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting
-      ? 'red'
-      : AstroTheme.palette.tertiary.light3,
-    color: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? 'white' : 'black',
-    '&:hover': {
-      backgroundColor: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting
-        ? AstroTheme.palette.error.main
-        : AstroTheme.palette.critical.main,
-      color: unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? 'black' : 'white',
-    },
-  };
 
   useEffect(() => {
     setInputData(sewAppCtx.tx[currentRow]);
@@ -115,87 +90,107 @@ export const TxModemInput = ({ unitData, activeModem, currentRow }) => {
           <Typography>Power consumption exceeds the budget.</Typography>
         </Box>
       ) : null}
-      <Grid container mt={1} pb={2} height={'100%'}>
+      <Grid container height={'100%'}>
         <Grid container item xs={12} spacing={0.5}>
-          <Grid container item xs={12} alignItems='center' justify='center'>
-            <Grid item xs={3} textAlign='right'>
-              <Typography>Antenna</Typography>
-            </Grid>
-            <Grid item xs={4} pr={2}>
-              <select
+          <Grid container item xs={12} pt={0} alignItems='center' justify='center'>
+            <Grid item xs={8} pl={2} pr={2}>
+              <RuxSelect
                 name='Antenna'
+                label='Antenna'
+                size='small'
                 value={inputData.antenna_id}
-                onChange={(e) =>
+                onRuxchange={(e) =>
                   handleInputChange({
                     param: 'antenna_id',
                     val: parseInt(e.target.value) || 0,
                   })
-                }>
-                <option value={1}>1</option>
-                <option value={2}>2</option>
-              </select>
+                }
+              >
+                <RuxOption value={1} label={1}>1</RuxOption>
+                <RuxOption value={2} label={2}>2</RuxOption>
+              </RuxSelect>
             </Grid>
-            <Grid item xs={1}></Grid>
-            <Grid item xs={true} sx={sxValuesGrid}>
-              <Typography sx={sxValues}>{sewAppCtx.tx[currentRow].antenna_id}</Typography>
+            <Grid item xs={true}>
+              <Card
+                variant='outlined'
+                sx={outputStyle}
+                >
+                  {sewAppCtx.tx[currentRow].antenna_id}
+              </Card>
             </Grid>
           </Grid>
           <Grid container item xs={12} alignItems='center' justify='center'>
-            <Grid item xs={3} textAlign='right'>
-              <Typography>Freq</Typography>
-            </Grid>
-            <Grid item xs={4} pr={2}>
-              <input
+            <Grid item xs={8} pl={2} pr={2}>
+              <RuxInput
                 name='frequency'
                 type='text'
+                label='Freq'
+                size='small'
                 value={inputData.frequency}
-                onChange={(e) =>
+                onRuxchange={(e) =>
                   handleInputChange({
                     param: 'frequency',
                     val: parseInt(e.target.value) || 0,
                   })
-                }></input>
+                }
+              >
+
+              </RuxInput>
             </Grid>
-            <Grid item xs={1}></Grid>
-            <Grid item xs={true} sx={sxValuesGrid}>
-              <Typography sx={sxValues}>{sewAppCtx.tx[currentRow].frequency + ' MHz'}</Typography>
+            <Grid item xs={true}>
+              <Card
+                variant='outlined'
+                sx={outputStyle}
+                >
+                  {sewAppCtx.tx[currentRow].frequency + ' MHz'}
+              </Card>
             </Grid>
           </Grid>
           <Grid container item xs={12} alignItems='center' justify='center'>
-            <Grid item xs={3} textAlign='right'>
-              <Typography>BW</Typography>
-            </Grid>
-            <Grid item xs={4} pr={2}>
-              <input
+            <Grid item xs={8} pl={2} pr={2}>
+              <RuxInput
                 name='bandwidth'
                 type='text'
+                size='small'
+                label='BW'
                 value={inputData.bandwidth}
-                onChange={(e) =>
+                onRuxchange={(e) =>
                   handleInputChange({
                     param: 'bandwidth',
                     val: parseInt(e.target.value) || 0,
                   })
-                }></input>
+                }
+              >
+              </RuxInput>
             </Grid>
-            <Grid item xs={1}></Grid>
-            <Grid item xs={true} sx={sxValuesGrid}>
-              <Typography sx={sxValues}>{sewAppCtx.tx[currentRow].bandwidth + ' MHz'}</Typography>
+            <Grid item xs={true}>
+              <Card
+                variant='outlined'
+                sx={outputStyle}
+                >
+                  {sewAppCtx.tx[currentRow].bandwidth + ' MHz'}
+              </Card>
             </Grid>
           </Grid>
           <Grid container item xs={12} alignItems='center' justify='center'>
-            <Grid item xs={3} textAlign='right'>
-              <Typography>Power</Typography>
-            </Grid>
-            <Grid item xs={4} pr={2}>
-              <input
+            <Grid item xs={8} pl={2} pr={2}>
+              <RuxInput
                 name='power'
                 type='string'
+                size='small'
+                label='Power'
                 value={inputData.power}
-                onChange={(e) => handleInputChange({ param: 'power', val: e.target.value })}></input>
+                onRuxchange={(e) => handleInputChange({ param: 'power', val: e.target.value })}
+              >
+              </RuxInput>
             </Grid>
-            <Grid item xs={1}></Grid>
-            <Grid item xs={true} sx={sxValuesGrid}>
-              <Typography sx={sxValues}>{`${sewAppCtx.tx[currentRow].power} dBm`}</Typography>
+            <Grid item xs={true}>
+              <Card
+                variant='outlined'
+                sx={outputStyle}
+                >
+                  {`${sewAppCtx.tx[currentRow].power} dBm`}
+              </Card>
             </Grid>
           </Grid>
           <Grid container item xs={12} alignItems='center' justify='center'>
@@ -210,26 +205,26 @@ export const TxModemInput = ({ unitData, activeModem, currentRow }) => {
         <Grid
           item
           xs={12}
+          mt={1}
           textAlign='right'
           alignItems={'flex-end'}
           justifyContent={'flex-end'}
           flexGrow={true}
           display={'flex'}>
-          <Tooltip title='Commit Changes'>
-            <Button sx={sxInputApply} onClick={(e) => handleApply(e)}>
+          <RuxTooltip message='Commit Changes'>
+            <RuxButton style={{ marginRight: '8px' }} onClick={(e) => handleApply(e)}>
               Apply
-            </Button>
-          </Tooltip>
-          <Tooltip
-            title={
+            </RuxButton>
+          </RuxTooltip>
+          <RuxTooltip
+            message={
               !unitData.filter((x) => x.modem_number == activeModem)[0].transmitting
                 ? 'Enable Transmitter'
                 : 'Disable Transmitter'
             }>
-            <Button sx={sxTransmit} onClick={(e) => handleTransmit(e)}>
-              TX
-            </Button>
-          </Tooltip>
+            <RuxPushButton label='TX' onRuxchange={(e) => handleTransmit(e)} checked={
+              unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? true : false}/>
+          </RuxTooltip>
         </Grid>
       </Grid>
     </>

@@ -2,13 +2,39 @@ select,
 input {
   width: 85%;
   box-sizing: border-box;
-  margin-left: 8px;
-  margin-right: 8px;
-  justify-self: end;
+  margin-left: var(--spacing-2);
+  margin-right: var(--spacing-2);
+  justify-self: flex-end;
   text-align: center;
 }
 
 label {
-  justify-self: end;
+  justify-self: flex-end;
   align-self: center;
+}
+
+.modemButtonBox {
+  display: flex;
+  height: calc(100% + 2rem);
+  margin-top: -1rem;
+}
+.modemButtonBox::part(container) {
+  background: var(--color-background-base-default);
+  border: none;
+  display: flex;
+}
+.modemButtonBox::part(body) {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: stretch;
+}
+
+rux-button::part(container) {
+  min-width: 42px;
+}
+
+rux-button.isActive::part(container) {
+  outline: var(--border-width-focus-default) solid var(--color-border-focus-default);
+  outline-offset: var(--spacing-focus-default);
 }

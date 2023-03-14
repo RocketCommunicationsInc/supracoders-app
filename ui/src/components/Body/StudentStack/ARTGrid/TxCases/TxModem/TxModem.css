@@ -1,0 +1,33 @@
+rux-card::part(body) {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+rux-button.isActive::part(container){
+  outline: var(--border-width-focus-default) solid var(--color-border-focus-default);
+  outline-offset: var(--spacing-focus-default);
+}
+
+rux-button.isTransmitting::part(container){
+  background: var(--color-palette-green-500);
+  box-shadow: var(--color-palette-green-500);
+  color: var(--color-text-black);
+}
+
+.modemButtonBox{
+    display: flex;
+    height: calc(100% + 2rem);
+    margin-top: -1rem;
+}
+.modemButtonBox::part(container){
+  background: var(--color-background-base-default);
+  border: none;
+  display:flex;
+}
+.modemButtonBox::part(body){
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: stretch;
+}

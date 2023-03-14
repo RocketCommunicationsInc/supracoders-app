@@ -1,9 +1,9 @@
 import React from 'react';
+import { RuxTooltip } from '@astrouxds/react'
 import { RxModem } from '../../../..';
-import { Grid, Tooltip } from '@mui/material';
+import { Grid } from '@mui/material';
 import { EquipmentCase } from '../EquipmentCase';
 import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
-import { AstroTheme } from '../../../../../themes/AstroTheme';
 import { useSewApp } from './../../../../../context/sewAppContext';
 import { PropTypes } from 'prop-types';
 import RxCaseHelp from '../../HelpModals/RxCaseHelp';
@@ -26,16 +26,16 @@ export const RxCase = ({ unit }) => {
     let color = '';
     let description = '';
     if (isFound && !isDegraded && !isDenied) {
-      color = AstroTheme.palette.success.main;
+      color = 'var(--color-status-normal)';
       description = 'Signal Found';
     } else if (isFound && isDegraded && !isDenied) {
-      color = AstroTheme.palette.warning.main;
+      color = 'var(--color-status-caution)';
       description = 'Signal Degraded';
     } else if (isFound && isDenied) {
-      color = AstroTheme.palette.critical.main;
+      color = 'var(--color-status-critical)';
       description = 'Signal Denied';
     } else {
-      color = AstroTheme.palette.standby.main;
+      color = 'var(--color-status-off)';
       description = 'Signal Not Found';
     }
     return {
@@ -52,9 +52,9 @@ export const RxCase = ({ unit }) => {
         helpComponent={RxCaseHelp}
         unit={unit}
         icon={
-          <Tooltip title={description}>
+          <RuxTooltip message={description}>
             <SignalCellularAltIcon sx={{ color: color }} />
-          </Tooltip>
+          </RuxTooltip>
         }>
         <RxModem unit={unit} />
       </EquipmentCase>
