@@ -1,0 +1,53 @@
+rux-card::part(body) {
+  padding: var(--spacing-2);
+}
+
+rux-card::part(footer) {
+  padding-top: 0;
+}
+
+canvas {
+  background-color: var(--color-palette-neutral-1000);
+}
+
+rux-select.antenna-select::part(label) {
+  margin-left: var(--spacing-2);
+}
+
+.analyzer-config::part(footer) {
+  display: none;
+}
+
+.control-display {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.control-display section {
+  display: flex;
+  padding: 1rem;
+  width: 250px;
+  box-sizing: border-box;
+}
+
+.control-display section div {
+  width: 50%;
+  display: flex;
+  flex-flow: column;
+  gap: 2rem;
+  text-align: center;
+}
+
+.analyzer-config .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.analyzer-config .header rux-icon:hover {
+  color: var(--color-background-interactive-hover);
+  cursor: pointer;
+}

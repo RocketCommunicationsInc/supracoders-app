@@ -1,44 +1,31 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { RuxCard, } from '@astrouxds/react'
 import PropTypes from 'prop-types';
-import { Box, Grid, IconButton, Tooltip } from '@mui/material';
-import { EquipmentCaseId } from './EquipmentCaseId';
-import { InstructionsIcon } from '../HelpModals/InstructionsIcon';
-import { sxEquipmentCase } from '../../../styles';
-
-export const EquipmentCase = ({ children, helpTitle, helpComponent, unit, icon }) => {
-  const [helpState, setHelpState] = useState(false);
+import { Grid } from '@mui/material';
+import './equipmentCase.css';
+export const EquipmentCase = ({ children, title, unit, icon, tabs }) => {
 
   return (
-    <>
-      {helpComponent({ modalState: helpState, setModalState: setHelpState })}
-      <Box sx={sxEquipmentCase}>
+      <RuxCard className={ tabs ? 'container_equipment-case tab-case' : 'container_equipment-case'} style={{overflow: 'hidden'}}>
+        <div slot="header">
+          <div style={{ display: 'flex', alignItems: 'center', }}>
+            {title + ` ` + unit} {icon}
+          </div>
+          { tabs ? <div className="tabs">{tabs}</div> : null}
+        </div>
         <Grid container>
-          <Grid item width={30}>
-            <EquipmentCaseId unit={unit} icon={icon} />
-          </Grid>
           <Grid item xs={true}>
             {children}
           </Grid>
-          <Grid item xs={'auto'} ml={0}>
-            <Tooltip title={helpTitle} placement='top'>
-              <IconButton
-                onClick={() => {
-                  setHelpState(true);
-                }}>
-                <InstructionsIcon />
-              </IconButton>
-            </Tooltip>
-          </Grid>
         </Grid>
-      </Box>
-    </>
+      </RuxCard>
   );
 };
 
 EquipmentCase.propTypes = {
   children: PropTypes.node.isRequired,
-  helpTitle: PropTypes.string.isRequired,
-  helpComponent: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
   unit: PropTypes.number.isRequired,
   icon: PropTypes.node,
+  tabs: PropTypes.node,
 };

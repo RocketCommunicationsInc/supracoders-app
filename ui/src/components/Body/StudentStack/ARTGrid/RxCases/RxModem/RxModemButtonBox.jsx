@@ -1,12 +1,13 @@
 import React from 'react';
+import { RuxTabs } from '@astrouxds/react'
 import PropTypes from 'prop-types';
-import { Box } from '@mui/material';
-import { sxModemButtonBox } from '../../../../../styles';
+// import { Box } from '@mui/material';
+// import { sxModemButtonBox } from '../../../../../styles';
 import { RxModemButton } from './RxModemButton';
 
 export const RxModemButtonBox = ({ unitData, unit, activeModem, updateActiveModem }) => {
   return (
-    <Box sx={sxModemButtonBox} width={80}>
+    <RuxTabs small id={`rx-modem-case-${unit}`}>
       {unitData
         .sort((a, b) => a.id - b.id)
         .map((x, index) => {
@@ -20,7 +21,22 @@ export const RxModemButtonBox = ({ unitData, unit, activeModem, updateActiveMode
               />
             );
         })}
-    </Box>
+    </RuxTabs>
+    // <RuxContainer className='modemButtonBox'>
+    //   {unitData
+    //     .sort((a, b) => a.id - b.id)
+    //     .map((x, index) => {
+    //       if (x.unit == unit)
+    //         return (
+    //           <RxModemButton
+    //             key={index}
+    //             modemId={x.modem_number}
+    //             isActive={x.modem_number === activeModem}
+    //             updateActiveModem={updateActiveModem}
+    //           />
+    //         );
+    //     })}
+    // </RuxContainer>
   );
 };
 RxModemButtonBox.propTypes = {

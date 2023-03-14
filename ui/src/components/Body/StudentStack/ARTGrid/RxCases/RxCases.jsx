@@ -1,20 +1,36 @@
-import React from 'react';
-import { Grid } from '@mui/material';
+import React, {useState} from 'react';
+import { RuxContainer, RuxTooltip, RuxIcon } from '@astrouxds/react'
 import { RxCase } from './RxCase';
+import RxCaseHelp from '../../HelpModals/RxCaseHelp';
 
 export const RxCases = () => {
+  const [modalState, setModalState] = useState(false);
   return (
     <>
-      <Grid item xs={true} container spacing={2}>
+    <RxCaseHelp modalState={modalState} setModalState={setModalState}/>
+    <RuxContainer className="container-case receiver">
+    <div slot='header' style={{display: 'flex', justifyContent: 'space-between'}}>Receivers
+      <RuxTooltip message='Antenna Help' placement='top'>
+        <RuxIcon icon='help-outline'
+        size='24px'
+        className='helpIcon'
+        style={{ paddingLeft: '8px' }}
+          onClick={() => {
+            setModalState(true);
+          }} />
+      </RuxTooltip>
+      </div>
+      <div>
         {[1, 2].map((unit) => (
           <RxCase unit={unit} key={unit} />
         ))}
-      </Grid>
-      <Grid item xs={true} container spacing={2}>
+      </div>
+      <div>
         {[3, 4].map((unit) => (
           <RxCase unit={unit} key={unit} />
         ))}
-      </Grid>
+      </div>
+    </RuxContainer>
     </>
   );
 };

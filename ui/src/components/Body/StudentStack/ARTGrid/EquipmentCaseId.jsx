@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { Box, Typography } from '@mui/material';
 
 export const EquipmentCaseId = ({ unit, icon }) => {
+  console.log(icon)
   return (
-    <Box mt={2} textAlign={'center'}>
+    <Box textAlign={'center'}>
       {icon}
-      <Typography sx={{ color: 'white', fontWeight: 700, fontFamily: 'Nasa' }} fontSize={20}>
+      <Typography style={{ color: 'var(--color-text-primary)', fontWeight: 'var(--font-weights-bold)', fontFamily: 'Nasa' }} fontSize={20}>
         {unit.toString()}
       </Typography>
     </Box>

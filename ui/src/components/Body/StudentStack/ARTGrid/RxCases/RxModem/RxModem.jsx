@@ -1,39 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid } from '@mui/material';
 import './RxModem.css';
-import { useSewApp } from '../../../../../../context/sewAppContext';
-import { RxModemButtonBox } from './RxModemButtonBox';
+// import { useSewApp } from '../../../../../../context/sewAppContext';
+// import { RxModemButtonBox } from './RxModemButtonBox';
 import { RxModemInput } from './RxModemInput';
 import { RxVideo } from './RxVideo';
 
-export const RxModem = ({ unit }) => {
-  const [activeModem, setActiveModem] = useState(1);
-  const [currentRow, setCurrentRow] = useState(1);
-  const sewAppCtx = useSewApp();
-  const unitData = sewAppCtx.rx.filter(
-    (x) => x.unit == unit && x.team_id == sewAppCtx.user.team_id && x.server_id == sewAppCtx.user.server_id
-  );
+export const RxModem = ({ unitData, activeModem, currentRow }) => {
+  // const [activeModem, setActiveModem] = useState(1);
+  // const [currentRow, setCurrentRow] = useState(1);
+  // const sewAppCtx = useSewApp();
+  // const unitData = sewAppCtx.rx.filter(
+  //   (x) => x.unit == unit && x.team_id == sewAppCtx.user.team_id && x.server_id == sewAppCtx.user.server_id
+  // );
 
-  const updateActiveModem = (modem) => {
-    setActiveModem(modem);
-  };
+  // const updateActiveModem = (modem) => {
+  //   setActiveModem(modem);
+  // };
 
-  useEffect(() => {
-    const currentModem = unitData.find((x) => x.modem_number == activeModem);
-    const _currentRow = sewAppCtx.rx.findIndex((x) => x.id == currentModem.id);
-    setCurrentRow(_currentRow);
-  }, [activeModem]);
+  // useEffect(() => {
+  //   const currentModem = unitData.find((x) => x.modem_number == activeModem);
+  //   const _currentRow = sewAppCtx.rx.findIndex((x) => x.id == currentModem.id);
+  //   setCurrentRow(_currentRow);
+  // }, [activeModem]);
 
   return (
     <Grid container>
       <Grid item xs={'auto'}>
-        <RxModemButtonBox
+        {/* <RxModemButtonBox
           unitData={unitData}
           activeModem={activeModem}
           unit={unit}
           updateActiveModem={updateActiveModem}
-        />
+        /> */}
       </Grid>
       <Grid container item xs={true}>
         <Grid item xs={7}>
@@ -49,5 +49,8 @@ export const RxModem = ({ unit }) => {
 
 RxModem.propTypes = {
   unit: PropTypes.number,
+  unitData: PropTypes.array,
+  activeModem: PropTypes.number,
+  currentRow: PropTypes.number,
   tmpRxData: PropTypes.array,
 };

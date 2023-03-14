@@ -8,6 +8,13 @@
 }
 
 .appBar a {
-  color: #fff;
+  color: var(--color-text-primary);
   text-decoration: none;
 }
+
+rux-dialog::part(dialog){
+  width: 60rem;
+  max-width: 100%;
+}
+
+#light-dark-switch{margin-left: var(--spacing-2);}

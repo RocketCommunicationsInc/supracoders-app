@@ -4,11 +4,38 @@ input {
   box-sizing: border-box;
   margin-left: 8px;
   margin-right: 8px;
-  justify-self: end;
+  justify-self: flex-end;
   text-align: center;
 }
 
 label {
-  justify-self: end;
+  justify-self: flex-end;
   align-self: center;
+}
+
+.instructor_wrapper {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: 30px 5fr 3fr 2fr;
+  justify-content: space-between;
+}
+
+.instructor_wrapper rux-container {
+  margin: 1rem;
+  height: calc(100% - 2rem);
+}
+
+.instructor_wrapper rux-container::part(container) {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+rux-input.instructor_input::part(label),
+rux-select.instructor_select::part(label) {
+  min-width: var(--spacing-24);
+}
+
+.modem-button-box rux-button {
+  width: 3rem;
+  margin: 0.25rem;
 }

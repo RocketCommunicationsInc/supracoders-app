@@ -1,15 +1,13 @@
-import { Box, Button, Grid, IconButton, Tooltip, Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import { SpectrumAnalyzer } from '../../../../';
-import React, { useLayoutEffect, useState } from 'react';
-import { AstroTheme } from '../../../../../themes/AstroTheme.js';
-import { useEffect } from 'react';
+import React, { useLayoutEffect, useState, useEffect } from 'react';
+import { RuxCard, RuxButton, RuxButtonGroup, RuxSegmentedButton } from '@astrouxds/react'
 import { satellites } from '../../../../../constants';
 import PropTypes from 'prop-types';
 import config from '../../../../../constants/config';
 import { useSewApp } from '../../../../../context/sewAppContext';
 import { githubCheck } from '../../../../../lib/github-check';
-import SpecAHelp from '../../HelpModals/SpecAHelp';
-import { InstructionsIcon } from './../../HelpModals/InstructionsIcon';
+import './SpectrumAnalyzer.css'
 import useSound from 'use-sound';
 import { selectSound } from '../../../../../audio';
 
@@ -17,58 +15,13 @@ const ApiUrl = config[process.env.REACT_APP_NODE_ENV || 'development'].apiUrl;
 // If this is github then use a local file instead
 const specADataLocation = !githubCheck() ? `${ApiUrl}/data/spec_a` : './data/spec_a.json';
 
-const SpectrumAnalyzerBoxStyle = {
-  textAlign: 'center',
-  width: '100%',
-  height: '100%',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  flexDirection: 'column',
-  borderRadius: '10px',
-  boxShadow: '0px 0px 5px rgba(0,0,0,0.5)',
-  backgroundColor: AstroTheme.palette.tertiary.light2,
-  border: '1px solid' + AstroTheme.palette.tertiary.light,
-  overflow: 'hidden',
-  position: 'relative',
-  zIndex: '1',
-};
-const sxInputRow = {
-  fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-  textAlign: 'left',
-  margin: '8px',
-  height: '30px',
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  fontSize: '1em',
-};
-const configButtonStyle = {
-  backgroundColor: AstroTheme.palette.warning.main,
-  boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.75)',
-  color: 'black',
-  margin: '8px',
-  cursor: 'pointer',
-  '&:hover': {
-    backgroundColor: AstroTheme.palette.serious.main,
-  },
-};
 const canvasContainer = {
   position: 'relative',
-  border: '8px solid transparent',
-  borderImageSource: 'url(./bezel.png)',
-  borderImageSlice: '30 fill',
-  borderImageOutset: 0,
-  overflow: 'hidden',
-  boxShadow: '0px 0px 10px rgba(0,0,0,0.5)',
-  backgroundColor: '#282a2b',
-  borderRadius: '10px',
+   overflow: 'hidden',
 };
 
 export const SpectrumAnalyzerBox = (props) => {
   const [playSelectSound] = useSound(selectSound);
-  const [isHelpModalActive, setIsHelpModalActive] = useState(false);
   const [isRfMode, setIsRfMode] = useState(false);
   const [isPause, setIsPause] = useState(false);
   const sewAppCtx = useSewApp();
@@ -254,108 +207,78 @@ export const SpectrumAnalyzerBox = (props) => {
 
   return (
     <>
-      <SpecAHelp modalState={isHelpModalActive} setModalState={setIsHelpModalActive} />
-      <Box sx={SpectrumAnalyzerBoxStyle}>
+      <RuxCard>
+        <div slot='header' style={{textAlign: 'center'}}>
+          Span: {sewAppCtx.sewApp[`specA${whichSpecA}`]?.bw / 1e6} MHz
+          
+        </div>
         <Grid container spacing={0}>
-          <Grid item xs={11} pl={10}>
-            <Typography>Span: {sewAppCtx.sewApp[`specA${whichSpecA}`]?.bw / 1e6} MHz</Typography>
+          <Grid item xs={11} textAlign={'center'}>
+            
           </Grid>
-          <Grid item xs={1}>
-            <Tooltip title='Spectrum Analyzer Help' placement='top'>
-              <IconButton
-                size='small'
-                onClick={() => {
-                  setIsHelpModalActive(true);
-                }}>
-                <InstructionsIcon />
-              </IconButton>
-            </Tooltip>
+          <Grid item xs={1} style={{display: 'flex', justifyContent: 'flex-end'}}>
+            
           </Grid>
-          <Grid container item sx={{ display: 'flex', alignContent: 'space-between' }} xs={2}>
-            <Grid item xs={12}>
-              <Typography>{sewAppCtx.sewApp[`specA${whichSpecA}`]?.maxDecibels} (dB)</Typography>
+          <Grid item sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', textAlign: 'right', paddingRight: '4px' }} xs={2}>
+              <p>{sewAppCtx.sewApp[`specA${whichSpecA}`]?.maxDecibels} (dB)</p>
+              <p>{sewAppCtx.sewApp[`specA${whichSpecA}`]?.minDecibels} (dB)</p>
+          </Grid>
+          <Grid sx={canvasContainer} item xs={10}>
+              <canvas id={props.canvasId} />
+          </Grid>
+          <Grid item xs={12} style={{textAlign: 'center'}}>
+            <p>CF: {sewAppCtx.sewApp[`specA${whichSpecA}`]?.centerFreq / 1e6} MHz</p>
+          </Grid>
+          <Grid container item xs={12}>
+            <Grid item xs={12} style={{ display: 'flex', alignItems: 'center', }}>
+              <Typography pr={1} textAlign={'right'}>Frequency</Typography>
+              <RuxSegmentedButton size='small' data={
+                [
+                  { label: "Intermediate", selected: true },
+                  { label: "Radio" },
+                ]
+              }
+              onRuxchange={handleRfClicked}
+              />
             </Grid>
-            <Grid item xs={12}>
-              <Typography>{sewAppCtx.sewApp[`specA${whichSpecA}`]?.minDecibels} (dB)</Typography>
+          </Grid>
+          <Grid container item xs={12}>
+            <Grid item xs={12} style={{ display: 'flex', alignItems: 'center', paddingTop: 'var(--spacing-2)' }}>
+              <Typography pr={1} minWidth={84} textAlign={'right'}>Antenna</Typography>
+              <RuxSegmentedButton size='small' data={
+                  [
+                    { label: "1", selected: true },
+                    { label: "2" },
+                  ]
+                }
+                onRuxchange={(e) =>
+                  updateSpecAwAntennaInfo(parseInt(e.target.selected), sewAppCtx.sewApp[`specA${whichSpecA}`], false)
+                }
+              />
             </Grid>
-          </Grid>
-          <Grid container item sx={canvasContainer} xs={9}>
-            <canvas id={props.canvasId} />
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>CF: {sewAppCtx.sewApp[`specA${whichSpecA}`]?.centerFreq / 1e6} MHz</Typography>
-          </Grid>
-          <Grid item xs={3}>
-            <Box sx={sxInputRow}>
-              <label htmlFor='Antenna'>Ant</label>
-              <select
-                name='Antenna'
-                value={sewAppCtx.sewApp[`specA${whichSpecA}`]?.antenna_id}
-                onChange={(e) =>
-                  updateSpecAwAntennaInfo(parseInt(e.target.value), sewAppCtx.sewApp[`specA${whichSpecA}`], false)
-                }>
-                <option value={1}>1</option>
-                <option value={2}>2</option>
-              </select>
-            </Box>
-          </Grid>
-          <Grid item xs={3}>
-            <Tooltip title='Open Spectrum Analyzer Configuration'>
-              <Button
-                sx={configButtonStyle}
-                onClick={() => {
-                  playSelectSound();
-                  props.handleConfigClick(
-                    sewAppCtx.sewApp[`specA${whichSpecA}`],
-                    sewAppCtx.sewApp[`specA${whichSpecA}`]
-                  );
-                }}>
-                Config
-              </Button>
-            </Tooltip>
-          </Grid>
-          <Grid item xs={3}>
-            <Tooltip
-              title={
-                sewAppCtx.sewApp[`specA${whichSpecA}`]?.isRfMode
-                  ? 'Swith to Intermediate Frequency'
-                  : 'Switch to Radio Frequency'
-              }>
-              <Button
-                sx={{
-                  ...configButtonStyle,
-                  ...{
-                    backgroundColor: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isRfMode ? 'red' : 'yellow',
-                    color: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isRfMode ? 'white' : 'black',
-                  },
-                }}
-                onClick={handleRfClicked}>
-                {sewAppCtx.sewApp[`specA${whichSpecA}`]?.isRfMode ? 'RF' : 'IF'}
-              </Button>
-            </Tooltip>
-          </Grid>
-          <Grid item xs={3}>
-            <Tooltip
-              title={
-                sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause
-                  ? 'Unpause the Spectrum Analyzer'
-                  : 'Pause the Spectrum Analyzer'
-              }>
-              <Button
-                sx={{
-                  ...configButtonStyle,
-                  ...{
-                    backgroundColor: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause ? 'red' : 'yellow',
-                    color: sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause ? 'white' : 'black',
-                  },
-                }}
-                onClick={handlePauseClicked}>
-                Pause
-              </Button>
-            </Tooltip>
           </Grid>
         </Grid>
-      </Box>
+        <div slot='footer'>
+          <div style={{ display: 'flex', }}>
+            <RuxButtonGroup style={{ marginLeft: 'auto', marginTop: 'auto', }} hAlign='right'>
+                <RuxButton
+                  style={{ marginLeft: '8px', marginRight: '8px', }}
+                  secondary
+                  icon="settings"
+                  onClick={() => {
+                    playSelectSound();
+                    props.handleConfigClick(
+                      sewAppCtx.sewApp[`specA${whichSpecA}`],
+                      sewAppCtx.sewApp[`specA${whichSpecA}`]
+                    );
+                  }}>
+                  Config
+                </RuxButton>
+                <RuxButton icon-only icon={sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause ? 'play-arrow' : 'pause'} onClick={() => handlePauseClicked()} />
+            </RuxButtonGroup>
+          </div>
+        </div>
+      </RuxCard>
     </>
   );
 };

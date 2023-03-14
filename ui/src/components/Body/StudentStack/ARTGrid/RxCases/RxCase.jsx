@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { RuxTabPanels, RuxTabPanel, RuxTooltip, RuxIcon } from '@astrouxds/react'
+import { RxModemButtonBox } from '../RxCases/RxModem/RxModemButtonBox';
 import { RxModem } from '../../../..';
-import { Grid, Tooltip } from '@mui/material';
 import { EquipmentCase } from '../EquipmentCase';
-import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
-import { AstroTheme } from '../../../../../themes/AstroTheme';
 import { useSewApp } from './../../../../../context/sewAppContext';
 import { PropTypes } from 'prop-types';
-import RxCaseHelp from '../../HelpModals/RxCaseHelp';
+
 
 export const RxCase = ({ unit }) => {
   const sewAppCtx = useSewApp();
+  const [activeModem, setActiveModem] = useState(1);
+  const [currentRow, setCurrentRow] = useState(1);
+  const unitData = sewAppCtx.rx.filter(
+    (x) => x.unit == unit && x.team_id == sewAppCtx.user.team_id && x.server_id == sewAppCtx.user.server_id
+  );
 
   const determineEquipmentStatus = (unit) => {
     const currentModems = sewAppCtx.rx.filter(
@@ -26,16 +30,16 @@ export const RxCase = ({ unit }) => {
     let color = '';
     let description = '';
     if (isFound && !isDegraded && !isDenied) {
-      color = AstroTheme.palette.success.main;
+      color = 'var(--color-status-normal)';
       description = 'Signal Found';
     } else if (isFound && isDegraded && !isDenied) {
-      color = AstroTheme.palette.warning.main;
+      color = 'var(--color-status-caution)';
       description = 'Signal Degraded';
     } else if (isFound && isDenied) {
-      color = AstroTheme.palette.critical.main;
+      color = 'var(--color-status-critical)';
       description = 'Signal Denied';
     } else {
-      color = AstroTheme.palette.standby.main;
+      color = 'var(--color-status-off)';
       description = 'Signal Not Found';
     }
     return {
@@ -44,21 +48,56 @@ export const RxCase = ({ unit }) => {
     };
   };
 
+  const updateActiveModem = (modem) => {
+    setActiveModem(modem);
+  };
+
+  useEffect(() => {
+    const currentModem = unitData.find((x) => x.modem_number == activeModem);
+    const _currentRow = sewAppCtx.rx.findIndex((x) => x.id == currentModem.id);
+    setCurrentRow(_currentRow);
+  }, [activeModem]);
+
+
   const { color, description } = determineEquipmentStatus(unit);
   return (
-    <Grid item xs={true} minWidth={650} key={unit}>
       <EquipmentCase
-        helpTitle='Reciever Modem Help'
-        helpComponent={RxCaseHelp}
+        title='Receiver Case'
         unit={unit}
         icon={
-          <Tooltip title={description}>
-            <SignalCellularAltIcon sx={{ color: color }} />
-          </Tooltip>
-        }>
-        <RxModem unit={unit} />
+          <RuxTooltip message={description}>
+            <RuxIcon icon="signal-cellular-alt" size="1.75rem"
+              style={{ color: color, paddingLeft: 'var(--spacing-3)'}}
+            />
+          </RuxTooltip>
+        }
+        tabs={
+          <RxModemButtonBox
+            unitData={unitData}
+            activeModem={activeModem}
+            unit={unit}
+            updateActiveModem={updateActiveModem}
+          />
+        }
+        >
+          <RuxTabPanels ariaLabelledby={`rx-modem-case-${unit}`}>
+            {unitData
+              .sort((a, b) => a.id - b.id)
+              .map((x, index) => {
+                if (x.unit == unit) {
+                  return (
+                  <RuxTabPanel key={index} ariaLabelledby={`rx-modem-${x.modem_number}`} style={{ display: 'flex' }}>
+                    <h2 style={{ fontFamily: 'Nasa', minWidth: 'calc(var(--spacing-1) * 5)', textAlign: 'center'}}>{x.modem_number}</h2>
+                    {/* <RxModem unit={unit} /> */}
+                    <RxModem
+                     unitData={unitData} activeModem={activeModem} currentRow={currentRow} />
+                  </RuxTabPanel>
+                  );
+                }
+              })}
+            
+          </RuxTabPanels>
       </EquipmentCase>
-    </Grid>
   );
 };
 RxCase.propTypes = {
