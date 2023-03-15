@@ -1,3 +1,13 @@
+.art-grid {
+  display: flex;
+  align-items: stretch;
+  gap: var(--spacing-2);
+  padding: var(--spacing-4);
+  flex-grow: 1;
+}
+.art-grid > * {
+  flex-basis: 33%;
+}
 .container-case {
   padding-left: var(--spacing-4);
   padding-top: var(--spacing-4);
