@@ -30,9 +30,9 @@ label {
   align-self: stretch;
 }
 
-rux-button::part(container) {
+/* rux-button::part(container) {
   min-width: 42px;
-}
+} */
 
 rux-button.isActive::part(container) {
   outline: var(--border-width-focus-default) solid var(--color-border-focus-default);

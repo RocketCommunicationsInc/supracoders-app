@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ARTGrid, SpectrumAnalyzerGrid, TeamInfo } from '../../';
+import { ARTGrid, SpectrumAnalyzerGrid} from '../../';
 import { Grid } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSewApp } from '../../../context/sewAppContext';
@@ -12,7 +12,6 @@ export const StudentStack = () => {
   useEffect(() => {
     window.sewApp.init();
     sewAppCtx.updateSewApp();
-    // document.addEventListener('contextmenu', event => event.preventDefault());
   }, []);
 
   // Basic check that user is logged in
@@ -22,7 +21,6 @@ export const StudentStack = () => {
 
   return (
     <>
-      <TeamInfo />
       <Grid container spacing={2} paddingTop={2} paddingBottom={2} paddingLeft={2} paddingRight={2}>
         <SpectrumAnalyzerGrid />
         <ARTGrid />

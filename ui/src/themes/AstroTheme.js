@@ -4,10 +4,6 @@ import '@astrouxds/tokens/dist/css/index.css'
 export const AstroTheme = {
   palette: {
     type: 'dark',
-    background: {
-      default: 'var(--color-background-base-default)',
-      paper: 'var(--color-background-surface-default)',
-    },
     primary: {
       main: '#005a8f',
       light: '#2f7aa7',

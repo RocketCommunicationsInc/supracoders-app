@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { RuxSelect, RuxOption } from '@astrouxds/react'
-import { Grid } from '@mui/material';
 import { githubCheck } from '../../lib/github-check';
 import { useSewApp } from '../../context/sewAppContext';
 
@@ -26,21 +25,20 @@ export const ServerSelect = () => {
   };
 
   return (
-    <Grid container item xs={12}>
-      <Grid item xs={12}>
-        <RuxSelect
-          name='server'
-          type='string'
-          label='Server'
-          value={sewAppCtx.user.server_id}
-          onChange={e => handleServerChange(parseInt(e.target.value))}>
-          {servers?.map((x, index) => (
-            <RuxOption key={index} value={x.id} label={x.name}>
-              {x.name}
-            </RuxOption>
-          ))}
-        </RuxSelect>
-      </Grid>
-    </Grid>
+    <RuxSelect
+      className='login-select'
+      size='small'
+      style={{ marginTop: 'var(--spacing-8)', }}
+      name='server'
+      type='string'
+      label='Server'
+      value={sewAppCtx.user.server_id}
+      onChange={e => handleServerChange(parseInt(e.target.value))}>
+      {servers?.map((x, index) => (
+        <RuxOption key={index} value={x.id} label={x.name}>
+          {x.name}
+        </RuxOption>
+      ))}
+    </RuxSelect>
   );
 };

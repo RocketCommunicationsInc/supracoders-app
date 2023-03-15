@@ -1,7 +1,7 @@
 import React from 'react';
-import { RuxContainer, RuxCard} from '@astrouxds/react'
-import Box from '@mui/material/Box';
-import { Grid } from '@mui/material';
+import { RuxContainer } from '@astrouxds/react'
+//import Box from '@mui/material/Box';
+//import { Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { ServerSelect } from './ServerSelect';
 import { TeamSelect } from './TeamSelect';
@@ -16,21 +16,17 @@ export const Login = () => {
   };
 
   return (
-      <RuxContainer class="login-container">
-        <RuxCard style={{ width: 'fitContent', margin: 'auto', }}>
-          <Box
-            style={{ display: 'flex', justifyContent: 'center', }}
+      <RuxContainer className="login-container">
+          <div slot='header'>Join a team</div>
+          <form
             component='form'
             onSubmit={handleSubmit}
-            novalidate
-            autocomplete='off'>
-            <Grid container spacing={1} p={2} width={300}>
+            noValidate
+            autoComplete='off'>
               <TeamSelect />
               <ServerSelect />
               <JoinButton />
-            </Grid>
-          </Box>
-        </RuxCard>
+          </form>
       </RuxContainer>
   );
 };

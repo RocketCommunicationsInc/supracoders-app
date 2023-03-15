@@ -38,7 +38,7 @@ export const SpectrumAnalyzerGrid = () => {
         <div>Spectrum Analyzers</div>
         <RuxTooltip message='Spectrum Analyzer Help' placement='top'>
           <RuxIcon
-            icon='help-outline'
+            icon='help'
             size='24px'
             className='helpIcon'
             onClick={() => {

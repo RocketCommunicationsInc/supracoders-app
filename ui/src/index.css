@@ -19,6 +19,12 @@ body {
   -ms-user-select: none;
   user-select: none;
 }
+
+.body{
+  display:flex;
+  flex-direction: column;
+}
+
 h2 {
   font-style: normal;
   font-weight: var(--font-display-2-font-weight);

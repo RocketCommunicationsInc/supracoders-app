@@ -11,7 +11,7 @@ export const AntennaCases = () => {
     <RuxContainer className="container-case antenna">
       <div slot='header' style={{display: 'flex', justifyContent: 'space-between'}}>Antennas 
       <RuxTooltip message='Antenna Help' placement='top'>
-        <RuxIcon icon='help-outline'
+        <RuxIcon icon='help'
         size='24px'
         className='helpIcon'
         style={{ paddingLeft: '8px' }}

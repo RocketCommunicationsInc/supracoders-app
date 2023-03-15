@@ -3,18 +3,30 @@
   src: url('../../../public/nasalization-rg.otf') format('opentype');
 }
 
-.appBar img {
-  padding: 10px 20px 10px 0px;
+rux-global-status-bar::part(app-state) {
+  background: var(--color-palette-green-900);
 }
 
-.appBar a {
-  color: var(--color-text-primary);
-  text-decoration: none;
+.iris-logo::part(container) {
+  padding: var(--spacing-0);
+}
+
+.menu-button {
+  width: 100%;
+}
+
+.menu-button::part(container) {
+  display: flex;
+  justify-content: flex-start;
 }
 
 rux-dialog::part(dialog){
   width: 60rem;
   max-width: 100%;
+}
+
+rux-dialog.logout-modal::part(dialog) {
+  width: 400px;
 }
 
 #light-dark-switch{margin-left: var(--spacing-2);}

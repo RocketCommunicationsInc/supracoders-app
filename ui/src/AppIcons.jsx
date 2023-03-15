@@ -1,12 +1,12 @@
 import React from 'react';
-import { RuxIconAntenna, RuxIconLockOpen, RuxIconLock, RuxIconHelpOutline, RuxIconWarning, RuxIconSignalCellularAlt, RuxIconAntennaTransmit, RuxIconExitToApp, RuxIconClose, RuxIconWbSunny, RuxIconBrightness3, RuxIconLoop, RuxIconSettings, RuxIconPlayArrow, RuxIconPause } from '@astrouxds/react/dist/components';
+import { RuxIconAntenna, RuxIconLockOpen, RuxIconLock, RuxIconHelp, RuxIconWarning, RuxIconSignalCellularAlt, RuxIconAntennaTransmit, RuxIconExitToApp, RuxIconClose, RuxIconWbSunny, RuxIconBrightness3, RuxIconLoop, RuxIconSettings, RuxIconPlayArrow, RuxIconPause } from '@astrouxds/react/dist/components';
 export const AppIcons = () => {
     return (
             <span style={{display: 'none'}}>
                 <RuxIconAntenna />
                 <RuxIconLock />
                 <RuxIconLockOpen />
-                <RuxIconHelpOutline />
+                <RuxIconHelp />
                 <RuxIconSignalCellularAlt />
                 <RuxIconWarning />
                 <RuxIconExitToApp />
