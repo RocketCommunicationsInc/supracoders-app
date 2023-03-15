@@ -3,7 +3,6 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 // import { AstroTheme } from '../../themes/AstroTheme';
 import { Box, Link } from '@mui/material';
-import {Link as RouterLink} from 'react-router-dom';
 
 export const Footer = () => (
   <Box
@@ -21,12 +20,7 @@ export const Footer = () => (
         alignItems: 'center',
       }}>
       <Typography variant='h6' style={{ color: 'var(--color-text-primary)' }}>
-      <Link
-          component={RouterLink}
-          to="/instructor"
-          sx={{
-            textDecoration: 'none', color: 'inherit',
-          }}>Copyright</Link> © 2022{' '}
+        Copyright © 2023
         <Link
           href='https://github.com/thkruz/'
           target='_new'
@@ -36,7 +30,7 @@ export const Footer = () => (
           }}>
           Theodore Kruczek
         </Link>
-        . All rights reserved. Source Code licensed under{' '}
+        . All rights reserved. Source Code licensed under
         <Link
           href='https://raw.githubusercontent.com/thkruz/iris/dev/LICENSE.md'
           target='_new'
