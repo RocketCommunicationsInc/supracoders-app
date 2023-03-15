@@ -1,9 +1,10 @@
 import { Grid, Typography } from '@mui/material';
 import { SpectrumAnalyzer } from '../../../../';
 import React, { useLayoutEffect, useState, useEffect } from 'react';
-import { RuxCard, RuxButton, RuxButtonGroup, RuxSegmentedButton } from '@astrouxds/react'
+import { RuxContainer, RuxTooltip, RuxIcon, RuxButton, RuxButtonGroup, RuxSegmentedButton } from '@astrouxds/react'
 import { satellites } from '../../../../../constants';
 import PropTypes from 'prop-types';
+import SpecAHelp from '../../HelpModals/SpecAHelp';
 import config from '../../../../../constants/config';
 import { useSewApp } from '../../../../../context/sewAppContext';
 import { githubCheck } from '../../../../../lib/github-check';
@@ -21,6 +22,7 @@ const canvasContainer = {
 };
 
 export const SpectrumAnalyzerBox = (props) => {
+  const [isHelpModalActive, setIsHelpModalActive] = useState(false);
   const [playSelectSound] = useSound(selectSound);
   const [isRfMode, setIsRfMode] = useState(false);
   const [isPause, setIsPause] = useState(false);
@@ -207,8 +209,22 @@ export const SpectrumAnalyzerBox = (props) => {
 
   return (
     <>
-      <RuxCard>
-        <div slot='header' style={{textAlign: 'center'}}>
+      <SpecAHelp modalState={isHelpModalActive} setModalState={setIsHelpModalActive} />
+      <RuxContainer>
+        <div slot='header' style={{ display: 'flex', justifyContent: 'space-between', }}>
+          <div>Analyzer {props.unit}</div> 
+          <RuxTooltip message='Spectrum Analyzer Help' placement='top'>
+            <RuxIcon
+              icon='help'
+              size='20px'
+              className='helpIcon'
+              onClick={() => {
+                setIsHelpModalActive(true);
+              }}>
+            </RuxIcon>
+          </RuxTooltip>
+        </div>
+        <div style={{textAlign: 'center'}}>
           Span: {sewAppCtx.sewApp[`specA${whichSpecA}`]?.bw / 1e6} MHz
           
         </div>
@@ -278,12 +294,13 @@ export const SpectrumAnalyzerBox = (props) => {
             </RuxButtonGroup>
           </div>
         </div>
-      </RuxCard>
+      </RuxContainer>
     </>
   );
 };
 
 SpectrumAnalyzerBox.propTypes = {
+  unit: PropTypes.number,
   canvasId: PropTypes.any,
   handleConfigClick: PropTypes.any,
   handleRfClick: PropTypes.any,

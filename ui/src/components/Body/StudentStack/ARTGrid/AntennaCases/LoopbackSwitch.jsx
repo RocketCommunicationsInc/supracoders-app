@@ -18,7 +18,9 @@ export const LoopbackSwitch = ({ unit }) => {
   const unitData = sewAppCtx.antenna.filter(
     (x) => x.unit == unit && x.team_id == sewAppCtx.user.team_id && x.server_id == sewAppCtx.user.server_id
   );
-  const antennaIdx = sewAppCtx.antenna.map((x) => x.id).indexOf(unitData[0].id);
+  const antennaIdx = sewAppCtx.antenna.map((x) => {
+    console.log('x.id', x.id)
+    return x.id}).indexOf(unitData[0].id);
 
   const sxTx = {
     color: sewAppCtx.antenna[antennaIdx].loopback

@@ -1,24 +1,24 @@
 import React from 'react';
-import { RuxCard, } from '@astrouxds/react'
+import { RuxContainer } from '@astrouxds/react'
 import PropTypes from 'prop-types';
 import { Grid } from '@mui/material';
 import './equipmentCase.css';
 export const EquipmentCase = ({ children, title, unit, icon, tabs }) => {
 
   return (
-      <RuxCard className={ tabs ? 'container_equipment-case tab-case' : 'container_equipment-case'} style={{overflow: 'hidden'}}>
+      <RuxContainer className={ tabs ? 'container_equipment-case tab-case' : 'container_equipment-case'} style={{overflow: 'hidden'}}>
         <div slot="header">
           <div style={{ display: 'flex', alignItems: 'center', }}>
-            {title + ` ` + unit} {icon}
+            {icon} {title + ` ` + unit}
           </div>
-          { tabs ? <div className="tabs">{tabs}</div> : null}
         </div>
+        {tabs ? <div slot="tab-bar">{tabs}</div> : null}
         <Grid container>
           <Grid item xs={true}>
             {children}
           </Grid>
         </Grid>
-      </RuxCard>
+      </RuxContainer>
   );
 };
 

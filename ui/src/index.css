@@ -20,8 +20,8 @@ body {
   user-select: none;
 }
 
-.body{
-  display:flex;
+.body {
+  display: flex;
   flex-direction: column;
 }
 
@@ -46,7 +46,6 @@ p {
 }
 
 .helpIcon {
-  color: var(--color-text-primary);
   cursor: pointer;
 }
 

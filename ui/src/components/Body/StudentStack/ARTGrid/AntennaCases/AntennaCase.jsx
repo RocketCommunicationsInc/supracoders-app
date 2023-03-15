@@ -1,17 +1,33 @@
 import React, { useState, useEffect } from 'react';
-// eslint-disable-next-line no-unused-vars
 import { RuxTooltip, RuxIcon } from '@astrouxds/react'
 import { AntennaController } from '../../../..';
-import { EquipmentCase } from '../EquipmentCase';
-import { PropTypes } from 'prop-types';
+import { EquipmentCase2 } from '../EquipmentCase2';
+import  AntennaHelp from '../../HelpModals/AntennaHelp'
 import { useSewApp } from '../../../../../context/sewAppContext';
 
-export const AntennaCase = ({ unit }) => {
+export const AntennaCase = () => {
+  const [modalState, setModalState] = useState(false);
   const [antColor, setAntColor] = useState('var(--color-status-standby)');
   const [antState, setAntState] = useState('standby');
   const [lockColor, setLockColor] = useState('var(--color-status-standby)');
   const [lockState, setLockState] = useState('standby');
+  const [unit, setUnit] = useState(1)
   const sewAppCtx = useSewApp();
+  //number of antenna units
+  const units = [1,2]
+  const icons = (            <>
+    <RuxTooltip message={antState}>
+      <RuxIcon icon="antenna" size="1.75rem"
+        style={{ color: antColor, paddingLeft: 'var(--spacing-3)'}}
+      />
+
+    </RuxTooltip>
+    <RuxTooltip message={lockState}>
+      {lockState === 'Locked' ? <RuxIcon icon="lock" size="1.75rem" style={{ color: lockColor, paddingLeft: 'var(--spacing-3)'}}/> : 
+       <RuxIcon icon="lock-open" size="1.75rem" style={{ color: lockColor, paddingLeft: 'var(--spacing-3)'}}/>
+      }
+    </RuxTooltip>
+  </>)
 
   useEffect(() => {
     const antenna = sewAppCtx.antenna[unit - 1];
@@ -53,29 +69,18 @@ export const AntennaCase = ({ unit }) => {
 
   return (
     <>
-        <EquipmentCase
-          title='Antenna'
-          unit={unit}
-          icon={
-            <>
-              <RuxTooltip message={antState}>
-                <RuxIcon icon="antenna" size="1.75rem"
-                  style={{ color: antColor, paddingLeft: 'var(--spacing-3)'}}
-                />
+    <AntennaHelp modalState={modalState} setModalState={setModalState} />
 
-              </RuxTooltip>
-              <RuxTooltip message={lockState}>
-                {lockState === 'Locked' ? <RuxIcon icon="lock" size="1.75rem" style={{ color: lockColor, paddingLeft: 'var(--spacing-3)'}}/> : 
-                 <RuxIcon icon="lock-open" size="1.75rem" style={{ color: lockColor, paddingLeft: 'var(--spacing-3)'}}/>
-                }
-              </RuxTooltip>
-            </>
-          }>
-          <AntennaController unit={unit} />
-        </EquipmentCase>
+        <EquipmentCase2
+            title='Antenna'
+            unit={unit}
+            units={units}
+            setUnit={setUnit}
+            icon={icons}
+            modalState={modalState}
+            setModalState = {setModalState}>
+            <AntennaController unit={unit} />
+        </EquipmentCase2>
         </>
   );
-};
-AntennaCase.propTypes = {
-  unit: PropTypes.number.isRequired,
 };

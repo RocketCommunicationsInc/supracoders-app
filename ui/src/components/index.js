@@ -1,6 +1,5 @@
 export { Header } from './Header/Header';
 export { Body } from './Body/Body';
-export { Footer } from './Footer/Footer';
 export { Login } from './Login/Login';
 export { StudentStack } from './Body/StudentStack/StudentStack';
 export { TeamInfo } from './Body/StudentStack/TeamInfo/TeamInfo';
@@ -9,7 +8,7 @@ export { SpectrumAnalyzerBox } from './Body/StudentStack/SpectrumAnalyzerGrid/Sp
 export { AnalyzerControl } from './Body/StudentStack/SpectrumAnalyzerGrid/AnalyzerControl/AnalyzerControl';
 export { SpectrumAnalyzer } from './Body/StudentStack/SpectrumAnalyzerGrid/SpectrumAnalyzer/SpectrumAnalyzer';
 export { ARTGrid } from './Body/StudentStack/ARTGrid/ARTGrid';
-export { AntennaCases as Antenna } from './Body/StudentStack/ARTGrid/AntennaCases/AntennaCases';
+export { AntennaCase as Antenna } from './Body/StudentStack/ARTGrid/AntennaCases/AntennaCase';
 export { AntennaController } from './Body/StudentStack/ARTGrid/AntennaCases/AntennaController';
 export { RxCases } from './Body/StudentStack/ARTGrid/RxCases/RxCases';
 export { RxModem } from './Body/StudentStack/ARTGrid/RxCases/RxModem/RxModem';
