@@ -30,6 +30,11 @@ export const AntennaInput = ({ unit }) => {
 
   const el = useRef(null)
 
+  useEffect(()=>{
+    if (errorTimeout) clearTimeout(errorTimeout);
+    setErrorActive(false)
+  },[unit])
+
   useEffect(() => {
     setInputData(sewAppCtx.antenna[antennaIdx]);
   }, [sewAppCtx.antenna, unit]);
@@ -191,7 +196,7 @@ export const AntennaInput = ({ unit }) => {
                   }
                 }}></RuxSwitch>
                 <small style={{color: 'var(--color-text-error)', marginLeft: `var(--spacing-16)`, fontWeight: 'bold', display: 'flex', alignContent: 'center', minHeight: '2rem'}}>
-                  {isErrorActive && <><RuxIcon icon="warning" size="1.15rem" style={{color: 'inherit', marginRight: 'var(--spacing-2)'}}/>Power the Antenna to enable Auto-Track capability</>}</small>
+                  {isErrorActive && <><RuxIcon icon="warning" size="1.15rem" style={{color: 'inherit', marginRight: 'var(--spacing-2)'}}/>Antenna must be powered</>}</small>
             </Grid>
           </Grid>
         </Grid>

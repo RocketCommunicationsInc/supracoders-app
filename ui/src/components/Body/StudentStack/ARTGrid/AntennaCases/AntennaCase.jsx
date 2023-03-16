@@ -7,22 +7,22 @@ import { useSewApp } from '../../../../../context/sewAppContext';
 
 export const AntennaCase = () => {
   const [modalState, setModalState] = useState(false);
-  const [antColor, setAntColor] = useState('var(--color-status-standby)');
-  const [antState, setAntState] = useState('standby');
-  const [lockColor, setLockColor] = useState('var(--color-status-standby)');
-  const [lockState, setLockState] = useState('standby');
+  const [antColor, setAntColor] = useState({ant1:'var(--color-status-standby)', ant2:'var(--color-status-standby)'});
+  const [antState, setAntState] = useState({ant1:'standby', ant2: 'standby'});
+  const [lockColor, setLockColor] = useState({ant1:'var(--color-status-standby)', ant2:'var(--color-status-standby)'});
+  const [lockState, setLockState] = useState({ant1:'standby', ant2: 'standby'});
   const [unit, setUnit] = useState(1)
   const sewAppCtx = useSewApp();
   const icons = (            <>
-    <RuxTooltip message={antState}>
+    <RuxTooltip message={antState[`ant${unit}`]}>
       <RuxIcon icon="antenna" size="1.75rem"
-        style={{ color: antColor, paddingLeft: 'var(--spacing-3)'}}
+        style={{ color: antColor[`ant${unit}`], paddingLeft: 'var(--spacing-3)'}}
       />
 
     </RuxTooltip>
-    <RuxTooltip message={lockState}>
-      {lockState === 'Locked' ? <RuxIcon icon="lock" size="1.75rem" style={{ color: lockColor, paddingLeft: 'var(--spacing-3)'}}/> : 
-       <RuxIcon icon="lock-open" size="1.75rem" style={{ color: lockColor, paddingLeft: 'var(--spacing-3)'}}/>
+    <RuxTooltip message={lockState[`ant${unit}`]}>
+      {lockState[`ant${unit}`] === 'Locked' ? <RuxIcon icon="lock" size="1.75rem" style={{ color: lockColor[`ant${unit}`], paddingLeft: 'var(--spacing-3)'}}/> : 
+       <RuxIcon icon="lock-open" size="1.75rem" style={{ color: lockColor[`ant${unit}`], paddingLeft: 'var(--spacing-3)'}}/>
       }
     </RuxTooltip>
   </>)
@@ -32,49 +32,58 @@ export const AntennaCase = () => {
       {[1,2].map((singleUnit)=>{
       return(
         <RuxMenuItem key={singleUnit} onClick={()=>setUnit(singleUnit)}>
-          {icons} { 'Antenna ' + singleUnit} {unit}
+          <RuxIcon icon="antenna" size="20px" style={{ color: antColor[`ant${singleUnit}`]}}/>
+          <RuxIcon icon={lockState[`ant${singleUnit}`] === 'Locked' ? 'lock' : 'lock-open'} size="20px" style={{ color: lockColor[`ant${singleUnit}`]}}/>
+          { 'Antenna ' + singleUnit} {unit}
         </RuxMenuItem>
       )
       })}
     </RuxMenu>)
 
   useEffect(() => {
-    const antenna = sewAppCtx.antenna[unit - 1];
-    if (antenna) {
-      let _color, _state;
+    const antennas = sewAppCtx.antenna;
+    let _color = antColor
+    let _state = antState
+    let _lockState = lockState
+    let _lockColor = lockColor
 
+    for(const antenna of antennas){
+      const antNum = `ant${antenna.id}`;
+    if (antenna) {
       if (!antenna.operational) {
-        _color = 'var(--color-status-off)';
-        _state = 'Not Operational';
+        _color = {..._color, [antNum]:'var(--color-status-off)'};
+        _state = {..._state, [antNum]:'Not Operational'};
       } else {
         if (antenna.loopback || (!antenna.loopback && antenna.hpa)) {
-          _color = 'var(--color-status-normal)';
+          _color = {..._color, [antNum]:'var(--color-status-normal)'};
           if (antenna.loopback) {
-            _state = 'Loopback';
+            _state = {..._state, [antNum]:'Loopback'};
           } else {
-            _state = 'Actively Transmitting';
+            _state = {..._state, [antNum]:'Actively Transmitting'};
           }
         } else {
-          _color = 'var(--color-status-critical)';
-          _state = 'No Power';
+          _color = {..._color, [antNum]:'var(--color-status-critical)'};
+          _state = {..._state, [antNum]:'No Power'};
         }
       }
-
-      setAntColor(_color);
-      setAntState(_state);
-
+      console.log(antenna)
       if (antenna.locked) {
-        setLockColor('var(--color-status-normal)');
-        setLockState('Locked');
+        _lockColor = {..._lockColor, [antNum]:'var(--color-status-normal)'};
+        _lockState = {..._lockState, [antNum]:'Locked'};
       } else if (!antenna.locked && antenna.track) {
-        setLockColor('var(--color-status-standby)');
-        setLockState('Tracking');
+        _lockColor = {..._lockColor, [antNum]:'var(--color-status-standby)'};
+        _lockState = {..._lockState, [antNum]:'Tracking'};
       } else if (!antenna.locked && !antenna.track) {
-        setLockColor('var(--color-status-off)');
-        setLockState('Unlocked');
+        _lockColor = {..._lockColor, [antNum]:'var(--color-status-off)'};
+        _lockState = {..._lockState, [antNum]:'Unlocked'};
       }
     }
-  }, [sewAppCtx.antenna, unit]);
+  }
+  setAntColor(_color);
+  setAntState(_state);
+  setLockColor(_lockColor);
+  setLockState(_lockState);
+}, [sewAppCtx.antenna, unit]);
 
   return (
     <>
