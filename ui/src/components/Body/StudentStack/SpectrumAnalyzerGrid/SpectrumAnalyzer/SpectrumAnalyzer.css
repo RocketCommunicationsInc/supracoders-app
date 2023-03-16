@@ -51,3 +51,13 @@ rux-select.antenna-select::part(label) {
   color: var(--color-background-interactive-hover);
   cursor: pointer;
 }
+
+.config-radio-group::part(radiogroup) {
+  box-shadow: none;
+  padding: 0;
+}
+
+.config-checkbox-group::part(container) {
+  box-shadow: none;
+  padding: 0;
+}

@@ -187,7 +187,7 @@ export const AnalyzerControl = (props) => {
   };
 
   return (
-    <div id={'analyzerControlModalOverlay'} onClick={(e) => props.handleBackgroundClick(e)}>
+    <div id={'analyzerControlModalOverlay'}>
         <Grid container sx={controlsGridStyle}>
           <Grid item sm={5} xs={12}>
             <Grid container item sx={{ justifyContent: 'space-around' }}>
@@ -286,5 +286,4 @@ export const AnalyzerControl = (props) => {
 
 AnalyzerControl.propTypes = {
   currentSpecAnalyzer: PropTypes.object,
-  handleBackgroundClick: PropTypes.func,
 };

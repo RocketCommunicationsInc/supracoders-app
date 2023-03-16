@@ -1,10 +1,10 @@
 import React from 'react';
-import { RuxContainer, RuxPopUp, RuxIcon, RuxMenu, RuxMenuItem, RuxTooltip } from '@astrouxds/react'
+import { RuxContainer, RuxPopUp, RuxIcon, RuxTooltip } from '@astrouxds/react'
 import PropTypes from 'prop-types';
 import { Grid } from '@mui/material';
 import './equipmentCase.css';
 
-export const EquipmentCase2 = ({ children, title, unit, units, setUnit, icon, tabs, setModalState }) => {
+export const EquipmentCase2 = ({ children, title, unit, units, icon, tabs, setModalState }) => {
 
 const DropDownSelect = () => {
     return(
@@ -13,15 +13,7 @@ const DropDownSelect = () => {
     <div slot='trigger' style={{ display: 'flex', paddingRight: 'var(--spacing-3)' }}>
       <RuxIcon icon={'arrow-drop-down'} size='24px' style={{paddingLeft: 'var(--spacing-1)'}} />
     </div>
-    <RuxMenu>
-      {units.map((singleUnit)=>{
-      return(
-        <RuxMenuItem key={singleUnit} onClick={()=>setUnit(singleUnit)}>
-          {icon} {title + ' ' + singleUnit} {unit}
-        </RuxMenuItem>
-      )
-      })}
-    </RuxMenu>
+      {units}
   </RuxPopUp>
   </>
   )}
@@ -57,7 +49,7 @@ EquipmentCase2.propTypes = {
   children: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired,
   unit: PropTypes.number.isRequired,
-  units: PropTypes.array,
+  units: PropTypes.node,
   icon: PropTypes.node,
   tabs: PropTypes.node,
   setUnit: PropTypes.func,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { RuxButton, RuxPushButton, RuxTooltip, RuxSwitch, RuxSelect, RuxOption, RuxInput, RuxIcon } from '@astrouxds/react'
+import { RuxButton, RuxPushButton, RuxSwitch, RuxSelect, RuxOption, RuxInput, RuxIcon } from '@astrouxds/react'
 import PropTypes from 'prop-types';
 import { Grid, Card } from '@mui/material';
 import { outputStyle } from '../../../../styles';
@@ -15,9 +15,9 @@ const DELAY_TO_ACQ_LOCK = 5000;
 // let errorResetTimeout;
 
 let trackTimeout = null;
+let errorTimeout = null;
 export const AntennaInput = ({ unit }) => {
   const [isErrorActive, setErrorActive] = useState(false);
-  const [isTrackable, setIsTrackable] = useState(false);
   const [playErrorSound] = useSound(errorSound);
   const [playSelectSound] = useSound(selectSound);
   const [playBreakerSound] = useSound(breakerSound);
@@ -32,7 +32,7 @@ export const AntennaInput = ({ unit }) => {
 
   useEffect(() => {
     setInputData(sewAppCtx.antenna[antennaIdx]);
-  }, [sewAppCtx.antenna]);
+  }, [sewAppCtx.antenna, unit]);
 
   const handleInputChange = ({ param, val }) => {
     if (param === 'offset') {
@@ -64,25 +64,27 @@ export const AntennaInput = ({ unit }) => {
     CRUDdataTable({ method: 'PATCH', path: 'antenna', data: tmpData[antennaIdx] });
   };
 
-  const handleEnable = () => {
+  const handleEnable = (e) => {
+    e.preventDefault()
     playBreakerSound();
     const tmpData = [...sewAppCtx.antenna];
     tmpData[antennaIdx].operational = !tmpData[antennaIdx].operational;
-    setIsTrackable(tmpData[antennaIdx].operational)
     // Cant track if it is off
     if (!tmpData[antennaIdx].operational) {
-      el.current.removeAttribute('checked')
       tmpData[antennaIdx].locked = false;
       tmpData[antennaIdx].track = false;
+      if (trackTimeout) clearTimeout(trackTimeout);
     }
     sewAppCtx.updateAntenna([...tmpData]);
     CRUDdataTable({ method: 'PATCH', path: 'antenna', data: tmpData[antennaIdx] });
   };
 
-  const checkTrackState = () =>{
-      setIsTrackable(true)
+  const checkTrackState = (e) =>{
+      e.preventDefault()
+      if(!sewAppCtx.antenna[antennaIdx]?.operational) return;
       const newValue = !inputData.track;
       playBreakerSound();
+      console.log('hiya', sewAppCtx.antenna[antennaIdx])
       handleTrackLocked({ param: 'track', val: newValue });
       if (trackTimeout) clearTimeout(trackTimeout);
       trackTimeout = setTimeout(
@@ -175,13 +177,15 @@ export const AntennaInput = ({ unit }) => {
               <RuxSwitch
                 ref={el}
                 label='Auto-Track'
-                disabled={!isTrackable}
-                onRuxchange={(e) => checkTrackState(e)}
-                onClick={() => {
+                disabled={!sewAppCtx.antenna[antennaIdx]?.operational}
+                checked={sewAppCtx.antenna[antennaIdx].track}
+                onClick={(e) => {
+                  checkTrackState(e)
                   if(el.current.disabled){
                     playErrorSound()
                     setErrorActive(true)
-                    setTimeout(() => {
+                    
+                    errorTimeout = setTimeout(() => {
                       setErrorActive(false)
                     }, 5000);
                   }
@@ -199,9 +203,7 @@ export const AntennaInput = ({ unit }) => {
           justifyContent={'flex-end'}
           flexGrow={true}
           display={'flex'}>
-          <RuxTooltip message={!sewAppCtx.antenna[antennaIdx]?.operational ? 'Enable Antenna' : 'Disable Antenna'}>
-            <RuxPushButton label={sewAppCtx.antenna[antennaIdx]?.operational ? 'Disable' : 'Enable'} onRuxchange={(e) => handleEnable(e)} />
-          </RuxTooltip>
+            <RuxPushButton label={sewAppCtx.antenna[antennaIdx]?.operational ? 'Disable' : 'Enable'} onClick={(e) => handleEnable(e)} checked={sewAppCtx.antenna[antennaIdx]?.operational} />
           <RuxButton style={{ marginLeft: '8px' }} onClick={(e) => handleApply(e)}>
             Apply
           </RuxButton>

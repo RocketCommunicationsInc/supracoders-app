@@ -18,9 +18,9 @@ export const LoopbackSwitch = ({ unit }) => {
   const unitData = sewAppCtx.antenna.filter(
     (x) => x.unit == unit && x.team_id == sewAppCtx.user.team_id && x.server_id == sewAppCtx.user.server_id
   );
-  const antennaIdx = sewAppCtx.antenna.map((x) => {
-    console.log('x.id', x.id)
+ const antennaIdx = sewAppCtx.antenna.map((x) => {
     return x.id}).indexOf(unitData[0].id);
+  
 
   const sxTx = {
     color: sewAppCtx.antenna[antennaIdx].loopback
@@ -47,8 +47,10 @@ export const LoopbackSwitch = ({ unit }) => {
     sewAppCtx.updateAntenna([...tmpData]);
     CRUDdataTable({ method: 'PATCH', path: 'antenna', data: tmpData[antennaIdx] });
   };
-  const handleHPA = () => {
+  const handleHPA = (e) => {
+    e.preventDefault()
     playBreakerSound();
+    console.log(sewAppCtx.antenna)
     const tmpData = [...sewAppCtx.antenna];
     const hpa = tmpData[antennaIdx].hpa;
     tmpData[antennaIdx].hpa = !hpa;
@@ -77,7 +79,6 @@ export const LoopbackSwitch = ({ unit }) => {
           </RuxButton>
           <RuxTooltip message='Antenna'>
             <RuxIcon icon="antenna" size="24px" style={ sxTx } />
-            {/* <CellTowerIcon sx={sxTx} /> */}
           </RuxTooltip>
         </Box>
         <RuxTooltip message='Ground' style={{ display: 'flex', }}>
@@ -88,8 +89,7 @@ export const LoopbackSwitch = ({ unit }) => {
         message={!sewAppCtx.antenna[antennaIdx].hpa ? 'Enable High Powered Amplifier' : 'Disable High Powered Amplifier'}
         style={{ display: 'flex', }}
         >
-        <RuxSwitch style={{ marginLeft: '0' }} label='High Powered Amplifier' onRuxchange={(e) => handleHPA(e)}></RuxSwitch>
-        {/* <RuxPushButton label='HPA' onRuxchange={(e) => handleHPA(e)} style={{ display: 'flex', justifyContent: 'center', marginTop: 'var(--spacing-2)', }} /> */}
+        <RuxSwitch style={{ marginLeft: '0' }} label='High Powered Amplifier' onClick={(e) => handleHPA(e)} checked={sewAppCtx.antenna[antennaIdx].hpa}></RuxSwitch>
       </RuxTooltip>
     </RuxCard>
   );

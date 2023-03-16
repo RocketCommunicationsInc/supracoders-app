@@ -7,7 +7,6 @@ export const TeamSelect = () => {
   const sewAppCtx = useSewApp();
 
   const handleTeamChange = value => {
-    console.log(value);
     sewAppCtx.updateUser({ ...sewAppCtx.user, team_id: value });
   };
 

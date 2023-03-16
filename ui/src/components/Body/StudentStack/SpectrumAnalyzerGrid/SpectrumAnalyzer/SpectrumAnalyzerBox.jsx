@@ -1,13 +1,14 @@
-import { Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import { SpectrumAnalyzer } from '../../../../';
-import React, { useLayoutEffect, useState, useEffect } from 'react';
-import { RuxContainer, RuxTooltip, RuxIcon, RuxButton, RuxButtonGroup, RuxSegmentedButton } from '@astrouxds/react'
+import React, { useLayoutEffect, useState, useEffect, useRef } from 'react';
+import { RuxContainer, RuxTooltip, RuxIcon, RuxPushButton, RuxButton, RuxPopUp, RuxRadioGroup, RuxRadio, RuxCheckboxGroup, RuxCheckbox } from '@astrouxds/react'
 import { satellites } from '../../../../../constants';
 import PropTypes from 'prop-types';
 import SpecAHelp from '../../HelpModals/SpecAHelp';
 import config from '../../../../../constants/config';
 import { useSewApp } from '../../../../../context/sewAppContext';
 import { githubCheck } from '../../../../../lib/github-check';
+import { AnalyzerControl } from '../../../../';
 import './SpectrumAnalyzer.css'
 import useSound from 'use-sound';
 import { selectSound } from '../../../../../audio';
@@ -26,8 +27,17 @@ export const SpectrumAnalyzerBox = (props) => {
   const [playSelectSound] = useSound(selectSound);
   const [isRfMode, setIsRfMode] = useState(false);
   const [isPause, setIsPause] = useState(false);
+  const [currentAntennaInAnalyzer, setCurrentAntennaInAnalyzer] = useState(1)
+  const [isTraceOn, setIsTraceOn] = useState(false);
+  const [isMarkerOn, setIsMarkerOn] = useState(false);
   const sewAppCtx = useSewApp();
   const whichSpecA = props.canvasId.split('A')[1];
+
+  const [dataAvailable, setDataAvailable] = useState(false)
+
+  const [currentSpecAnalyzer, setCurrentSpecAnalyzer] = useState(false)
+
+  const el = useRef(null)
 
   useEffect(() => {
     window.sewApp.socket?.on('updateSpecA', (data) => {
@@ -135,7 +145,11 @@ export const SpectrumAnalyzerBox = (props) => {
 
   useEffect(() => {
     const specA = sewAppCtx.sewApp[`specA${whichSpecA}`];
-    if (!specA || !specA.antenna_id) return;
+    if (!specA || !specA.antenna_id){
+      return;}
+      setCurrentSpecAnalyzer(specA)
+      setDataAvailable(true)
+      setIsTraceOn(specA.isDrawHold);
     const { target_id } = sewAppCtx.antenna[specA.antenna_id - 1];
     specA.target_id = target_id;
     sewAppCtx.updateSewApp();
@@ -150,7 +164,7 @@ export const SpectrumAnalyzerBox = (props) => {
     setIsRfMode(!isRfMode);
     const _specA = window.sewApp[`specA${specA.canvas.id.split('A')[1]}`];
     _specA.isRfMode = !isRfMode;
-    props.handleRfClick(_specA);
+    setCurrentSpecAnalyzer(_specA);
 
     window.sewApp.announceSpecAChange(specA.whichUnit);
     sewAppCtx.updateSewApp();
@@ -163,10 +177,27 @@ export const SpectrumAnalyzerBox = (props) => {
     setIsPause(!isPause);
     const _specA = window.sewApp[`specA${specA.canvas.id.split('A')[1]}`];
     _specA.isPause = !isPause;
-    props.handlePauseClicked(_specA);
+    setCurrentSpecAnalyzer(_specA);
     window.sewApp.announceSpecAChange(specA.whichUnit);
     sewAppCtx.updateSewApp();
   };
+
+    // Used for holding max amplitude
+  const handleHoldClick = () => {
+    playSelectSound();
+    if (typeof currentSpecAnalyzer.resetHoldData !== 'undefined') {
+      currentSpecAnalyzer.resetHoldData();
+      currentSpecAnalyzer.isDrawHold = !currentSpecAnalyzer.isDrawHold;
+      setIsTraceOn(currentSpecAnalyzer.isDrawHold);
+    }
+  };
+
+    // Used for marking max amplitude
+    const handleMarkerClick = () => {
+      playSelectSound();
+      currentSpecAnalyzer.isDrawMarker = !currentSpecAnalyzer.isDrawMarker;
+      setIsMarkerOn(currentSpecAnalyzer.isDrawMarker);
+    };
 
   useEffect(() => {
     updateSpecAwAntennaInfo();
@@ -224,10 +255,6 @@ export const SpectrumAnalyzerBox = (props) => {
             </RuxIcon>
           </RuxTooltip>
         </div>
-        <div style={{textAlign: 'center'}}>
-          Span: {sewAppCtx.sewApp[`specA${whichSpecA}`]?.bw / 1e6} MHz
-          
-        </div>
         <Grid container spacing={0}>
           <Grid item xs={11} textAlign={'center'}>
             
@@ -236,18 +263,31 @@ export const SpectrumAnalyzerBox = (props) => {
             
           </Grid>
           <Grid item sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', textAlign: 'right', paddingRight: '4px' }} xs={2}>
-              <p>{sewAppCtx.sewApp[`specA${whichSpecA}`]?.maxDecibels} (dB)</p>
-              <p>{sewAppCtx.sewApp[`specA${whichSpecA}`]?.minDecibels} (dB)</p>
+              <p style={{ fontSize: 'var(--font-body-2-font-size)' }}>{sewAppCtx.sewApp[`specA${whichSpecA}`]?.maxDecibels} (dB)</p>
+              <p style={{ fontSize: 'var(--font-body-2-font-size)' }}>{sewAppCtx.sewApp[`specA${whichSpecA}`]?.minDecibels} (dB)</p>
           </Grid>
           <Grid sx={canvasContainer} item xs={10}>
               <canvas id={props.canvasId} />
           </Grid>
-          <Grid item xs={12} style={{textAlign: 'center'}}>
-            <p>CF: {sewAppCtx.sewApp[`specA${whichSpecA}`]?.centerFreq / 1e6} MHz</p>
+          <Grid item xs={12} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', }}>
+            <div>
+              <span style={{ fontSize: 'var(--font-body-2-font-size)', paddingRight: 'var(--spacing-2)' }}>
+              Span: {sewAppCtx.sewApp[`specA${whichSpecA}`]?.bw / 1e6} MHz
+              </span>
+              <span style={{ fontSize: 'var(--font-body-2-font-size)', color: 'var(--color-text-placeholder' }}>|</span>
+              <span style={{ fontSize: 'var(--font-body-2-font-size)', paddingLeft: 'var(--spacing-2)' }}>CF: {sewAppCtx.sewApp[`specA${whichSpecA}`]?.centerFreq / 1e6} MHz</span>
+            </div>
+            <RuxPushButton
+                  size='small'
+                  iconOnly
+                  icon={sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause ? 'play-arrow' : 'pause'} 
+                  // label={sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause ? 'Play' : 'Pause'} 
+                  onRuxchange={() => handlePauseClicked()} 
+                />
           </Grid>
           <Grid container item xs={12}>
             <Grid item xs={12} style={{ display: 'flex', alignItems: 'center', }}>
-              <Typography pr={1} textAlign={'right'}>Frequency</Typography>
+              {/* <Typography pr={1} textAlign={'right'}>Frequency</Typography>
               <RuxSegmentedButton size='small' data={
                 [
                   { label: "Intermediate", selected: true },
@@ -255,13 +295,13 @@ export const SpectrumAnalyzerBox = (props) => {
                 ]
               }
               onRuxchange={handleRfClicked}
-              />
+              /> */}
             </Grid>
           </Grid>
           <Grid container item xs={12}>
             <Grid item xs={12} style={{ display: 'flex', alignItems: 'center', paddingTop: 'var(--spacing-2)' }}>
-              <Typography pr={1} minWidth={84} textAlign={'right'}>Antenna</Typography>
-              <RuxSegmentedButton size='small' data={
+              
+              {/* <RuxSegmentedButton size='small' data={
                   [
                     { label: "1", selected: true },
                     { label: "2" },
@@ -270,28 +310,92 @@ export const SpectrumAnalyzerBox = (props) => {
                 onRuxchange={(e) =>
                   updateSpecAwAntennaInfo(parseInt(e.target.selected), sewAppCtx.sewApp[`specA${whichSpecA}`], false)
                 }
-              />
+              /> */}
             </Grid>
           </Grid>
         </Grid>
         <div slot='footer'>
-          <div style={{ display: 'flex', }}>
-            <RuxButtonGroup style={{ marginLeft: 'auto', marginTop: 'auto', }} hAlign='right'>
-                <RuxButton
-                  style={{ marginLeft: '8px', marginRight: '8px', }}
-                  secondary
-                  icon="settings"
-                  onClick={() => {
-                    playSelectSound();
-                    props.handleConfigClick(
-                      sewAppCtx.sewApp[`specA${whichSpecA}`],
-                      sewAppCtx.sewApp[`specA${whichSpecA}`]
-                    );
-                  }}>
-                  Config
-                </RuxButton>
-                <RuxButton icon-only icon={sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause ? 'play-arrow' : 'pause'} onClick={() => handlePauseClicked()} />
-            </RuxButtonGroup>
+          <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', fontSize: 'var(--font-body-2-font-size)' }}>
+          <RuxPopUp 
+            placement="bottom-start"
+            ref={el}
+          >
+            <div slot='trigger'>
+              <RuxButton
+                style={{ }}
+                iconOnly
+                size='small'
+                borderless
+                icon="settings"
+                onClick={() => {
+                  playSelectSound();
+                  setCurrentSpecAnalyzer(sewAppCtx.sewApp[`specA${whichSpecA}`])
+                }}>
+              </RuxButton>
+            </div>
+            { dataAvailable ?
+               <div style={{ width: '528px', padding: 'var(--spacing-4)' }}>
+                <div style={{ display: 'flex', }}>
+                  <RuxRadioGroup
+                    className='config-radio-group'
+                    style={{ paddingRight: 'var(--spacing-8)' }}
+                    name="Antennas" 
+                    label="Antenna"
+                    onRuxchange={(e) => {
+                        updateSpecAwAntennaInfo(parseInt(e.target.value), sewAppCtx.sewApp[`specA${whichSpecA}`], false)
+                        setCurrentAntennaInAnalyzer(e.target.value)
+                      }
+                    }
+                  >
+                    <RuxRadio value="1" name="Antennas">
+                    Antenna 1
+                    </RuxRadio>
+                    <RuxRadio value="2" name="Antennas">
+                    Antenna 2
+                    </RuxRadio>
+                  </RuxRadioGroup>
+                  <RuxRadioGroup
+                    className='config-radio-group'
+                    style={{ paddingRight: 'var(--spacing-8)' }}
+                    name="Frequency" 
+                    label="Frequency"
+                    onRuxchange={() => {
+                      handleRfClicked()
+                    }}
+                  >
+                    <RuxRadio value="Radio" name="Frequency">
+                    Radio
+                    </RuxRadio>
+                    <RuxRadio value="Intermediate" name="Frequency">
+                    Intermediate
+                    </RuxRadio>
+                  </RuxRadioGroup>
+                  <RuxCheckboxGroup
+                  className='config-checkbox-group'
+                    name='viewOptions'
+                    label='View Options'
+                  >
+                    <RuxCheckbox value='trace' name='viewOptions' checked={isTraceOn} onRuxchange={handleHoldClick}>
+                      Trace
+                    </RuxCheckbox>
+                    <RuxCheckbox value='marker' name='viewOptions' checked={isMarkerOn} onRuxchange={handleMarkerClick}>
+                      Marker
+                    </RuxCheckbox>
+                  </RuxCheckboxGroup>
+                </div>
+
+               <AnalyzerControl currentSpecAnalyzer={currentSpecAnalyzer} />
+              </div> 
+              : null
+            }
+          </RuxPopUp>
+          <span style={{ paddingRight: 'var(--spacing-2)', paddingLeft: 'var(--spacing-2)', }}>Antenna {currentAntennaInAnalyzer}</span>
+          <span style={{ color: 'var(--color-text-placeholder)', }}>|</span>
+          <span style={{ paddingRight: 'var(--spacing-2)', paddingLeft: 'var(--spacing-2)', }}>{ isRfMode ? 'Radio' : 'Intermediate' }</span>
+          <span style={{ color: 'var(--color-text-placeholder)', }}>|</span>
+          <span style={{ paddingRight: 'var(--spacing-2)', paddingLeft: 'var(--spacing-2)', }}>{ isTraceOn ? 'Show Traces' : 'Hide Traces' }</span>
+          <span style={{ color: 'var(--color-text-placeholder)', }}>|</span>
+          <span style={{ paddingRight: 'var(--spacing-2)', paddingLeft: 'var(--spacing-2)', }}>{ isMarkerOn ? 'Show Markers' : 'Hide Markers' }</span>
           </div>
         </div>
       </RuxContainer>
@@ -302,7 +406,5 @@ export const SpectrumAnalyzerBox = (props) => {
 SpectrumAnalyzerBox.propTypes = {
   unit: PropTypes.number,
   canvasId: PropTypes.any,
-  handleConfigClick: PropTypes.any,
-  handleRfClick: PropTypes.any,
-  handlePauseClicked: PropTypes.any,
+  currentSpecAnalyzer: PropTypes.any,
 };

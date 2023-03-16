@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { RuxTooltip, RuxIcon } from '@astrouxds/react'
+import { RuxTooltip, RuxIcon, RuxMenu, RuxMenuItem } from '@astrouxds/react'
 import { AntennaController } from '../../../..';
 import { EquipmentCase2 } from '../EquipmentCase2';
 import  AntennaHelp from '../../HelpModals/AntennaHelp'
@@ -13,8 +13,6 @@ export const AntennaCase = () => {
   const [lockState, setLockState] = useState('standby');
   const [unit, setUnit] = useState(1)
   const sewAppCtx = useSewApp();
-  //number of antenna units
-  const units = [1,2]
   const icons = (            <>
     <RuxTooltip message={antState}>
       <RuxIcon icon="antenna" size="1.75rem"
@@ -28,6 +26,17 @@ export const AntennaCase = () => {
       }
     </RuxTooltip>
   </>)
+
+    //units menu
+    const units =(<RuxMenu>
+      {[1,2].map((singleUnit)=>{
+      return(
+        <RuxMenuItem key={singleUnit} onClick={()=>setUnit(singleUnit)}>
+          {icons} { 'Antenna ' + singleUnit} {unit}
+        </RuxMenuItem>
+      )
+      })}
+    </RuxMenu>)
 
   useEffect(() => {
     const antenna = sewAppCtx.antenna[unit - 1];
@@ -65,7 +74,7 @@ export const AntennaCase = () => {
         setLockState('Unlocked');
       }
     }
-  }, [sewAppCtx.antenna]);
+  }, [sewAppCtx.antenna, unit]);
 
   return (
     <>
@@ -75,7 +84,6 @@ export const AntennaCase = () => {
             title='Antenna'
             unit={unit}
             units={units}
-            setUnit={setUnit}
             icon={icons}
             modalState={modalState}
             setModalState = {setModalState}>
