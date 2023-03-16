@@ -13,19 +13,16 @@ export const AntennaCase = () => {
   const [lockState, setLockState] = useState({ant1:'standby', ant2: 'standby'});
   const [unit, setUnit] = useState(1)
   const sewAppCtx = useSewApp();
-  const icons = (            <>
-    <RuxTooltip message={antState[`ant${unit}`]}>
-      <RuxIcon icon="antenna" size="1.75rem"
-        style={{ color: antColor[`ant${unit}`], paddingLeft: 'var(--spacing-3)'}}
-      />
-
-    </RuxTooltip>
-    <RuxTooltip message={lockState[`ant${unit}`]}>
-      {lockState[`ant${unit}`] === 'Locked' ? <RuxIcon icon="lock" size="1.75rem" style={{ color: lockColor[`ant${unit}`], paddingLeft: 'var(--spacing-3)'}}/> : 
-       <RuxIcon icon="lock-open" size="1.75rem" style={{ color: lockColor[`ant${unit}`], paddingLeft: 'var(--spacing-3)'}}/>
-      }
-    </RuxTooltip>
-  </>)
+  const icons = (
+              <>
+                <RuxTooltip message={antState[`ant${unit}`]}>
+                  <RuxIcon icon="antenna" size="1.75rem" style={{ color: antColor[`ant${unit}`], paddingLeft: 'var(--spacing-3)'}}/>
+                </RuxTooltip>
+                <RuxTooltip message={lockState[`ant${unit}`]}>
+                  <RuxIcon icon={lockState[`ant${unit}`] === 'Locked' ? 'lock' : 'lock-open'} size="1.75rem" style={{ color: lockColor[`ant${unit}`], paddingLeft: 'var(--spacing-3)'}}/>
+                </RuxTooltip>
+              </>
+              )
 
     //units menu
     const units =(<RuxMenu>
@@ -40,6 +37,7 @@ export const AntennaCase = () => {
       })}
     </RuxMenu>)
 
+  //this controls the color states of icons
   useEffect(() => {
     const antennas = sewAppCtx.antenna;
     let _color = antColor
@@ -66,7 +64,6 @@ export const AntennaCase = () => {
           _state = {..._state, [antNum]:'No Power'};
         }
       }
-      console.log(antenna)
       if (antenna.locked) {
         _lockColor = {..._lockColor, [antNum]:'var(--color-status-normal)'};
         _lockState = {..._lockState, [antNum]:'Locked'};
@@ -87,17 +84,16 @@ export const AntennaCase = () => {
 
   return (
     <>
-    <AntennaHelp modalState={modalState} setModalState={setModalState} />
-
-        <EquipmentCase2
-            title='Antenna'
-            unit={unit}
-            units={units}
-            icon={icons}
-            modalState={modalState}
-            setModalState = {setModalState}>
-            <AntennaController unit={unit} />
-        </EquipmentCase2>
-        </>
+      <AntennaHelp modalState={modalState} setModalState={setModalState} />
+      <EquipmentCase2
+          title='Antenna'
+          unit={unit}
+          units={units}
+          icon={icons}
+          modalState={modalState}
+          setModalState = {setModalState}>
+          <AntennaController unit={unit} />
+      </EquipmentCase2>
+    </>
   );
 };

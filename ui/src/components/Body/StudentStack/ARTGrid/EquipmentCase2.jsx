@@ -8,15 +8,15 @@ export const EquipmentCase2 = ({ children, title, unit, units, icon, tabs, setMo
 
 const DropDownSelect = () => {
     return(
-      <>
-    <RuxPopUp disableAutoUpdate placement="bottom">
-    <div slot='trigger' style={{ display: 'flex', paddingRight: 'var(--spacing-3)' }}>
-      <RuxIcon icon={'arrow-drop-down'} size='24px' style={{paddingLeft: 'var(--spacing-1)'}} />
-    </div>
-      {units}
-  </RuxPopUp>
-  </>
-  )}
+          <>
+            <RuxPopUp disableAutoUpdate placement="bottom">
+              <div slot='trigger' style={{ display: 'flex', paddingRight: 'var(--spacing-3)' }}>
+                <RuxIcon icon={'arrow-drop-down'} size='24px' style={{paddingLeft: 'var(--spacing-1)'}} />
+              </div>
+                {units}
+            </RuxPopUp>
+          </>
+      )}
 
   return (
     <RuxContainer style={{overflow: 'hidden'}} className="equip-case">
@@ -52,6 +52,5 @@ EquipmentCase2.propTypes = {
   units: PropTypes.node,
   icon: PropTypes.node,
   tabs: PropTypes.node,
-  setUnit: PropTypes.func,
   setModalState: PropTypes.func,
 };
