@@ -50,7 +50,6 @@ export const LoopbackSwitch = ({ unit }) => {
   const handleHPA = (e) => {
     e.preventDefault()
     playBreakerSound();
-    console.log(sewAppCtx.antenna)
     const tmpData = [...sewAppCtx.antenna];
     const hpa = tmpData[antennaIdx].hpa;
     tmpData[antennaIdx].hpa = !hpa;
