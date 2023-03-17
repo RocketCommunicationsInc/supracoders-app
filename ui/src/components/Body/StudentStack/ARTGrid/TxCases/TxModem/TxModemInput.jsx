@@ -201,23 +201,6 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
               </Card>
             </Grid>
           </Grid>
-          <Grid container item xs={12} alignItems='center' justify='center'>
-            <Grid item xs={true} sx={{ display: 'flex', paddingTop: 'var(--spacing-2)' }}>
-              <span style={{ marginRight: 'var(--spacing-2)', minWidth: 'calc(var(--spacing-16) + var(--spacing-2))', marginBottom: 'var(--spacing-0)', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', }}>Power %</span>
-              <RuxProgress value={Math.min(100, rawPower)} style={{ width: '100%' }}  />
-              {/* <LinearProgressWithLabel value={Math.round((100 * modemPower) / powerBudget)} /> */}
-            </Grid>
-          </Grid>
-          <Grid container item xs={12} alignItems='center' justify='center'>
-            <Grid item xs={true}>
-              {Math.min(100, rawPower) >= MED && Math.min(100, rawPower) < HIGH && <p className='progress-error'>*Power warning</p>}
-              {Math.min(100, rawPower) >= HIGH && (
-                rawPower > 100 
-                ? <p className='progress-error'>*Power exceeded</p>
-                : <p className='progress-error'>*Power critical</p>
-              )}
-            </Grid>
-          </Grid>
         </Grid>
         <Grid
           item
@@ -235,6 +218,17 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
           </RuxButton>
         </Grid>
       </Grid>
+
+            <Grid item xs={true} sx={{ display: 'flex', paddingTop: 'var(--spacing-2)' }}>
+              <span style={{ marginRight: 'var(--spacing-2)', minWidth: 'calc(var(--spacing-16) + var(--spacing-2))', marginBottom: 'var(--spacing-0)', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', }}>Power %</span>
+              <RuxProgress value={Math.min(100, rawPower)} style={{ width: '100%' }}  />
+              {Math.min(100, rawPower) >= MED && Math.min(100, rawPower) < HIGH && <p className='progress-error'>*Power warning</p>}
+              {Math.min(100, rawPower) >= HIGH && (
+                rawPower > 100 
+                ? <p className='progress-error'>*Power exceeded</p>
+                : <p className='progress-error'>*Power critical</p>
+              )}
+            </Grid>
     </>
   );
 };

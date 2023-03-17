@@ -3,7 +3,7 @@ export const sxVideo = {
   overflow: 'hidden',
   backgroundColor: 'var(--color-background-base-default)',
   color: `var(--color-text-secondary)`,
-  width: 'calc(100% - 16px)',
   maxHeight: '200px',
-  aspectRatio: '1/1',
+  height: '100%',
+  aspectRatio: '4/3',
 };

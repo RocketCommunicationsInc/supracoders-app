@@ -68,9 +68,7 @@ export const TxCase = ({ unit, dropdown, activeCase, help }) => {
                 if (x.unit == unit) {
                   return (
                   <RuxTabPanel key={index} ariaLabelledby={`tx-modem-${x.modem_number}`} style={{ display: 'flex' }}>
-                    <h2 style={{ fontFamily: 'Nasa', minWidth: 'calc(var(--spacing-1) * 5)', textAlign: 'center'}}>{x.modem_number}</h2>
-                    <TxModem
-                     unitData={unitData} activeModem={activeModem} currentRow={currentRow} />
+                    <TxModem unitData={unitData} activeModem={activeModem} currentRow={currentRow} />
                   </RuxTabPanel>
                   );
                 }

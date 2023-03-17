@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { RuxTab, RuxIcon } from '@astrouxds/react'
+import { RuxTab, RuxStatus } from '@astrouxds/react'
 import { selectSound } from '../../../../../../audio';
 import { useSound } from 'use-sound';
 
@@ -23,7 +23,7 @@ export const TxModemButton = ({ modemId, updateActiveModem, isActive, isTransmit
       }} 
       ref={el}
     >
-     {isTransmitting ? <RuxIcon icon='antenna-transmit' size='24px' style={{ color: 'var(--color-status-normal)', paddingRight: '4px' }} /> : <RuxIcon icon='antenna-transmit' size='24px' style={{ paddingRight: '4px' }} />} Modem {modemId}
+     {isTransmitting ? <RuxStatus status="normal" style={{ paddingRight: '4px' }} /> : <RuxStatus status="off" style={{ paddingRight: '4px' }} />} Modem {modemId}
     </RuxTab>
   );
 };

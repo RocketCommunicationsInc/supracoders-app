@@ -1,5 +1,5 @@
 import React from 'react';
-import { RuxCard, RuxButton, RuxTooltip, RuxSwitch, RuxIcon } from '@astrouxds/react'
+import { RuxButton, RuxTooltip, RuxPushButton, RuxIcon } from '@astrouxds/react'
 import PropTypes from 'prop-types';
 import { Box, Typography } from '@mui/material';
 // import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore';
@@ -57,7 +57,7 @@ export const LoopbackSwitch = ({ unit }) => {
     CRUDdataTable({ method: 'PATCH', path: 'antenna', data: tmpData[antennaIdx] });
   };
   return (
-    <RuxCard className='loopback_container'>
+    <div className='loopback_container'>
       <p style={{ textAlign: 'center' }}>Pathway Switch</p>
         <RuxTooltip style={{ display: 'flex' }} message='Intermediate Frequency'>
           <Typography align='center'>IF</Typography>
@@ -88,9 +88,9 @@ export const LoopbackSwitch = ({ unit }) => {
         message={!sewAppCtx.antenna[antennaIdx].hpa ? 'Enable High Powered Amplifier' : 'Disable High Powered Amplifier'}
         style={{ display: 'flex', }}
         >
-        <RuxSwitch style={{ marginLeft: '0' }} label='High Powered Amplifier' onClick={(e) => handleHPA(e)} checked={sewAppCtx.antenna[antennaIdx].hpa}></RuxSwitch>
+        <RuxPushButton style={{textAlign: 'center', marginTop: 'var(--spacing-4)'}} label={sewAppCtx.antenna[antennaIdx].hpa ? 'Disable Amplifier' : 'Enable Amplifier'} onClick={(e) => handleHPA(e)} checked={sewAppCtx.antenna[antennaIdx].hpa} />
       </RuxTooltip>
-    </RuxCard>
+    </div>
   );
 };
 LoopbackSwitch.propTypes = {

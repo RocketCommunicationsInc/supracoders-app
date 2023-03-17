@@ -4,13 +4,12 @@
 
 .loopback_container {
   display: flex;
+  flex-flow: column;
   width: 240px;
-  margin-top: -1rem;
-  padding-top: var(--spacing-4);
+  padding: var(--spacing-4);
 }
 
-.loopback_container::part(container) {
-  background: var(--color-background-surface-default);
-  border: none;
+.loopback_container {
+  background: var(--color-background-base-default);
   display: flex;
 }
