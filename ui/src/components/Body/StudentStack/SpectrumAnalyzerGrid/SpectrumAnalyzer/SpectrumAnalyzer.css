@@ -61,3 +61,13 @@ rux-select.antenna-select::part(label) {
   box-shadow: none;
   padding: 0;
 }
+
+.config-input::part(input-field) {
+  width: var(--spacing-24);
+  margin-right: var(--spacing-2);
+}
+
+.config-input::part(label) {
+  margin-right: var(--spacing-2);
+  margin-bottom: var(--spacing-0);
+}

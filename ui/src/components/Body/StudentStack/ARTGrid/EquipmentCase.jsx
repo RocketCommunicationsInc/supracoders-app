@@ -3,14 +3,15 @@ import { RuxContainer } from '@astrouxds/react'
 import PropTypes from 'prop-types';
 import { Grid } from '@mui/material';
 import './equipmentCase.css';
-export const EquipmentCase = ({ children, title, unit, icon, tabs }) => {
+export const EquipmentCase = ({ children, title, unit, icon, tabs, dropdown, activeCase, help }) => {
 
   return (
-      <RuxContainer className={ tabs ? 'container_equipment-case tab-case' : 'container_equipment-case'} style={{overflow: 'hidden'}}>
-        <div slot="header">
+      <RuxContainer style={{overflow: 'hidden', display: activeCase === unit ? 'flex' : 'none'}}>
+        <div slot="header" style={{display: 'flex', justifyContent: 'space-between'}}>
           <div style={{ display: 'flex', alignItems: 'center', }}>
-            {icon} {title + ` ` + unit}
+            {icon} {title + ` ` + unit} {dropdown}
           </div>
+          {help}
         </div>
         {tabs ? <div slot="tab-bar">{tabs}</div> : null}
         <Grid container>
@@ -28,4 +29,7 @@ EquipmentCase.propTypes = {
   unit: PropTypes.number.isRequired,
   icon: PropTypes.node,
   tabs: PropTypes.node,
+  dropdown: PropTypes.node,
+  activeCase: PropTypes.number,
+  help: PropTypes.node,
 };

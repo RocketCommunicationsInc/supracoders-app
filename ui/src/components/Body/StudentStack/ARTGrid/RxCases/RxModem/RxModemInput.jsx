@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { RuxButton, RuxTooltip, RuxSelect, RuxOption, RuxInput } from '@astrouxds/react'
+import { RuxButton, RuxSelect, RuxOption, RuxInput } from '@astrouxds/react'
 import PropTypes from 'prop-types';
 import { Grid, Card } from '@mui/material';
 import { useSewApp } from '../../../../../../context/sewAppContext';
@@ -150,11 +150,9 @@ export const RxModemInput = ({ currentRow }) => {
           justifyContent={'flex-end'}
           flexGrow={true}
           display={'flex'}>
-          <RuxTooltip message='Commit Changes'>
             <RuxButton onClick={(e) => handleApply(e)}>
               Apply
             </RuxButton>
-          </RuxTooltip>
         </Grid>
       </Grid>
     </Grid>

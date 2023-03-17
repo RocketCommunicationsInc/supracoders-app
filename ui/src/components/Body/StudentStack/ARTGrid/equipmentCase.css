@@ -1,70 +1,38 @@
 .art-grid {
   display: flex;
   align-items: stretch;
+  justify-content: space-between;
   gap: var(--spacing-2);
   padding: var(--spacing-4);
+  padding-inline-end: var(--spacing-0);
   flex-grow: 1;
 }
 .art-grid > * {
   flex-basis: 33%;
 }
-.container-case {
-  padding-left: var(--spacing-4);
-  padding-top: var(--spacing-4);
+
+.case-grid {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr;
+  grid-template-areas: 'grid';
 }
 
-.container-case::part(body) {
+.art-grid rux-container {
   display: flex;
-  flex-wrap: wrap;
-  padding-top: var(--spacing-0);
-  padding-left: var(--spacing-0);
+  align-self: stretch;
 }
 
-/*Transmitter*/
-.container-case.transmitter > div {
+.art-grid rux-container::part(container) {
   display: flex;
+  align-self: stretch;
+  flex-direction: column;
 }
 
-.container-case.transmitter .container_equipment-case {
-  min-width: 450px;
-  flex-grow: 1;
+.art-grid rux-container::part(body) {
+  height: 100%;
 }
 
-@media screen and (max-width: 1945px) {
-  .container-case.transmitter > div {
-    flex-basis: 100%;
-  }
-}
-
-@media screen and (max-width: 1028px) {
-  .container-case.transmitter > div {
-    flex-wrap: wrap;
-  }
-}
-
-/*Antenna*/
-
-.container-case.antenna > .container_equipment-case {
-  flex-basis: 100%;
-}
-@media screen and (min-width: 1490px) {
-  .container-case.antenna::part(body) {
-    flex-wrap: nowrap;
-  }
-  .container-case.antenna > .container_equipment-case {
-    display: flex;
-    flex-basis: 50%;
-  }
-}
-
-/*Receiver*/
-.container-case.receiver::part(body) {
-  flex-wrap: wrap;
-}
-
-@media screen and (min-width: 1490px) {
-  .container-case.receiver > div {
-    display: flex;
-    flex-wrap: nowrap;
-  }
+.case-grid > rux-container {
+  grid-area: grid;
 }

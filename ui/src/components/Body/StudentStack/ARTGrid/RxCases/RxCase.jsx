@@ -7,22 +7,16 @@ import { useSewApp } from './../../../../../context/sewAppContext';
 import { PropTypes } from 'prop-types';
 
 
-export const RxCase = ({ unit }) => {
+export const RxCase = ({ unit, dropdown, activeCase, help }) => {
   const sewAppCtx = useSewApp();
   const [activeModem, setActiveModem] = useState(1);
   const [currentRow, setCurrentRow] = useState(1);
   const unitData = sewAppCtx.rx.filter(
-    (x) => x.unit == unit && x.team_id == sewAppCtx.user.team_id && x.server_id == sewAppCtx.user.server_id
-  );
+    (x) => x.unit == unit && x.team_id == sewAppCtx.user.team_id && x.server_id == sewAppCtx.user.server_id);
 
   const determineEquipmentStatus = (unit) => {
     const currentModems = sewAppCtx.rx.filter(
-      (rx) =>
-        rx.unit === (unit - 1) * 4 + 1 ||
-        rx.unit === (unit - 1) * 4 + 2 ||
-        rx.unit === (unit - 1) * 4 + 3 ||
-        rx.unit === (unit - 1) * 4 + 4
-    );
+      (rx) =>rx.unit === unit);
     const isFound = currentModems.filter((rx) => rx.found).length > 0;
     const isDegraded = currentModems.filter((rx) => rx.degraded).length > 0;
     const isDenied = currentModems.filter((rx) => rx.denied).length > 0;
@@ -64,6 +58,9 @@ export const RxCase = ({ unit }) => {
       <EquipmentCase
         title='Receiver Case'
         unit={unit}
+        dropdown={dropdown}
+        activeCase={activeCase}
+        help={help}
         icon={
           <RuxTooltip message={description}>
             <RuxIcon icon="signal-cellular-alt" size="1.75rem"
@@ -87,19 +84,18 @@ export const RxCase = ({ unit }) => {
                 if (x.unit == unit) {
                   return (
                   <RuxTabPanel key={index} ariaLabelledby={`rx-modem-${x.modem_number}`} style={{ display: 'flex' }}>
-                    <h2 style={{ fontFamily: 'Nasa', minWidth: 'calc(var(--spacing-1) * 5)', textAlign: 'center'}}>{x.modem_number}</h2>
-                    {/* <RxModem unit={unit} /> */}
-                    <RxModem
-                     unitData={unitData} activeModem={activeModem} currentRow={currentRow} />
+                    <RxModem unitData={unitData} activeModem={activeModem} currentRow={currentRow} />
                   </RuxTabPanel>
                   );
                 }
               })}
-            
           </RuxTabPanels>
       </EquipmentCase>
   );
 };
 RxCase.propTypes = {
   unit: PropTypes.number.isRequired,
+  dropdown: PropTypes.node,
+  activeCase: PropTypes.number,
+  help: PropTypes.node,
 };

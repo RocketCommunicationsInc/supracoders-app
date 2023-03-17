@@ -1,5 +1,5 @@
 import React from 'react';
-import { RuxContainer, RuxPopUp, RuxIcon, RuxTooltip } from '@astrouxds/react'
+import { RuxContainer, RuxPopUp, RuxIcon} from '@astrouxds/react'
 import PropTypes from 'prop-types';
 import { Grid } from '@mui/material';
 import './equipmentCase.css';
@@ -25,7 +25,6 @@ const DropDownSelect = () => {
         {icon} {title + ` ` + unit}
         <DropDownSelect />
       </div>
-      <RuxTooltip message='Antenna Help' placement='top'>
         <RuxIcon icon='help'
         size='24px'
         className='helpIcon'
@@ -33,7 +32,6 @@ const DropDownSelect = () => {
           onClick={() => {
             setModalState(true);
           }} />
-      </RuxTooltip>
     </div>
     {tabs ? <div slot="tab-bar">{tabs}</div> : null}
         <Grid container>

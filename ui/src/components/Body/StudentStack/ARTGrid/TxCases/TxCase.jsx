@@ -6,7 +6,7 @@ import { EquipmentCase } from '../EquipmentCase';
 import { useSewApp } from '../../../../../context/sewAppContext';
 import { PropTypes } from 'prop-types';
 
-export const TxCase = ({ unit }) => {
+export const TxCase = ({ unit, dropdown, activeCase, help }) => {
   const sewAppCtx = useSewApp();
   const isTransmitting =
     sewAppCtx.tx
@@ -42,6 +42,9 @@ export const TxCase = ({ unit }) => {
       <EquipmentCase
         title='Transmit Case'
         unit={unit}
+        help={help}
+        activeCase={activeCase}
+        dropdown={dropdown}
         icon={
           <RuxTooltip message={isTransmitting ? 'Transmitting' : 'Not Transmitting'}>
             <RuxIcon icon="antenna" size="1.75rem"
@@ -81,4 +84,7 @@ export const TxCase = ({ unit }) => {
 TxCase.propTypes = {
   unit: PropTypes.number.isRequired,
   isTransmitting: PropTypes.bool,
+  dropdown: PropTypes.node,
+  activeCase: PropTypes.number,
+  help: PropTypes.node,
 };
