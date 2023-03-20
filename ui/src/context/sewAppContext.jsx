@@ -30,6 +30,8 @@ const sewAppCtx = createContext({
   updateAntenna: () => {},
   user: {},
   updateUser: () => {},
+  notification: {},
+  updateNotification: () => {},
 });
 export const useSewApp = () => {
   return useContext(sewAppCtx);
@@ -146,6 +148,13 @@ const _sewApp = {
 
 window.sewApp = _sewApp;
 
+const defaultNotification = {
+  isOpen: false,
+  status: 'off',
+  message: 'No notification at this time',
+  time: null,
+}
+
 export const SewAppProvider = ({ children }) => {
   const [sewApp, setSewApp] = useState({});
   const [rx, setRx] = useState(defaultRxData);
@@ -153,6 +162,7 @@ export const SewAppProvider = ({ children }) => {
   const [signal, setSignal] = useState(defaultSignalData);
   const [antenna, setAntenna] = useState(defaultAntennaData);
   const [user, setUser] = useState(defaultUserData);
+  const [notification, setNotification] = useState(defaultNotification)
 
   // Overall App
   const updateSewApp = () => {
@@ -286,6 +296,16 @@ export const SewAppProvider = ({ children }) => {
     setUser(update);
   };
 
+  const updateNotification = (open, status, message, time) =>{
+    const newNotification = {...notification}
+    console.log('notification', notification)
+    open ? newNotification.isOpen = open : null
+    status ? newNotification.status = status : null
+    message ? newNotification.message = message : null
+    time ? newNotification.time = time : null
+    setNotification(newNotification)
+  }
+
   return (
     <sewAppCtx.Provider
       value={{
@@ -301,6 +321,8 @@ export const SewAppProvider = ({ children }) => {
         updateAntenna,
         user,
         updateUser,
+        notification,
+        updateNotification
       }}>
       {children}
     </sewAppCtx.Provider>

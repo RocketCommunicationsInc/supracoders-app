@@ -89,7 +89,6 @@ export const AntennaInput = ({ unit }) => {
       if(!sewAppCtx.antenna[antennaIdx]?.operational) return;
       const newValue = !inputData.track;
       playBreakerSound();
-      console.log('hiya', sewAppCtx.antenna[antennaIdx])
       handleTrackLocked({ param: 'track', val: newValue });
       if (trackTimeout) clearTimeout(trackTimeout);
       trackTimeout = setTimeout(

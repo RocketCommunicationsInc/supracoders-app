@@ -3,6 +3,7 @@ import { ARTGrid, SpectrumAnalyzerGrid} from '../../';
 import { Grid } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSewApp } from '../../../context/sewAppContext';
+import { NotificationBanner } from './NotificationBanner';
 
 export const StudentStack = () => {
   const { state } = useLocation();
@@ -22,6 +23,7 @@ export const StudentStack = () => {
   return (
     <>
       <Grid container spacing={2} paddingTop={2} paddingBottom={2} paddingLeft={2} paddingRight={2}>
+      <NotificationBanner />
         <SpectrumAnalyzerGrid />
         <ARTGrid />
       </Grid>

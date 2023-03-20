@@ -1,25 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { RuxButton, RuxPushButton, RuxSelect, RuxOption, RuxInput } from '@astrouxds/react'
-import { Box, Grid, Typography, Card } from '@mui/material';
+import { Grid, Card } from '@mui/material';
 import { useSewApp } from '../../../../../../context/sewAppContext';
 import { CRUDdataTable } from '../../../../../../crud';
-import { sxModalError, outputStyle } from '../../../../../styles';
+import { outputStyle } from '../../../../../styles';
 import { breakerSound, errorSound, selectSound } from '../../../../../../audio';
 import { PowerMonitor } from './PowerMonitor';
 import { useSound } from 'use-sound';
 import { PropTypes } from 'prop-types';
-// import { LinearProgressWithLabel } from './LinearProgressWithLabel';
-
-const popupTimeoutTime = 3000;
-let errorResetTimeout;
 
 export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
   const [playSelectSound] = useSound(selectSound);
   const [playBreakerSound] = useSound(breakerSound);
   const [playErrorSound] = useSound(errorSound);
   const sewAppCtx = useSewApp();
+  const { updateNotification } = sewAppCtx
   const powerBudget = 23886; // Decided by SEW team
-  const [isErrorActive, setErrorActive] = useState(false);
   const [inputData, setInputData] = useState(sewAppCtx.tx[currentRow]);
   const [modemPower, setModemPower] = useState(inputData.bandwidth * Math.pow(10, (120 + inputData.power) / 10));
   const [rawPower, setRawPower] = useState(Math.round((100 * (inputData.bandwidth * Math.pow(10, (120 + inputData.power) / 10))) / powerBudget));
@@ -63,12 +59,8 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
       setRawPower(newRawPower)
       CRUDdataTable({ method: 'PATCH', path: 'transmitter', data: tmpData[currentRow] });
     } else {
-      setErrorActive(true);
       playErrorSound();
-      if (errorResetTimeout) clearTimeout(errorResetTimeout);
-      errorResetTimeout = setTimeout(() => {
-        setErrorActive(false);
-      }, popupTimeoutTime);
+      updateNotification(true, 'serious', 'Power consumption exceeds the budget', 7000)
     }
   };
 
@@ -80,24 +72,16 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
     if (validatePowerConsumption()) {
       tmpData[currentRow].transmitting = !tmpData[currentRow].transmitting;
       sewAppCtx.updateTx(tmpData);
+      updateNotification(false, 'off', 'no notifications', 5000)
       CRUDdataTable({ method: 'PATCH', path: 'transmitter', data: tmpData[currentRow] });
     } else {
-      setErrorActive(true);
       playErrorSound();
-      if (errorResetTimeout) clearTimeout(errorResetTimeout);
-      errorResetTimeout = setTimeout(() => {
-        setErrorActive(false);
-      }, popupTimeoutTime);
+      updateNotification(true, 'serious', 'Power consumption exceeds the budget', 7000)
     }
   };
 
   return (
     <>
-      {isErrorActive ? (
-        <Box sx={sxModalError}>
-          <Typography>Power consumption exceeds the budget.</Typography>
-        </Box>
-      ) : null}
       <Grid container height={'100%'}>
         <Grid item xs={5} sx={{ display: 'flex', paddingTop: 'var(--spacing-2)' }}>
           <PowerMonitor rawPower={rawPower} />
