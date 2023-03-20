@@ -21,7 +21,7 @@ const DropDownSelect = () => {
   return (
     <RuxContainer style={{overflow: 'hidden'}} className="equip-case">
     <div slot="header" style={{display: 'flex', justifyContent: 'space-between'}}>
-      <div style={{ display: 'flex', alignItems: 'center'}}>
+      <div className="grid-header" style={{ display: 'flex', alignItems: 'center'}}>
         {icon} {title + ` ` + unit}
         <DropDownSelect />
       </div>

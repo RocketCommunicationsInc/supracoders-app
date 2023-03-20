@@ -34,6 +34,8 @@ export const SpectrumAnalyzerBox = (props) => {
   const [spanGhz, setSpanGhz] = useState(null);
   const [spanMhz, setSpanMhz] = useState(null);
   const [spanKhz, setSpanKhz] = useState(null);
+  const [currentCenterFrequency, setCurrentCenterFrequency] = useState(null);
+  const [currentSpan, setCurrentSpan] = useState(null);
   const [cfHertzSelection, setcfHertzSelection] = useState('cfMhz');
   const [spanHertzSelection, setspanHertzSelection] = useState('spanMhz');
   const [isTraceOn, setIsTraceOn] = useState(false);
@@ -46,6 +48,14 @@ export const SpectrumAnalyzerBox = (props) => {
   const [currentSpecAnalyzer, setCurrentSpecAnalyzer] = useState(false)
 
   const el = useRef(null)
+  const antenna = useRef(null)
+  const radio = useRef(null)
+  const trace = useRef(null)
+  const marker = useRef(null)
+  const spanInput = useRef(null)
+  const cfInput = useRef(null)
+  const cfSelect = useRef(null)
+  const spanSelect = useRef(null)
 
   useEffect(() => {
     window.sewApp.socket?.on('updateSpecA', (data) => {
@@ -157,32 +167,39 @@ export const SpectrumAnalyzerBox = (props) => {
       return;}
       setCurrentSpecAnalyzer(specA)
       setDataAvailable(true)
-      !cfGhz && setCfGhz(specA.centerFreq / 1e9);
-      !cfMhz && setCfMhz(specA.centerFreq / 1e6);
-      !cfKhz && setCfKhz(specA.centerFreq / 1e3);
-      !spanGhz && setSpanGhz(specA.bw / 1e9);
-      !spanMhz && setSpanMhz(specA.bw / 1e6);
-      !spanKhz && setSpanKhz(specA.bw / 1e3);
+      console.log(specA.isRfMode)
+      setIsRfMode(specA.isRfMode);
+      setCurrentCenterFrequency(specA.isRfMode ? specA.config.rf.freq : specA.config.if.freq)
+      setCurrentSpan(specA.isRfMode ? specA.config.rf.span : specA.config.if.span)
+      !cfGhz && setCfGhz(specA.isRfMode ? specA.config.rf.freq / 1e9 : specA.config.if.freq / 1e9);
+      !cfMhz && setCfMhz(specA.isRfMode ? specA.config.rf.freq / 1e6 : specA.config.if.freq / 1e6);
+      !cfKhz && setCfKhz(specA.isRfMode ? specA.config.rf.freq / 1e3 : specA.config.if.freq / 1e3);
+      !spanGhz && setSpanGhz(specA.isRfMode ? specA.config.rf.span / 1e9 : specA.config.if.span / 1e9);
+      !spanMhz && setSpanMhz(specA.isRfMode ? specA.config.rf.span / 1e6 : specA.config.if.span / 1e6);
+      !spanKhz && setSpanKhz(specA.isRfMode ? specA.config.rf.span / 1e3 : specA.config.if.span / 1e3);
       setIsTraceOn(specA.isDrawHold);
     const { target_id } = sewAppCtx.antenna[specA.antenna_id - 1];
     specA.target_id = target_id;
     sewAppCtx.updateSewApp();
   }, [sewAppCtx.antenna, sewAppCtx.sewApp[`specA${whichSpecA}`]]);
 
-  const handleRfClicked = () => {
-    playSelectSound();
-    const specA = sewAppCtx.sewApp[`specA${whichSpecA}`];
-    specA.isRfMode = !specA.isRfMode;
-    specA.changeCenterFreq(specA.isRfMode ? specA.config.rf.freq : specA.config.if.freq);
-    specA.changeBandwidth(specA.isRfMode ? specA.config.rf.span : specA.config.if.span);
-    setIsRfMode(!isRfMode);
-    const _specA = window.sewApp[`specA${specA.canvas.id.split('A')[1]}`];
-    _specA.isRfMode = !isRfMode;
-    setCurrentSpecAnalyzer(_specA);
+  // const handleRfClicked = () => {
+  //   console.log('why are you running')
+  //   const specA = sewAppCtx.sewApp[`specA${whichSpecA}`];
+  //   specA.isRfMode = !specA.isRfMode;
 
-    window.sewApp.announceSpecAChange(specA.whichUnit);
-    sewAppCtx.updateSewApp();
-  };
+  //   specA.changeCenterFreq(specA.isRfMode ? specA.config.rf.freq : specA.config.if.freq);
+  //   setCurrentCenterFrequency(specA.isRfMode ? specA.config.rf.freq / 1e6 : specA.config.if.freq / 1e6)
+  //   specA.changeBandwidth(specA.isRfMode ? specA.config.rf.span : specA.config.if.span);
+  //   setCurrentSpan(specA.isRfMode ? specA.config.rf.span / 1e6 : specA.config.if.span / 1e6)
+  //   setIsRfMode(!isRfMode);
+  //   const _specA = window.sewApp[`specA${specA.canvas.id.split('A')[1]}`];
+  //   _specA.isRfMode = !isRfMode;
+  //   setCurrentSpecAnalyzer(_specA);
+
+  //   window.sewApp.announceSpecAChange(specA.whichUnit);
+  //   sewAppCtx.updateSewApp();
+  // };
 
   const handlePauseClicked = () => {
     playSelectSound();
@@ -197,19 +214,17 @@ export const SpectrumAnalyzerBox = (props) => {
   };
 
     // Used for holding max amplitude
-  const handleHoldClick = () => {
-    playSelectSound();
-    if (typeof currentSpecAnalyzer.resetHoldData !== 'undefined') {
-      currentSpecAnalyzer.resetHoldData();
-      currentSpecAnalyzer.isDrawHold = !currentSpecAnalyzer.isDrawHold;
-      setIsTraceOn(currentSpecAnalyzer.isDrawHold);
-    }
+  const handleHold = (checked) => {
+      if (typeof currentSpecAnalyzer.resetHoldData !== 'undefined') {
+        (!isTraceOn && checked) && currentSpecAnalyzer.resetHoldData();
+        checked ? currentSpecAnalyzer.isDrawHold = true : currentSpecAnalyzer.isDrawHold = false;
+        setIsTraceOn(currentSpecAnalyzer.isDrawHold);
+      }
   };
 
     // Used for marking max amplitude
-    const handleMarkerClick = () => {
-      playSelectSound();
-      currentSpecAnalyzer.isDrawMarker = !currentSpecAnalyzer.isDrawMarker;
+    const handleMarker = (checked) => {
+      checked ? currentSpecAnalyzer.isDrawMarker = true : currentSpecAnalyzer.isDrawMarker = false;
       setIsMarkerOn(currentSpecAnalyzer.isDrawMarker);
     };
 
@@ -237,38 +252,167 @@ export const SpectrumAnalyzerBox = (props) => {
   //   }
   // };
 
-  const handleNumberClicked = (value) => {
+  const handleFreqSelectionChange = () => {
+    const centerFreq = currentSpecAnalyzer.maxFreq - (currentSpecAnalyzer.maxFreq - currentSpecAnalyzer.minFreq) / 2;
+    console.log('on select change', currentSpecAnalyzer)
+    let _ghz, _mhz, _khz;
+
+    switch(cfHertzSelection) {
+      case 'cfGhz':
+        _ghz = centerFreq / 1e9;
+        setCfGhz(_ghz);
+        break;
+      case 'cfMhz':
+        _mhz = centerFreq / 1e6;
+        setCfMhz(_mhz);
+        break;
+      case 'cfKhz':
+        _khz = centerFreq / 1e3;
+        setCfKhz(_khz);
+        break;
+      default:
+        return;
+    }
+  }
+
+  const handleInputChange = (value) => {
     let _cfGhz, _cfMhz, _cfKhz;
     if (cfHertzSelection === 'cfGhz') {
       _cfGhz = cfGhz;
       _cfGhz = value;
 
-      currentSpecAnalyzer.changeCenterFreq(parseFloat(_cfGhz * 1e9));
-      currentSpecAnalyzer.changeBandwidth(parseFloat(_cfGhz * 1e9));
+      // currentSpecAnalyzer.changeCenterFreq(parseFloat(cfGhz * 1e9));
+      // currentSpecAnalyzer.changeBandwidth(parseFloat(cfGhz * 1e9));
+
       setCfGhz(parseFloat(_cfGhz, 10));
 
     } else if (cfHertzSelection === 'cfMhz') {
       _cfMhz = cfMhz;
       _cfMhz = value;
 
-      currentSpecAnalyzer.changeCenterFreq(parseFloat(_cfMhz * 1e6));
-      currentSpecAnalyzer.changeBandwidth(parseFloat(_cfMhz * 1e6));
+      // currentSpecAnalyzer.changeCenterFreq(parseFloat(cfMhz * 1e6));
+      // currentSpecAnalyzer.changeBandwidth(parseFloat(cfMhz * 1e6));
+
       setCfMhz(parseFloat(_cfMhz, 10));
 
     } else if (cfHertzSelection === 'cfKhz') {
       _cfKhz = cfKhz;
       _cfKhz = value;
 
-      currentSpecAnalyzer.changeCenterFreq(parseFloat(_cfKhz * 1e3));
-      currentSpecAnalyzer.changeBandwidth(parseFloat(_cfKhz * 1e3));
-      setCfKhz(parseFloat(_cfKhz, 10));
-    } else {
-      // TODO: Provide user feedback
-      return;
-    }
+      // currentSpecAnalyzer.changeCenterFreq(parseFloat(cfKhz * 1e3));
+      // currentSpecAnalyzer.changeBandwidth(parseFloat(cfKhz * 1e3));
 
+      setCfKhz(parseFloat(_cfKhz, 10));
+    }
     window.sewApp.announceSpecAChange(currentSpecAnalyzer.whichUnit);
   };
+
+  const handleApplyClick = () => {
+
+    //set Antenna state for display and analyzer update
+    updateSpecAwAntennaInfo(parseInt(antenna.current.value), sewAppCtx.sewApp[`specA${whichSpecA}`], false)
+    setCurrentAntennaInAnalyzer(antenna.current.value)
+
+    //set radio frequency state
+    console.log(radio.current.value)
+    radio.current.value === 'Radio' ? setIsRfMode(true) : setIsRfMode(false)
+
+    //set Marker on if checked
+    handleMarker(marker.current.checked)
+
+    //set trace on if checked
+    handleHold(trace.current.checked)
+
+    const specA = sewAppCtx.sewApp[`specA${whichSpecA}`];
+    specA.isRfMode = isRfMode;
+
+    switch(cfHertzSelection) {
+      case 'cfGhz':
+        currentSpecAnalyzer.changeCenterFreq(parseFloat(cfGhz * 1e9));
+        setCurrentCenterFrequency(cfGhz * 1e9)
+        break;
+      case 'cfMhz':
+        currentSpecAnalyzer.changeCenterFreq(parseFloat(cfMhz * 1e6));
+        setCurrentCenterFrequency(cfMhz * 1e6)
+        break;
+      case 'cfKhz':
+        currentSpecAnalyzer.changeCenterFreq(parseFloat(cfKhz * 1e3));
+        setCurrentCenterFrequency(cfKhz * 1e3)
+        break;
+      default:
+    }
+
+    switch(spanHertzSelection) {
+      case 'cfGhz':
+        currentSpecAnalyzer.changeBandwidth(parseFloat(spanGhz * 1e9));
+        setCurrentSpan(spanGhz * 1e9)
+        break;
+      case 'spanMhz':
+        currentSpecAnalyzer.changeBandwidth(parseFloat(spanMhz * 1e6));
+        setCurrentSpan(spanMhz * 1e6)
+        break;
+      case 'spanKhz':
+        currentSpecAnalyzer.changeBandwidth(parseFloat(spanKhz * 1e3));
+        setCurrentSpan(spanKhz * 1e3)
+        break;
+      default:
+    }
+
+    // specA.changeCenterFreq(specA.isRfMode ? specA.config.rf.freq : specA.config.if.freq);
+    // specA.changeBandwidth(specA.isRfMode ? specA.config.rf.span : specA.config.if.span);
+    // setCurrentSpan(specA.isRfMode ? specA.config.rf.span / 1e6 : specA.config.if.span / 1e6)
+    const _specA = window.sewApp[`specA${specA.canvas.id.split('A')[1]}`];
+    _specA.isRfMode = isRfMode;
+    setCurrentSpecAnalyzer(_specA);
+
+    window.sewApp.announceSpecAChange(specA.whichUnit);
+    sewAppCtx.updateSewApp();
+    // if (cfHertzSelection === 'cfGhz') {
+    //   currentSpecAnalyzer.changeCenterFreq(parseFloat(cfGhz * 1e9));
+    //   currentSpecAnalyzer.changeBandwidth(parseFloat(cfGhz * 1e9));
+
+    // } else if (cfHertzSelection === 'cfMhz') {
+    //   currentSpecAnalyzer.changeCenterFreq(parseFloat(cfMhz * 1e6));
+    //   currentSpecAnalyzer.changeBandwidth(parseFloat(cfMhz * 1e6));
+    // } else if (cfHertzSelection === 'cfKhz') {
+    //   currentSpecAnalyzer.changeCenterFreq(parseFloat(cfKhz * 1e3));
+    //   currentSpecAnalyzer.changeBandwidth(parseFloat(cfKhz * 1e3));
+    // }
+    // window.sewApp.announceSpecAChange(currentSpecAnalyzer.whichUnit);
+  };
+
+  // const handleApplyClicked = (value) => {
+  //   let _cfGhz, _cfMhz, _cfKhz;
+  //   if (cfHertzSelection === 'cfGhz') {
+  //     _cfGhz = cfGhz;
+  //     _cfGhz = value;
+  //     console.log(_cfGhz)
+  //     currentSpecAnalyzer.changeCenterFreq(parseFloat(_cfGhz * 1e9));
+  //     currentSpecAnalyzer.changeBandwidth(parseFloat(_cfGhz * 1e9));
+  //     setCfGhz(parseFloat(_cfGhz, 10));
+
+  //   } else if (cfHertzSelection === 'cfMhz') {
+  //     _cfMhz = cfMhz;
+  //     _cfMhz = value;
+
+  //     currentSpecAnalyzer.changeCenterFreq(parseFloat(_cfMhz * 1e6));
+  //     currentSpecAnalyzer.changeBandwidth(parseFloat(_cfMhz * 1e6));
+  //     setCfMhz(parseFloat(_cfMhz, 10));
+
+  //   } else if (cfHertzSelection === 'cfKhz') {
+  //     _cfKhz = cfKhz;
+  //     _cfKhz = value;
+
+  //     currentSpecAnalyzer.changeCenterFreq(parseFloat(_cfKhz * 1e3));
+  //     currentSpecAnalyzer.changeBandwidth(parseFloat(_cfKhz * 1e3));
+  //     setCfKhz(parseFloat(_cfKhz, 10));
+  //   } else {
+  //     // TODO: Provide user feedback
+  //     return;
+  //   }
+
+  //   window.sewApp.announceSpecAChange(currentSpecAnalyzer.whichUnit);
+  // };
 
   useEffect(() => {
     updateSpecAwAntennaInfo();
@@ -336,15 +480,17 @@ export const SpectrumAnalyzerBox = (props) => {
               <p style={{ fontSize: 'var(--font-body-2-font-size)' }}>{sewAppCtx.sewApp[`specA${whichSpecA}`]?.minDecibels} (dB)</p>
           </Grid>
           <Grid sx={canvasContainer} item xs={10}>
-              <canvas id={props.canvasId} />
+              <canvas style={{ width: '100%', }} id={props.canvasId} />
           </Grid>
-          <Grid item xs={12} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', }}>
+          <Grid item xs={2}>
+          </Grid>
+          <Grid item xs={10} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', }}>
             <div>
               <span style={{ fontSize: 'var(--font-body-2-font-size)', paddingRight: 'var(--spacing-2)' }}>
-              Span: { spanHertzSelection === 'spanGhz' ? spanGhz : spanHertzSelection === 'spanMhz' ? spanMhz : spanKhz } { spanHertzSelection === 'spanGhz' ? 'GHz' : spanHertzSelection === 'spanMhz' ? 'MHz' : 'KHz' }
+              Span: { currentSpan } { spanHertzSelection === 'spanGhz' ? 'GHz' : spanHertzSelection === 'spanMhz' ? 'MHz' : 'KHz' }
               </span>
               <span style={{ fontSize: 'var(--font-body-2-font-size)', color: 'var(--color-text-placeholder' }}>|</span>
-              <span style={{ fontSize: 'var(--font-body-2-font-size)', paddingLeft: 'var(--spacing-2)' }}>CF: { cfHertzSelection === 'cfGhz' ? cfGhz : cfHertzSelection === 'cfMhz' ? cfMhz : cfKhz } { cfHertzSelection === 'cfGhz' ? 'GHz' : cfHertzSelection === 'cfMhz' ? 'MHz' : 'KHz' }</span>
+              <span style={{ fontSize: 'var(--font-body-2-font-size)', paddingLeft: 'var(--spacing-2)' }}>CF: { currentCenterFrequency } { cfHertzSelection === 'cfGhz' ? 'GHz' : cfHertzSelection === 'cfMhz' ? 'MHz' : 'KHz' }</span>
             </div>
             <RuxPushButton
                   size='small'
@@ -356,14 +502,14 @@ export const SpectrumAnalyzerBox = (props) => {
           </Grid>
         </Grid>
         <div slot='footer'>
-          <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', fontSize: 'var(--font-body-2-font-size)' }}>
+          <div style={{ display: 'flex', fontSize: 'var(--font-body-2-font-size)' }}>
           <RuxPopUp 
             placement="bottom-start"
             ref={el}
           >
             <div slot='trigger'>
               <RuxButton
-                style={{ }}
+                className='trigger-icon'
                 iconOnly
                 size='small'
                 borderless
@@ -382,11 +528,7 @@ export const SpectrumAnalyzerBox = (props) => {
                     style={{ paddingRight: 'var(--spacing-8)' }}
                     name="Antennas" 
                     label="Antenna"
-                    onRuxchange={(e) => {
-                        updateSpecAwAntennaInfo(parseInt(e.target.value), sewAppCtx.sewApp[`specA${whichSpecA}`], false)
-                        setCurrentAntennaInAnalyzer(e.target.value)
-                      }
-                    }
+                    ref={antenna}
                   >
                     <RuxRadio value="1" name="Antennas">
                     Antenna 1
@@ -400,15 +542,13 @@ export const SpectrumAnalyzerBox = (props) => {
                     style={{ paddingRight: 'var(--spacing-8)' }}
                     name="Frequency" 
                     label="Frequency"
-                    onRuxchange={() => {
-                      handleRfClicked()
-                    }}
+                    ref={radio}
                   >
-                    <RuxRadio value="Radio" name="Frequency">
-                    Radio
-                    </RuxRadio>
                     <RuxRadio value="Intermediate" name="Frequency">
                     Intermediate
+                    </RuxRadio>
+                    <RuxRadio value="Radio" name="Frequency">
+                    Radio
                     </RuxRadio>
                   </RuxRadioGroup>
                   <RuxCheckboxGroup
@@ -416,19 +556,39 @@ export const SpectrumAnalyzerBox = (props) => {
                     name='viewOptions'
                     label='View Options'
                   >
-                    <RuxCheckbox value='trace' name='viewOptions' checked={isTraceOn} onRuxchange={handleHoldClick}>
+                    <RuxCheckbox 
+                    value='trace' 
+                    name='viewOptions' 
+                    checked={isTraceOn}
+                    ref={trace}>
                       Trace
                     </RuxCheckbox>
-                    <RuxCheckbox value='marker' name='viewOptions' checked={isMarkerOn} onRuxchange={handleMarkerClick}>
+                    <RuxCheckbox 
+                      value='marker' 
+                      name='viewOptions' 
+                      checked={isMarkerOn} 
+                      ref={marker}>
                       Marker
                     </RuxCheckbox>
                   </RuxCheckboxGroup>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'flex-end', flexDirection: 'column', paddingTop: 'var(--spacing-4)', paddingBottom: 'var(--spacing-4)', width: 'fit-content', margin: 'auto', }}>
                   <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', }}>
-                    <RuxInput className='config-input' size='small' label='Span' id="span-id" value={ spanHertzSelection === 'spanMhz' ? spanMhz : 
+                    <RuxInput 
+                      className='config-input' 
+                      size='small' 
+                      label='Span' 
+                      id="span-id"
+                      ref={spanInput}
+                      value={ spanHertzSelection === 'spanMhz' ? spanMhz : 
                     spanHertzSelection === 'spanGhz' ? spanGhz : spanKhz } />
-                    <RuxSelect size='small' name="span-select" inputId='span-id' value={spanHertzSelection} onRuxchange={(e) => {
+                    <RuxSelect 
+                      size='small' 
+                      name="span-select" 
+                      inputId='span-id' 
+                      value={spanHertzSelection}
+                      ref={spanSelect}
+                      onRuxchange={(e) => {
                         setspanHertzSelection(e.target.value)
                        // handleFreqUpdate()
                        // handleConfigSelect('freq', cfHertzSelection)
@@ -441,12 +601,25 @@ export const SpectrumAnalyzerBox = (props) => {
                     </RuxSelect>
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', paddingTop: 'var(--spacing-2)' }}>
-                    <RuxInput className='config-input' size='small' label='Center Frequency' id="frequency-id" value={ cfHertzSelection === 'cfMhz' ? cfMhz : 
+                    <RuxInput 
+                    className='config-input' 
+                    size='small' 
+                    label='Center Frequency' 
+                    id="frequency-id"
+                    ref={cfInput}
+                    value={ cfHertzSelection === 'cfMhz' ? cfMhz : 
                     cfHertzSelection === 'cfGhz' ? cfGhz : cfKhz
                   } onRuxchange={(e)=> {
-                    handleNumberClicked(e.target.value)
+                    handleInputChange(e.target.value)
                   }} />
-                      <RuxSelect size='small' name="frequency-select" inputId='frequency-id' value={cfHertzSelection} onRuxchange={(e) => {
+                      <RuxSelect 
+                      size='small'
+                      name="frequency-select" 
+                      inputId='frequency-id' 
+                      value={cfHertzSelection}
+                      ref={cfSelect} 
+                      onRuxchange={(e) => {
+                        handleFreqSelectionChange()
                         setcfHertzSelection(e.target.value)
                        // handleFreqUpdate()
                        // handleConfigSelect('freq', cfHertzSelection)
@@ -464,6 +637,7 @@ export const SpectrumAnalyzerBox = (props) => {
                       Reset
                     </RuxButton>
                     <RuxButton size='small' onClick={()=>{
+                      handleApplyClick()
                     }}>
                       Apply
                     </RuxButton>
@@ -476,13 +650,15 @@ export const SpectrumAnalyzerBox = (props) => {
               : null
             }
           </RuxPopUp>
-          <span style={{ paddingRight: 'var(--spacing-2)', paddingLeft: 'var(--spacing-2)', }}>Antenna {currentAntennaInAnalyzer}</span>
-          <span style={{ color: 'var(--color-text-placeholder)', }}>|</span>
-          <span style={{ paddingRight: 'var(--spacing-2)', paddingLeft: 'var(--spacing-2)', }}>{ isRfMode ? 'Radio' : 'Intermediate' }</span>
-          <span style={{ color: 'var(--color-text-placeholder)', }}>|</span>
-          <span style={ isTraceOn ? { paddingRight: 'var(--spacing-2)', paddingLeft: 'var(--spacing-2)', } : { color: 'var(--color-text-placeholder)', paddingRight: 'var(--spacing-2)', paddingLeft: 'var(--spacing-2)', }}>{ isTraceOn ? 'Show Traces' : 'Hide Traces' }</span>
-          <span style={{ color: 'var(--color-text-placeholder)', }}>|</span>
-          <span style={ isMarkerOn ? { paddingRight: 'var(--spacing-2)', paddingLeft: 'var(--spacing-2)', } : { color: 'var(--color-text-placeholder)', paddingRight: 'var(--spacing-2)', paddingLeft: 'var(--spacing-2)', }}>{ isMarkerOn ? 'Show Markers' : 'Hide Markers' }</span>
+          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap' }}>
+            <span style={{ paddingRight: 'var(--spacing-2)', paddingLeft: 'var(--spacing-2)', }}>Antenna {currentAntennaInAnalyzer}</span>
+            <span style={{ color: 'var(--color-text-placeholder)', }}>|</span>
+            <span style={{ paddingRight: 'var(--spacing-2)', paddingLeft: 'var(--spacing-2)', }}>{ isRfMode ? 'Radio' : 'Intermediate' }</span>
+            <span style={{ color: 'var(--color-text-placeholder)', }}>|</span>
+            <span style={ isTraceOn ? { paddingRight: 'var(--spacing-2)', paddingLeft: 'var(--spacing-2)', } : { color: 'var(--color-text-placeholder)', paddingRight: 'var(--spacing-2)', paddingLeft: 'var(--spacing-2)', }}>{ isTraceOn ? 'Show Traces' : 'Hide Traces' }</span>
+            <span style={{ color: 'var(--color-text-placeholder)', }}>|</span>
+            <span style={ isMarkerOn ? { paddingRight: 'var(--spacing-2)', paddingLeft: 'var(--spacing-2)', } : { color: 'var(--color-text-placeholder)', paddingRight: 'var(--spacing-2)', paddingLeft: 'var(--spacing-2)', }}>{ isMarkerOn ? 'Show Markers' : 'Hide Markers' }</span>
+          </div>
           </div>
         </div>
       </RuxContainer>

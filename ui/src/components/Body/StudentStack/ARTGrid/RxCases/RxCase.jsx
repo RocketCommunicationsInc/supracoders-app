@@ -63,8 +63,8 @@ export const RxCase = ({ unit, dropdown, activeCase, help }) => {
         help={help}
         icon={
           <RuxTooltip message={description}>
-            <RuxIcon icon="signal-cellular-alt" size="1.75rem"
-              style={{ color: color, paddingLeft: 'var(--spacing-3)'}}
+            <RuxIcon class="status-icons" icon="signal-cellular-alt" size="1.75rem"
+              style={{ color: color}}
             />
           </RuxTooltip>
         }

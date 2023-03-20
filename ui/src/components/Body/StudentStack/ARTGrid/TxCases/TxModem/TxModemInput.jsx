@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { RuxButton, RuxPushButton, RuxSelect, RuxOption, RuxInput, RuxProgress } from '@astrouxds/react'
+import { RuxButton, RuxPushButton, RuxSelect, RuxOption, RuxInput } from '@astrouxds/react'
 import { Box, Grid, Typography, Card } from '@mui/material';
 import { useSewApp } from '../../../../../../context/sewAppContext';
 import { CRUDdataTable } from '../../../../../../crud';
 import { sxModalError, outputStyle } from '../../../../../styles';
 import { breakerSound, errorSound, selectSound } from '../../../../../../audio';
+import { PowerMonitor } from './PowerMonitor';
 import { useSound } from 'use-sound';
 import { PropTypes } from 'prop-types';
 // import { LinearProgressWithLabel } from './LinearProgressWithLabel';
@@ -22,8 +23,6 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
   const [inputData, setInputData] = useState(sewAppCtx.tx[currentRow]);
   const [modemPower, setModemPower] = useState(inputData.bandwidth * Math.pow(10, (120 + inputData.power) / 10));
   const [rawPower, setRawPower] = useState(Math.round((100 * (inputData.bandwidth * Math.pow(10, (120 + inputData.power) / 10))) / powerBudget));
-  const MED = 75;
-  const HIGH = 90;
 
 
   useEffect(() => {
@@ -73,7 +72,8 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
     }
   };
 
-  const handleTransmit = () => {
+  const handleTransmit = (e) => {
+    e.preventDefault()
     playBreakerSound();
     let tmpData = [...sewAppCtx.tx];
 
@@ -99,7 +99,10 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
         </Box>
       ) : null}
       <Grid container height={'100%'}>
-        <Grid container item xs={12} spacing={0.5}>
+        <Grid item xs={5} sx={{ display: 'flex', paddingTop: 'var(--spacing-2)' }}>
+          <PowerMonitor rawPower={rawPower} />
+        </Grid>
+        <Grid container item xs={7} spacing={0.5}>
           <Grid container item xs={12} pt={0} alignItems='center' justify='center'>
             <Grid item xs={8} pl={2} pr={2}>
               <RuxSelect
@@ -211,24 +214,13 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
           justifyContent={'flex-end'}
           flexGrow={true}
           display={'flex'}>
-          <RuxPushButton label={!unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? 'Enable' : 'Disable' } onRuxchange={(e) => handleTransmit(e)} checked={
+          <RuxPushButton label={!unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? 'Enable' : 'Disable' } onClick={(e) => handleTransmit(e)} checked={
             unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? true : false}/>
           <RuxButton style={{ marginLeft: '8px' }} onClick={(e) => handleApply(e)}>
             Apply
           </RuxButton>
         </Grid>
       </Grid>
-
-            <Grid item xs={true} sx={{ display: 'flex', paddingTop: 'var(--spacing-2)' }}>
-              <span style={{ marginRight: 'var(--spacing-2)', minWidth: 'calc(var(--spacing-16) + var(--spacing-2))', marginBottom: 'var(--spacing-0)', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', }}>Power %</span>
-              <RuxProgress value={Math.min(100, rawPower)} style={{ width: '100%' }}  />
-              {Math.min(100, rawPower) >= MED && Math.min(100, rawPower) < HIGH && <p className='progress-error'>*Power warning</p>}
-              {Math.min(100, rawPower) >= HIGH && (
-                rawPower > 100 
-                ? <p className='progress-error'>*Power exceeded</p>
-                : <p className='progress-error'>*Power critical</p>
-              )}
-            </Grid>
     </>
   );
 };

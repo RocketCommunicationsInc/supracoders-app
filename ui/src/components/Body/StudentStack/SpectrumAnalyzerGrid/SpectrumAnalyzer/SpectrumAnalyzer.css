@@ -71,3 +71,8 @@ rux-select.antenna-select::part(label) {
   margin-right: var(--spacing-2);
   margin-bottom: var(--spacing-0);
 }
+
+.trigger-icon::part(container) {
+  padding-top: 0;
+  padding-left: 0;
+}

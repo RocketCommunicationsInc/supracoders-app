@@ -47,8 +47,8 @@ export const TxCase = ({ unit, dropdown, activeCase, help }) => {
         dropdown={dropdown}
         icon={
           <RuxTooltip message={isTransmitting ? 'Transmitting' : 'Not Transmitting'}>
-            <RuxIcon icon="antenna" size="1.75rem"
-              style={{ color: isTransmitting ? 'var(--color-status-normal)' : 'var(--color-status-off)', paddingLeft: 'var(--spacing-3)'}}
+            <RuxIcon className="status-icons" icon="antenna" size="1.75rem"
+              style={{ color: isTransmitting ? 'var(--color-status-normal)' : 'var(--color-status-off)'}}
             />
           </RuxTooltip>
         }

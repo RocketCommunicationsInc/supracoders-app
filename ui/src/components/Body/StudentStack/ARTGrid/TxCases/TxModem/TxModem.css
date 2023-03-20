@@ -1,3 +1,7 @@
+:root {
+  --PowerMonitorSize: calc(var(--spacing-1) * 37);
+}
+
 rux-button.isActive::part(container) {
   outline: var(--border-width-focus-default) solid var(--color-border-focus-default);
   outline-offset: var(--spacing-focus-default);
@@ -35,4 +39,44 @@ rux-button.isTransmitting::part(container) {
   font-weight: 700;
   margin-bottom: 0;
   margin-left: calc(var(--spacing-16) + var(--spacing-2));
+}
+
+.power-monitor {
+  margin: 0 auto;
+}
+.power-monitor::part(radial-progress) {
+  width: var(--PowerMonitorSize);
+  height: var(--PowerMonitorSize);
+}
+.power-monitor::part(icon-group) {
+  width: var(--PowerMonitorSize);
+}
+
+.power-monitor::part(progress-display) {
+  font-family: var(--font-heading-3-font-family);
+  font-size: var(--font-heading-3-font-size);
+  font-weight: var(--font-heading-3-font-weight);
+  letter-spacing: var(--font-heading-3-letter-spacing);
+  margin-top: -0.9rem;
+}
+
+.power-monitor::part(status-icon) {
+  display: none;
+}
+
+.power-monitor::part(monitoring-label) {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--PowerMonitorSize);
+  height: 100%;
+  color: var(--color-text-placeholder);
+  font-family: var(--font-body-1-font-family);
+  font-size: var(--font-body-1-font-size);
+  font-weight: var(--font-body-1-font-weight);
+  letter-spacing: var(--font-body-1-letter-spacing);
+  max-width: 100%;
+  margin-left: -0.25rem;
+  margin-top: var(--spacing-2);
 }

@@ -8,7 +8,7 @@ export const EquipmentCase = ({ children, title, unit, icon, tabs, dropdown, act
   return (
       <RuxContainer style={{overflow: 'hidden', display: activeCase === unit ? 'flex' : 'none'}}>
         <div slot="header" style={{display: 'flex', justifyContent: 'space-between'}}>
-          <div style={{ display: 'flex', alignItems: 'center', }}>
+          <div className="grid-header" style={{ display: 'flex', alignItems: 'center', }}>
             {icon} {title + ` ` + unit} {dropdown}
           </div>
           {help}

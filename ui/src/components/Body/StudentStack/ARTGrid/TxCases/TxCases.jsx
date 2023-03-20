@@ -36,8 +36,8 @@ export const TxCases = () => {
                     
                   return(
                     <RuxMenuItem key={singleUnit} onClick={()=> setActiveCase(singleUnit)} selected={singleUnit === activeCase ? 'true' : 'false'}>
-                      <RuxIcon icon="antenna" size="1rem" style={{ color: checkTransmitting(singleUnit) ? 'var(--color-status-normal)' : 'var(--color-status-off)'}}
-            /> { 'Transmitter' + singleUnit}
+                      <div><RuxIcon icon="antenna" size="1rem" style={{ color: checkTransmitting(singleUnit) ? 'var(--color-status-normal)' : 'var(--color-status-off)'}}
+            /><span>{ 'Transmitter ' + singleUnit}</span></div>
                     </RuxMenuItem>
                   )
                   })}

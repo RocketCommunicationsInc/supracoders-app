@@ -16,10 +16,10 @@ export const AntennaCase = () => {
   const icons = (
               <>
                 <RuxTooltip message={antState[`ant${unit}`]}>
-                  <RuxIcon icon="antenna" size="1.75rem" style={{ color: antColor[`ant${unit}`], paddingLeft: 'var(--spacing-3)'}}/>
+                  <RuxIcon className="status-icons" icon="antenna" size="1.75rem" style={{ color: antColor[`ant${unit}`]}}/>
                 </RuxTooltip>
                 <RuxTooltip message={lockState[`ant${unit}`]}>
-                  <RuxIcon icon={lockState[`ant${unit}`] === 'Locked' ? 'lock' : 'lock-open'} size="1.75rem" style={{ color: lockColor[`ant${unit}`], paddingLeft: 'var(--spacing-3)'}}/>
+                  <RuxIcon className="status-icons" icon={lockState[`ant${unit}`] === 'Locked' ? 'lock' : 'lock-open'} size="1.75rem" style={{ color: lockColor[`ant${unit}`]}}/>
                 </RuxTooltip>
               </>
               )
@@ -29,9 +29,8 @@ export const AntennaCase = () => {
       {[1,2].map((singleUnit)=>{
       return(
         <RuxMenuItem key={singleUnit} onClick={()=>setUnit(singleUnit)}>
-          <RuxIcon icon="antenna" size="20px" style={{ color: antColor[`ant${singleUnit}`]}}/>
-          <RuxIcon icon={lockState[`ant${singleUnit}`] === 'Locked' ? 'lock' : 'lock-open'} size="20px" style={{ color: lockColor[`ant${singleUnit}`]}}/>
-          { 'Antenna ' + singleUnit} {unit}
+          <div><RuxIcon icon="antenna" size="20px" style={{ color: antColor[`ant${singleUnit}`]}}/>
+          <span>{ 'Antenna ' + singleUnit}</span></div>
         </RuxMenuItem>
       )
       })}

@@ -11,6 +11,15 @@
   flex-basis: 33%;
 }
 
+.art-grid rux-menu-item div {
+  display: flex;
+  align-items: center;
+}
+
+.art-grid rux-menu-item rux-icon {
+  margin-right: var(--spacing-2);
+}
+
 .case-grid {
   display: grid;
   grid-template-rows: 1fr;
@@ -21,6 +30,15 @@
 .art-grid rux-container {
   display: flex;
   align-self: stretch;
+}
+
+.art-grid .grid-header rux-tooltip::part(trigger-container) {
+  display: flex;
+  align-contents: center;
+}
+
+.art-grid .status-icons {
+  margin-inline-end: var(--spacing-4);
 }
 
 .art-grid rux-container::part(container) {
