@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { ARTGrid, SpectrumAnalyzerGrid} from '../../';
-import { Grid } from '@mui/material';
+// import { Grid } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSewApp } from '../../../context/sewAppContext';
 import { NotificationBanner } from './NotificationBanner';
@@ -22,11 +22,11 @@ export const StudentStack = () => {
 
   return (
     <>
-      <Grid container spacing={2} paddingTop={2} paddingBottom={2} paddingLeft={2} paddingRight={2}>
+      <div style={{gap:'8px', padding: 'var(--spacing-4)'}}>
       <NotificationBanner />
         <SpectrumAnalyzerGrid />
         <ARTGrid />
-      </Grid>
+      </div>
     </>
   );
 };

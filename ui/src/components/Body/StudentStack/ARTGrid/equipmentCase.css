@@ -3,8 +3,7 @@
   align-items: stretch;
   justify-content: space-between;
   gap: var(--spacing-2);
-  padding: var(--spacing-4);
-  padding-inline-end: var(--spacing-0);
+  padding: var(--spacing-4) var(--spacing-0);
   flex-grow: 1;
 }
 .art-grid > * {
@@ -20,7 +19,8 @@
   margin-right: var(--spacing-2);
 }
 
-.art-grid rux-select::part(label), .art-grid rux-input::part(label){
+.art-grid rux-select::part(label),
+.art-grid rux-input::part(label) {
   min-width: var(--spacing-20);
   padding-right: var(--spacing-2);
   text-align: right;

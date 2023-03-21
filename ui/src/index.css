@@ -83,4 +83,6 @@ rux-tab rux-icon {
   margin-right: var(--spacing-1);
 }
 
-rux-dialog::part(deny-button){display:none;}
+rux-dialog::part(deny-button) {
+  display: none;
+}
