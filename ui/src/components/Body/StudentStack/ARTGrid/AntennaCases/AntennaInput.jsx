@@ -194,7 +194,7 @@ export const AntennaInput = ({ unit }) => {
                     }, 5000);
                   }
                 }}></RuxSwitch>
-                <small style={{color: 'var(--color-text-error)', marginLeft: `var(--spacing-16)`, fontWeight: 'bold', display: 'flex', alignContent: 'center', minHeight: '2rem'}}>
+                <small style={{color: 'var(--color-text-error)', marginLeft: `var(--spacing-16)`, fontWeight: 'bold', display: 'flex', alignContent: 'center', minHeight: '2rem',marginTop: 'var(--spacing-2)'}}>
                   {isErrorActive && <><RuxIcon icon="warning" size="1.15rem" style={{color: 'inherit', marginRight: 'var(--spacing-2)'}}/>Antenna must be powered</>}</small>
             </Grid>
           </Grid>

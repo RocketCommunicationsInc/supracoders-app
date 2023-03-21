@@ -14,7 +14,14 @@ export const NotificationBanner = ()=>{
         banner.current.addEventListener('ruxclosed', ()=>{
             updateNotification(false)
         })
+
+        return () => {
+            banner.current.removeEventListener('ruxclosed', ()=>{
+                updateNotification(false)
+            })
+          }
     }, [])
+    
     
     
     return <RuxNotification className="notification-banner"  open={notification.isOpen} status={notification.status} message={notification.message} closeAfter={notification.time} ref={banner} />

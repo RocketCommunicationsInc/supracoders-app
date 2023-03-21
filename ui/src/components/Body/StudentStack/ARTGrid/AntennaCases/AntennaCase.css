@@ -12,4 +12,11 @@
 .loopback_container {
   background: var(--color-background-base-default);
   display: flex;
+  width:11.25rem;
+  max-width:100%;
+}
+
+.loopback_container rux-push-button::part(container){
+  padding-inline: 0;
+  width: 100%;
 }

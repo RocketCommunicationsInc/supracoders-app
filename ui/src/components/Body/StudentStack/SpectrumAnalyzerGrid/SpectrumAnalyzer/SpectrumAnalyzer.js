@@ -54,6 +54,7 @@ export class SpectrumAnalyzer {
         this.resize(this.canvas.parentElement.offsetWidth - 6, this.canvas.parentElement.offsetWidth - 6);
       }
     });
+    console.log('added')
   }
 
   /**

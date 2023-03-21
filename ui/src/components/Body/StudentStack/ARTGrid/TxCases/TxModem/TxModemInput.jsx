@@ -46,13 +46,12 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
   const handleApply = () => {
     playSelectSound();
     let tmpData = [...sewAppCtx.tx];
-    tmpData[currentRow] = { ...inputData };
+    tmpData[currentRow] = { ...inputData, transmitting: sewAppCtx.tx[currentRow].transmitting };
     const newModemPower = inputData.bandwidth * Math.pow(10, (120 + inputData.power) / 10)
     const newRawPower =  Math.round((100 * newModemPower) / powerBudget)
 
     if (
-      validatePowerConsumption(newModemPower) ||
-      !tmpData[currentRow].transmitting
+      validatePowerConsumption(newModemPower) ||  !tmpData[currentRow].transmitting
     ) {
       sewAppCtx.updateTx(tmpData);
       setModemPower(newModemPower);
@@ -60,7 +59,7 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
       CRUDdataTable({ method: 'PATCH', path: 'transmitter', data: tmpData[currentRow] });
     } else {
       playErrorSound();
-      updateNotification(true, 'serious', 'Power consumption exceeds the budget', 7000)
+      updateNotification(true, 'serious', 'Power consumption exceeds the budget', 5000)
     }
   };
 
@@ -76,7 +75,7 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
       CRUDdataTable({ method: 'PATCH', path: 'transmitter', data: tmpData[currentRow] });
     } else {
       playErrorSound();
-      updateNotification(true, 'serious', 'Power consumption exceeds the budget', 7000)
+      updateNotification(true, 'serious', 'Power consumption exceeds the budget', 5000)
     }
   };
 
@@ -198,7 +197,7 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
           justifyContent={'flex-end'}
           flexGrow={true}
           display={'flex'}>
-          <RuxPushButton label={!unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? 'Enable' : 'Disable' } onClick={(e) => handleTransmit(e)} checked={
+          <RuxPushButton label={!unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? 'Transmit' : 'Disable' } onClick={(e) => handleTransmit(e)} checked={
             unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? true : false}/>
           <RuxButton style={{ marginLeft: '8px' }} onClick={(e) => handleApply(e)}>
             Apply

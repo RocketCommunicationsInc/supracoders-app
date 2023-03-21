@@ -298,7 +298,6 @@ export const SewAppProvider = ({ children }) => {
 
   const updateNotification = (open, status, message, time) =>{
     const newNotification = {...notification}
-    console.log('notification', notification)
     open ? newNotification.isOpen = open : null
     status ? newNotification.status = status : null
     message ? newNotification.message = message : null

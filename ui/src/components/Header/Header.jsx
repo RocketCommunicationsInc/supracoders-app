@@ -33,19 +33,19 @@ export const Header = () => {
   };
 
   /*Add Theme Switcher*/
-  const [checked, setChecked] = useState(false);
+  const [lightMode, setLightMode] = useState(false);
   const [signOutModal, setSignOutModal] = useState(false);
   const [loginOpenedFlag, setLoginOpenedFlag] = useState(false)
   const [modalState, setModalState] = useState(false);
 
   useEffect(()=>{
     const body = document.querySelector('body');
-    if(checked){
+    if(lightMode){
       body.classList.add('light-theme')
     } else {
       body.classList.remove('light-theme')
     } 
-  },[checked])
+  },[lightMode])
 
   return (
     <>
@@ -99,11 +99,11 @@ export const Header = () => {
                   </RuxButton>
                 </RuxMenuItem>
                 <RuxMenuItem>
-                  <RuxButton className='menu-button' borderless icon={checked ? "brightness-3" : "wb-sunny" } onClick={()=> { 
-                    checked ? setChecked(!checked) : setChecked(true)
+                  <RuxButton className='menu-button' borderless icon={lightMode ? "brightness-3" : "wb-sunny" } onClick={()=> { 
+                    lightMode ? setLightMode(!lightMode) : setLightMode(true)
                     }}
                   >
-                    {checked ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+                    {lightMode ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
                   </RuxButton>
                 </RuxMenuItem>
               </RuxMenu>

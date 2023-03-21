@@ -20,6 +20,12 @@
   margin-right: var(--spacing-2);
 }
 
+.art-grid rux-select::part(label), .art-grid rux-input::part(label){
+  min-width: var(--spacing-20);
+  padding-right: var(--spacing-2);
+  text-align: right;
+}
+
 .case-grid {
   display: grid;
   grid-template-rows: 1fr;
@@ -34,7 +40,7 @@
 
 .art-grid .grid-header rux-tooltip::part(trigger-container) {
   display: flex;
-  align-contents: center;
+  align-items: center;
 }
 
 .art-grid .status-icons {
