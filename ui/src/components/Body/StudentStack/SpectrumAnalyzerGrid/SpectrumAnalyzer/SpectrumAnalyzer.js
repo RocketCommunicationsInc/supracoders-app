@@ -22,6 +22,8 @@ export class SpectrumAnalyzer {
     this.bw = this.maxFreq - this.minFreq;
     this.centerFreq = this.minFreq + this.bw / 2;
     this.noiseColor = options.noiseColor || '#0bf';
+    this.backgroundColor = options.backgroundColor || '#000';
+    this.fillColor = options.fillColor || '#fff';
     this.antenna_id = 1;
     this.antennaOffset = 0;
     this.targetOffset = 400e6;
@@ -54,7 +56,6 @@ export class SpectrumAnalyzer {
         this.resize(this.canvas.parentElement.offsetWidth - 6, this.canvas.parentElement.offsetWidth - 6);
       }
     });
-    console.log('added')
   }
 
   /**
@@ -319,7 +320,7 @@ export class SpectrumAnalyzer {
 
   drawGridOverlay(ctx) {
     ctx.globalAlpha = 0.1;
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = this.fillColor;
     for (let x = 0; x < this.width; x += this.width / 10) {
       ctx.fillRect(x, 0, 1, this.height);
     }
@@ -333,14 +334,15 @@ export class SpectrumAnalyzer {
    * Overwrites the canvas with a black background
    * @param {CanvasRenderingContext2D} ctx SpecA Context
    */
+  // eslint-disable-next-line no-unused-vars
   clearCanvas(ctx) {
-    ctx.fillStyle = '#000';
+    ctx.fillStyle = this.backgroundColor;
     ctx.fillRect(0, 0, this.width, this.height);
   }
 
   hideBelowNoiseFloor(ctx) {
     ctx.beginPath();
-    ctx.fillStyle = '#000';
+    ctx.fillStyle = this.backgroundColor;
     ctx.moveTo(0, this.height);
 
     for (let x = 0; x < this.width; x++) {

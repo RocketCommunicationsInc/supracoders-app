@@ -15,6 +15,7 @@ export const LoopbackSwitch = ({ unit }) => {
   const [playBreakerSound] = useSound(breakerSound);
 
   const sewAppCtx = useSewApp();
+  const {lightMode} = sewAppCtx;
   const unitData = sewAppCtx.antenna.filter(
     (x) => x.unit == unit && x.team_id == sewAppCtx.user.team_id && x.server_id == sewAppCtx.user.server_id
   );
@@ -70,11 +71,19 @@ export const LoopbackSwitch = ({ unit }) => {
             borderless
             onClick={toggleSwitch}
             >
-            <img
-              src={`baseball_switch${sewAppCtx.antenna[antennaIdx].loopback ? '' : '2'}.png`}
-              alt='baseball_switch'
-              style={{ width: '80px' }}
-            />
+            {lightMode ?
+                <img
+                src={`light_baseball_switch${sewAppCtx.antenna[antennaIdx].loopback ? '' : '2'}.png`}
+                alt='baseball_switch'
+                style={{ width: '80px' }}
+              />
+              :
+              <img
+                src={`baseball_switch${sewAppCtx.antenna[antennaIdx].loopback ? '' : '2'}.png`}
+                alt='baseball_switch'
+                style={{ width: '80px' }}
+              />
+            }
           </RuxButton>
           <RuxTooltip message='Antenna'>
             <RuxIcon icon="antenna" size="24px" style={ sxTx } />

@@ -14,6 +14,7 @@ export const Header = () => {
   const navigate = useNavigate();
 
   const [servers, setServers] = useState([]);
+  const {lightMode, updateLightMode} =sewAppCtx
 
   useEffect(() => {
     if (!githubCheck()) {
@@ -32,8 +33,6 @@ export const Header = () => {
     navigate('/');
   };
 
-  /*Add Theme Switcher*/
-  const [lightMode, setLightMode] = useState(false);
   const [signOutModal, setSignOutModal] = useState(false);
   const [loginOpenedFlag, setLoginOpenedFlag] = useState(false)
   const [modalState, setModalState] = useState(false);
@@ -99,10 +98,7 @@ export const Header = () => {
                   </RuxButton>
                 </RuxMenuItem>
                 <RuxMenuItem>
-                  <RuxButton className='menu-button' borderless icon={lightMode ? "brightness-3" : "wb-sunny" } onClick={()=> { 
-                    lightMode ? setLightMode(!lightMode) : setLightMode(true)
-                    }}
-                  >
+                  <RuxButton className='menu-button' borderless icon={lightMode ? "brightness-3" : "wb-sunny" } onClick={()=> updateLightMode()}>
                     {lightMode ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
                   </RuxButton>
                 </RuxMenuItem>

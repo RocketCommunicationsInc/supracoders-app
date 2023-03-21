@@ -7,7 +7,7 @@ rux-card::part(footer) {
 }
 
 canvas {
-  background-color: var(--color-palette-neutral-1000);
+  background-color: var(--color-background-base-default);
 }
 
 rux-select.antenna-select::part(label) {

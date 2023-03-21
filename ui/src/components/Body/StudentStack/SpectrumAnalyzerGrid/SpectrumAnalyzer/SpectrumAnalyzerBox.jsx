@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Grid } from '@mui/material';
 import { SpectrumAnalyzer } from '../../../../';
 import React, { useLayoutEffect, useState, useEffect, useRef } from 'react';
@@ -26,6 +27,7 @@ import { githubCheck } from '../../../../../lib/github-check';
 import './SpectrumAnalyzer.css';
 import useSound from 'use-sound';
 import { selectSound } from '../../../../../audio';
+import { AstroTheme } from '../../../../../themes/AstroTheme';
 
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || 'development'].apiUrl;
 // If this is github then use a local file instead
@@ -56,6 +58,7 @@ export const SpectrumAnalyzerBox = (props) => {
   const [isMarkerOn, setIsMarkerOn] = useState(false);
   const sewAppCtx = useSewApp();
   const whichSpecA = props.canvasId.split('A')[1];
+  const {lightMode} = sewAppCtx
 
   const [dataAvailable, setDataAvailable] = useState(false);
 
@@ -101,6 +104,8 @@ export const SpectrumAnalyzerBox = (props) => {
     });
   }, []);
 
+  // const noisecolor = lightMode ? 'var(--color-palette-teal-800)' : 'var(--color-palette-teal-500)'
+
   useLayoutEffect(() => {
     const canvasDom = document.getElementById(props.canvasId);
     canvasDom.width = canvasDom.parentElement.offsetWidth - 6;
@@ -116,7 +121,9 @@ export const SpectrumAnalyzerBox = (props) => {
       isShowSignals: false,
       locked: false,
       operational: false,
-    };
+    }
+
+   
 
     fetch(specADataLocation).then((res) => {
       res.json().then((data) => {
@@ -180,6 +187,9 @@ export const SpectrumAnalyzerBox = (props) => {
     if (!specA || !specA.antenna_id) {
       return;
     }
+    specA.noiseColor = lightMode ? '#6058A8' : '#00C7CB' 
+    specA.backgroundColor = lightMode ? '#EAEEF4' : '#101923'
+    specA.fillColor = lightMode ? '#000' : '#fff'
     setCurrentSpecAnalyzer(specA);
     setDataAvailable(true);
     console.log(specA.isRfMode);
@@ -196,7 +206,7 @@ export const SpectrumAnalyzerBox = (props) => {
     const { target_id } = sewAppCtx.antenna[specA.antenna_id - 1];
     specA.target_id = target_id;
     sewAppCtx.updateSewApp();
-  }, [sewAppCtx.antenna, sewAppCtx.sewApp[`specA${whichSpecA}`]]);
+  }, [sewAppCtx.antenna, sewAppCtx.sewApp[`specA${whichSpecA}`], lightMode]);
 
   // const handleRfClicked = () => {
   //   console.log('why are you running')

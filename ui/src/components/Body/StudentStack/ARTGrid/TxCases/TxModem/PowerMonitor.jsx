@@ -1,10 +1,9 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import { RuxMonitoringProgressIcon} from '@astrouxds/react'
 import { PropTypes } from 'prop-types';
 
 export const PowerMonitor = ({rawPower}) =>{
 // eslint-disable-next-line no-undef
-const monitor = useRef(null)
 const rangeItems = [
     {
       "threshold": 0,

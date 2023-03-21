@@ -32,6 +32,8 @@ const sewAppCtx = createContext({
   updateUser: () => {},
   notification: {},
   updateNotification: () => {},
+  lightMode:{},
+  updateLightMode: () => {}
 });
 export const useSewApp = () => {
   return useContext(sewAppCtx);
@@ -162,7 +164,8 @@ export const SewAppProvider = ({ children }) => {
   const [signal, setSignal] = useState(defaultSignalData);
   const [antenna, setAntenna] = useState(defaultAntennaData);
   const [user, setUser] = useState(defaultUserData);
-  const [notification, setNotification] = useState(defaultNotification)
+  const [notification, setNotification] = useState(defaultNotification) /*Notification Banner*/
+  const [lightMode, setLightMode] = useState(false); /*Theme Switcher*/
 
   // Overall App
   const updateSewApp = () => {
@@ -305,6 +308,10 @@ export const SewAppProvider = ({ children }) => {
     setNotification(newNotification)
   }
 
+  const updateLightMode = () =>{
+    setLightMode(!lightMode)
+  }
+
   return (
     <sewAppCtx.Provider
       value={{
@@ -321,7 +328,9 @@ export const SewAppProvider = ({ children }) => {
         user,
         updateUser,
         notification,
-        updateNotification
+        updateNotification,
+        lightMode,
+        updateLightMode
       }}>
       {children}
     </sewAppCtx.Provider>
