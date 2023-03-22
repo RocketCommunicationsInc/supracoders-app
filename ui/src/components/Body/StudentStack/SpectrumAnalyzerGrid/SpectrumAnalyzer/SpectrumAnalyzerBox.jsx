@@ -246,26 +246,26 @@ export const SpectrumAnalyzerBox = (props) => {
     }
   }
 
+  const swapToMhz = () => {
+    // swap selection back to hertz if not there already
+    cfHertzSelection !== 'cfMhz' && setcfHertzSelection('cfMhz')
+    spanHertzSelection !== 'spanMhz' && setspanHertzSelection('spanMhz')
+  }
+
   const handleRadioFrequency = (e) => {
     const specA = sewAppCtx.sewApp[`specA${whichSpecA}`];
     if (e.target.value === 'Radio') {
       //if radio, switch to Rf mode, change selection to Mhz
       specA.isRfMode = true;
-      setcfHertzSelection('cfMhz')
-      setspanHertzSelection('spanMhz')
+      swapToMhz()
 
       //set hertz states to rf values for all
 
       //cf states
       hertzConverter('freq', specA.config.rf.freq)
-      setCfMhz(specA.config.rf.freq / 1e6)
-      setCfGhz(((parseFloat(specA.config.rf.freq, 10)) / 1e6) / 1e3);
-      setCfKhz(((parseFloat(specA.config.rf.freq, 10)) / 1e6) * 1e3);
 
       //span states
-      setSpanMhz(specA.config.rf.span / 1e6)
-      setSpanGhz(((parseFloat(specA.config.rf.span, 10)) / 1e6) / 1e3);
-      setSpanKhz(((parseFloat(specA.config.rf.span, 10)) / 1e6) * 1e3);
+      hertzConverter('span', specA.config.rf.span)
 
     } else {
       //if intermediate, switch to If mode, change selection to Mhz
@@ -275,14 +275,10 @@ export const SpectrumAnalyzerBox = (props) => {
       //set hertz states to If values for all
 
       //cf states
-      setCfMhz(specA.config.if.freq / 1e6)
-      setCfGhz(((parseFloat(specA.config.if.freq, 10)) / 1e6) / 1e3);
-      setCfKhz(((parseFloat(specA.config.if.freq, 10)) / 1e6) * 1e3);
+      hertzConverter('freq', specA.config.if.freq)
 
       //span states
-      setSpanMhz(specA.config.if.span / 1e6)
-      setSpanGhz(((parseFloat(specA.config.if.span, 10)) / 1e6) / 1e3);
-      setSpanKhz(((parseFloat(specA.config.if.span, 10)) / 1e6) * 1e3);
+      hertzConverter('span', specA.config.if.span)
     }
   }
 
@@ -362,7 +358,6 @@ export const SpectrumAnalyzerBox = (props) => {
     //set trace on if checked
     handleHold(trace.current.checked);
 
-    
     //set center frequency based on hertz selection and inout value
     switch (cfHertzSelection) {
       case 'cfGhz':
@@ -407,12 +402,26 @@ export const SpectrumAnalyzerBox = (props) => {
   const handleResetClick = () => {
     currentSpecAnalyzer.changeCenterFreq(initialIfFreq);
     setCurrentCenterFrequency(initialIfFreq / 1e6);
-    setCfMhz(initialIfFreq / 1e6);
 
     currentSpecAnalyzer.changeBandwidth(initialIfSpan);
     setCurrentSpan(initialIfSpan);
-    setSpanMhz(initialIfSpan / 1e6);
-    
+
+    //converts other states to match
+    hertzConverter('freq', initialIfFreq)
+    hertzConverter('span', initialIfSpan)
+
+    // swap selection back to hertz if not there already
+    cfHertzSelection !== 'cfMhz' && setcfHertzSelection('cfMhz')
+    spanHertzSelection !== 'spanMhz' && setspanHertzSelection('spanMhz')
+
+    //set IsRfMode to false
+    currentSpecAnalyzer.isRfMode = false
+    setIsRfMode(false)
+    radio.current.value = 'Intermediate'
+
+    //remove trace and markers
+    handleMarker(false)
+    handleHold(false)
   }
 
   useEffect(() => {
@@ -493,21 +502,13 @@ export const SpectrumAnalyzerBox = (props) => {
           </Grid>
           <Grid item xs={2}></Grid>
           <Grid item xs={10} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div>
-              {/* <span style={{ fontSize: 'var(--font-body-2-font-size)', paddingRight: 'var(--spacing-2)' }}>
-                Span: {currentSpan}{' '}
-                {spanHertzSelection === 'spanGhz' ? 'GHz' : spanHertzSelection === 'spanMhz' ? 'MHz' : 'KHz'}
-              </span> */}
+            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
               <span style={{ fontSize: 'var(--font-body-2-font-size)', paddingRight: 'var(--spacing-2)' }}>
                 Span: {spanHertzSelection === 'spanGhz' ? sewAppCtx.sewApp[`specA${whichSpecA}`]?.bw / 1e9 : spanHertzSelection === 'spanMhz' ? sewAppCtx.sewApp[`specA${whichSpecA}`]?.bw / 1e6 : sewAppCtx.sewApp[`specA${whichSpecA}`]?.bw / 1e3}{' '}
                 {spanHertzSelection === 'spanGhz' ? 'GHz' : spanHertzSelection === 'spanMhz' ? 'MHz' : 'KHz'}
               </span>
-              <span style={{ fontSize: 'var(--font-body-2-font-size)', color: 'var(--color-text-placeholder' }}>|</span>
-              {/* <span style={{ fontSize: 'var(--font-body-2-font-size)', paddingLeft: 'var(--spacing-2)' }}>
-                CF: {currentCenterFrequency}{' '}
-                {cfHertzSelection === 'cfGhz' ? 'GHz' : cfHertzSelection === 'cfMhz' ? 'MHz' : 'KHz'}
-              </span> */}
-              <span style={{ fontSize: 'var(--font-body-2-font-size)', paddingLeft: 'var(--spacing-2)' }}>
+              <span style={{ fontSize: 'var(--font-body-2-font-size)', color: 'var(--color-text-placeholder', paddingRight: 'var(--spacing-2)', }}>|</span>
+              <span style={{ fontSize: 'var(--font-body-2-font-size)', paddingRight: 'var(--spacing-2)', }}>
                 CF: {cfHertzSelection === 'cfGhz' ? sewAppCtx.sewApp[`specA${whichSpecA}`]?.centerFreq / 1e9 : cfHertzSelection === 'cfMhz' ? sewAppCtx.sewApp[`specA${whichSpecA}`]?.centerFreq / 1e6 : sewAppCtx.sewApp[`specA${whichSpecA}`]?.centerFreq / 1e3}{' '}
                 {cfHertzSelection === 'cfGhz' ? 'GHz' : cfHertzSelection === 'cfMhz' ? 'MHz' : 'KHz'}
               </span>

@@ -31,7 +31,7 @@ export const SpectrumAnalyzerGrid = () => {
 
   return (
     <>
-      <Grid container item spacing={2} xs={12}>
+      <div className="analyzer-grid">
         <Grid container item spacing={2} xs={12} lg={6}>
           {[1, 2].map((unit) => (
             <Grid key={unit} item xs={true} minWidth={300}>
@@ -64,7 +64,7 @@ export const SpectrumAnalyzerGrid = () => {
             </Grid>
           ))}
         </Grid>
-      </Grid>
+      </div>
       {/* {isConfigOpen ? (
          <RuxDialog open={isConfigOpen} clickToClose onRuxdialogclosed={() => setIsConfigOpen(false)} className="analyzer-config">
           <div slot="header" className="header">

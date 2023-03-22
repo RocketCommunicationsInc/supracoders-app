@@ -102,7 +102,7 @@ export const AntennaInput = ({ unit }) => {
   return (
     <>
       <Grid container pl={2} height={'100%'}>
-        <Grid container item xs={12} spacing={0.5}>
+        <Grid container item xs={12} spacing={0.5} style={{maxHeight: '220px'}}>
           <Grid container item xs={12}>
             <Grid item pr={2} xs={7}>
               <RuxSelect 
@@ -202,17 +202,19 @@ export const AntennaInput = ({ unit }) => {
         <Grid
           item
           xs={12}
+          mt={1}
           textAlign='right'
           alignItems={'flex-end'}
           justifyContent={'flex-end'}
           flexGrow={true}
           display={'flex'}>
             <RuxPushButton label={sewAppCtx.antenna[antennaIdx]?.operational ? 'Disable' : 'Enable'} onClick={(e) => handleEnable(e)} checked={sewAppCtx.antenna[antennaIdx]?.operational} />
-          <RuxButton style={{ marginLeft: '8px' }} onClick={(e) => handleApply(e)}>
-            Apply
-          </RuxButton>
+            <RuxButton style={{ marginLeft: '8px' }} onClick={(e) => handleApply(e)}>Apply</RuxButton>
         </Grid>
       </Grid>
+      <div className="footer-buttons">
+        
+      </div>
     </>
   );
 };

@@ -3,7 +3,7 @@
   align-items: stretch;
   justify-content: space-between;
   gap: var(--spacing-2);
-  padding: var(--spacing-4) var(--spacing-0);
+  padding-top: var(--spacing-4);
   flex-grow: 1;
 }
 .art-grid > * {
@@ -55,8 +55,25 @@
 
 .art-grid rux-container::part(body) {
   height: 100%;
+  position: relative;
 }
 
 .case-grid > rux-container {
   grid-area: grid;
+}
+
+.footer-buttons {
+  textalign: right;
+  alignitems: flex-end;
+  justifycontent: flex-end;
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: var(--spacing-4);
+}
+
+.tall-panels,
+.tall-panels rux-tab-panel {
+  height: 100%;
 }

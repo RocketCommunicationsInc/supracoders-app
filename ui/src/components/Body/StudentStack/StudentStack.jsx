@@ -22,11 +22,9 @@ export const StudentStack = () => {
 
   return (
     <>
-      <div style={{gap:'8px', padding: 'var(--spacing-4)'}}>
       <NotificationBanner />
         <SpectrumAnalyzerGrid />
         <ARTGrid />
-      </div>
     </>
   );
 };

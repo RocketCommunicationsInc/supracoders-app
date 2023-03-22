@@ -34,10 +34,8 @@ const DropDownSelect = () => {
           }} />
     </div>
     {tabs ? <div slot="tab-bar">{tabs}</div> : null}
-        <Grid container>
-          <Grid item xs={true}>
+        <Grid container height={'100%'}>
             {children}
-          </Grid>
         </Grid>
       </RuxContainer>
   );

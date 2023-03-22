@@ -85,7 +85,7 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
         <Grid item xs={5} sx={{ display: 'flex', paddingTop: 'var(--spacing-2)' }}>
           <PowerMonitor rawPower={rawPower} />
         </Grid>
-        <Grid container item xs={7} spacing={0.5}>
+        <Grid container item xs={7} spacing={0.5} style={{maxHeight: '190px'}}>
           <Grid container item xs={12} pt={0} alignItems='center' justify='center'>
             <Grid item xs={8} pl={2} pr={2}>
               <RuxSelect

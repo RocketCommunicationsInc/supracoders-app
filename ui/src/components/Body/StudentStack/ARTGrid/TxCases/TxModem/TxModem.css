@@ -43,6 +43,7 @@ rux-button.isTransmitting::part(container) {
 
 .power-monitor {
   margin: 0 auto;
+  display: block;
 }
 .power-monitor::part(radial-progress) {
   width: var(--PowerMonitorSize);

@@ -158,7 +158,7 @@ const defaultNotification = {
   time: null,
 }
 
-//deep copy of default data
+//deep copy of default data in case of incidental modification
 const primeAntennaData = defaultAntennaData.map((obj) => {return {...obj}})
 const primeRxData = defaultRxData.map((obj) => {return {...obj}})
 const primeTxData = defaultTxData.map((obj) => {return {...obj}})

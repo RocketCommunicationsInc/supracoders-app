@@ -131,6 +131,7 @@ export const RxVideo = ({ currentRow }) => {
         alignItems: 'center',
         paddingLeft: '0.5rem',
         textAlign: 'center',
+        maxHeight: '250px',
       }}>
       <div style={sxVideo}>
         {matchFound && !isDenied && isOperational && isLocked ? (

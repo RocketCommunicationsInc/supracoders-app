@@ -77,13 +77,13 @@ export const RxCase = ({ unit, dropdown, activeCase, help }) => {
           />
         }
         >
-          <RuxTabPanels ariaLabelledby={`rx-modem-case-${unit}`}>
+          <RuxTabPanels class="tall-panels" ariaLabelledby={`rx-modem-case-${unit}`}>
             {unitData
               .sort((a, b) => a.id - b.id)
               .map((x, index) => {
                 if (x.unit == unit) {
                   return (
-                  <RuxTabPanel key={index} ariaLabelledby={`rx-modem-${x.modem_number}`} style={{ display: 'flex' }}>
+                  <RuxTabPanel key={index} ariaLabelledby={`rx-modem-${x.modem_number}`} style={{ display: 'flex'}}>
                     <RxModem unitData={unitData} activeModem={activeModem} currentRow={currentRow} />
                   </RuxTabPanel>
                   );

@@ -10,7 +10,7 @@ import { RxVideo } from './RxVideo';
 export const RxModem = ({ unitData, activeModem, currentRow }) => {
 
   return (
-    <Grid container>
+    <Grid container style={{height:'100%'}}>
       <Grid container item xs={true}>
         <Grid item xs={5}>
           <RxVideo currentRow={currentRow} />

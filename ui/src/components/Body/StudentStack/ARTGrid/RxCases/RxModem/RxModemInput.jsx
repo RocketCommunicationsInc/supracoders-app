@@ -32,8 +32,9 @@ export const RxModemInput = ({ currentRow }) => {
   };
 
   return (
-    <Grid container height={'100%'}>
-      <Grid container item ml={2} xs={12} spacing={0.5}>
+    <>
+    <Grid container height={'100%'}  >
+      <Grid container item ml={2} xs={12} spacing={0.5} style={{maxHeight: '250px'}}>
         <Grid container item xs={12} alignItems='center' justify='center'>
           <Grid item xs={7} pr={2}>
             <RuxSelect
@@ -141,21 +142,20 @@ export const RxModemInput = ({ currentRow }) => {
             </Card>
           </Grid>
         </Grid>
-        <Grid
-          item
-          xs={12}
-          mt={1}
-          textAlign='right'
-          alignItems={'flex-end'}
-          justifyContent={'flex-end'}
-          flexGrow={true}
-          display={'flex'}>
-            <RuxButton onClick={(e) => handleApply(e)}>
-              Apply
-            </RuxButton>
-        </Grid>
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        mt={1}
+        textAlign='right'
+        alignItems={'flex-end'}
+        justifyContent={'flex-end'}
+        flexGrow={true}
+        display={'flex'}>
+          <RuxButton onClick={(e) => handleApply(e)}>Apply</RuxButton>
       </Grid>
     </Grid>
+    </>
   );
 };
 RxModemInput.propTypes = {

@@ -61,7 +61,7 @@ export const TxCase = ({ unit, dropdown, activeCase, help }) => {
           />
         }
         >
-          <RuxTabPanels ariaLabelledby={`tx-modem-case-${unit}`}>
+          <RuxTabPanels className="tall-panels" ariaLabelledby={`tx-modem-case-${unit}`}>
             {unitData
               .sort((a, b) => a.id - b.id)
               .map((x, index) => {
