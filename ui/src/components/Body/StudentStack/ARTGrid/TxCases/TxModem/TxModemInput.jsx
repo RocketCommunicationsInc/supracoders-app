@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { RuxButton, RuxPushButton, RuxSelect, RuxOption, RuxInput } from '@astrouxds/react'
+import { RuxButton, RuxSelect, RuxOption, RuxInput } from '@astrouxds/react'
 import { Grid, Card } from '@mui/material';
 import { useSewApp } from '../../../../../../context/sewAppContext';
 import { CRUDdataTable } from '../../../../../../crud';
@@ -63,8 +63,7 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
     }
   };
 
-  const handleTransmit = (e) => {
-    e.preventDefault()
+  const handleTransmit = () => {
     playBreakerSound();
     let tmpData = [...sewAppCtx.tx];
 
@@ -197,11 +196,10 @@ export const TxModemInput = ({ unitData, activeModem, currentRow, }) => {
           justifyContent={'flex-end'}
           flexGrow={true}
           display={'flex'}>
-          <RuxPushButton label={!unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? 'Transmit' : 'Disable' } onClick={(e) => handleTransmit(e)} checked={
-            unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? true : false}/>
-          <RuxButton style={{ marginLeft: '8px' }} onClick={(e) => handleApply(e)}>
-            Apply
-          </RuxButton>
+            <RuxButton secondary onClick={(e) => handleApply(e)}>
+              Apply Changes
+            </RuxButton>
+            <RuxButton className="enable-btn" style={{ marginLeft: '8px', minWidth: '150px' }} onClick={(e) => handleTransmit(e)}>{!unitData.filter((x) => x.modem_number == activeModem)[0].transmitting ? 'Enable modem' : 'Disable modem' }</RuxButton>
         </Grid>
       </Grid>
     </>

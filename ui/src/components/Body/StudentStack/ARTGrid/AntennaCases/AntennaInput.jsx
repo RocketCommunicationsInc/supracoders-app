@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { RuxButton, RuxPushButton, RuxSwitch, RuxSelect, RuxOption, RuxInput, RuxIcon } from '@astrouxds/react'
+import { RuxButton, RuxSwitch, RuxSelect, RuxOption, RuxInput, RuxIcon } from '@astrouxds/react'
 import PropTypes from 'prop-types';
 import { Grid, Card } from '@mui/material';
 import { outputStyle } from '../../../../styles';
@@ -69,8 +69,7 @@ export const AntennaInput = ({ unit }) => {
     CRUDdataTable({ method: 'PATCH', path: 'antenna', data: tmpData[antennaIdx] });
   };
 
-  const handleEnable = (e) => {
-    e.preventDefault()
+  const handleEnable = () => {
     playBreakerSound();
     const tmpData = [...sewAppCtx.antenna];
     tmpData[antennaIdx].operational = !tmpData[antennaIdx].operational;
@@ -208,13 +207,10 @@ export const AntennaInput = ({ unit }) => {
           justifyContent={'flex-end'}
           flexGrow={true}
           display={'flex'}>
-            <RuxPushButton label={sewAppCtx.antenna[antennaIdx]?.operational ? 'Disable' : 'Enable'} onClick={(e) => handleEnable(e)} checked={sewAppCtx.antenna[antennaIdx]?.operational} />
-            <RuxButton style={{ marginLeft: '8px' }} onClick={(e) => handleApply(e)}>Apply</RuxButton>
+            <RuxButton secondary onClick={(e) => handleApply(e)}>Apply changes</RuxButton>
+            <RuxButton className="enable-btn" style={{ marginLeft: '8px', minWidth: '150px' }} onClick={(e) => handleEnable(e)} >{sewAppCtx.antenna[antennaIdx]?.operational ? 'Disable ' : 'Enable '}antenna</RuxButton>
         </Grid>
       </Grid>
-      <div className="footer-buttons">
-        
-      </div>
     </>
   );
 };

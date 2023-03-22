@@ -152,7 +152,7 @@ export const RxModemInput = ({ currentRow }) => {
         justifyContent={'flex-end'}
         flexGrow={true}
         display={'flex'}>
-          <RuxButton onClick={(e) => handleApply(e)}>Apply</RuxButton>
+          <RuxButton secondary onClick={(e) => handleApply(e)}>Apply changes</RuxButton>
       </Grid>
     </Grid>
     </>

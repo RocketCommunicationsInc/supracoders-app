@@ -87,3 +87,7 @@
 .tall-panels rux-tab-panel {
   height: 100%;
 }
+
+.enable-btn::part(container) {
+  width: 100%;
+}

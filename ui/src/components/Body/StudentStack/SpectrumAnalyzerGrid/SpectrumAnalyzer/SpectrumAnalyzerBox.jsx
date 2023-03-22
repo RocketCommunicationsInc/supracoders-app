@@ -5,7 +5,6 @@ import React, { useLayoutEffect, useState, useEffect, useRef } from 'react';
 import {
   RuxContainer,
   RuxIcon,
-  RuxPushButton,
   RuxButtonGroup,
   RuxButton,
   RuxPopUp,
@@ -498,7 +497,7 @@ export const SpectrumAnalyzerBox = (props) => {
             </p>
           </Grid>
           <Grid sx={canvasContainer} item xs={10}>
-            <canvas style={{ width: '100%' }} id={props.canvasId} />
+            <canvas style={{ width: '100%', margin: 'var(--spacing-1)' }} id={props.canvasId} />
           </Grid>
           <Grid item xs={2}></Grid>
           <Grid item xs={10} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -513,11 +512,12 @@ export const SpectrumAnalyzerBox = (props) => {
                 {cfHertzSelection === 'cfGhz' ? 'GHz' : cfHertzSelection === 'cfMhz' ? 'MHz' : 'KHz'}
               </span>
             </div>
-            <RuxPushButton
+            <RuxButton
+              secondary
               size='small'
               iconOnly
               icon={sewAppCtx.sewApp[`specA${whichSpecA}`]?.isPause ? 'play-arrow' : 'pause'}
-              onRuxchange={() => handlePauseClicked()}
+              onClick={() => handlePauseClicked()}
             />
           </Grid>
         </Grid>
