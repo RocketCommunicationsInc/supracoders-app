@@ -44,6 +44,8 @@ export const SpectrumAnalyzerBox = (props) => {
   const [isRfMode, setIsRfMode] = useState(false);
   const [isPause, setIsPause] = useState(false);
   const [currentAntennaInAnalyzer, setCurrentAntennaInAnalyzer] = useState(1);
+  const [initialIfFreq, setInitialIfFreq] = useState(null)
+  const [initialIfSpan, setInitialIfSpan] = useState(null)
   const [cfGhz, setCfGhz] = useState(null);
   const [cfMhz, setCfMhz] = useState(null);
   const [cfKhz, setCfKhz] = useState(null);
@@ -103,9 +105,6 @@ export const SpectrumAnalyzerBox = (props) => {
       }
     });
   }, []);
-
-  // const noisecolor = lightMode ? 'var(--color-palette-teal-800)' : 'var(--color-palette-teal-500)'
-
   useLayoutEffect(() => {
     const canvasDom = document.getElementById(props.canvasId);
     canvasDom.width = canvasDom.parentElement.offsetWidth - 6;
@@ -122,7 +121,6 @@ export const SpectrumAnalyzerBox = (props) => {
       locked: false,
       operational: false,
     }
-
    
 
     fetch(specADataLocation).then((res) => {
@@ -132,6 +130,8 @@ export const SpectrumAnalyzerBox = (props) => {
         data = data.filter((specA_DB) => specA_DB.unit === specA.whichUnit && specA_DB.team_id === 1); // TODO Allow other teams!
         const ifData = data.filter((specA_DB) => !specA_DB.rf)[0];
         const rfData = data.filter((specA_DB) => specA_DB.rf)[0];
+        setInitialIfFreq(ifData.frequency * 1e6)
+        setInitialIfSpan(ifData.span * 1e6)
         specA.config = {
           if: {
             id: ifData.id,
@@ -192,7 +192,6 @@ export const SpectrumAnalyzerBox = (props) => {
     specA.fillColor = lightMode ? '#000' : '#fff'
     setCurrentSpecAnalyzer(specA);
     setDataAvailable(true);
-    console.log(specA.isRfMode);
     setIsRfMode(specA.isRfMode);
     setCurrentCenterFrequency(specA.isRfMode / 1e6 ? specA.config.rf.freq : specA.config.if.freq / 1e6);
     setCurrentSpan(specA.isRfMode ? specA.config.rf.span / 1e6 : specA.config.if.span / 1e6);
@@ -207,24 +206,6 @@ export const SpectrumAnalyzerBox = (props) => {
     specA.target_id = target_id;
     sewAppCtx.updateSewApp();
   }, [sewAppCtx.antenna, sewAppCtx.sewApp[`specA${whichSpecA}`], lightMode]);
-
-  // const handleRfClicked = () => {
-  //   console.log('why are you running')
-  //   const specA = sewAppCtx.sewApp[`specA${whichSpecA}`];
-  //   specA.isRfMode = !specA.isRfMode;
-
-  //   specA.changeCenterFreq(specA.isRfMode ? specA.config.rf.freq : specA.config.if.freq);
-  //   setCurrentCenterFrequency(specA.isRfMode ? specA.config.rf.freq / 1e6 : specA.config.if.freq / 1e6)
-  //   specA.changeBandwidth(specA.isRfMode ? specA.config.rf.span : specA.config.if.span);
-  //   setCurrentSpan(specA.isRfMode ? specA.config.rf.span / 1e6 : specA.config.if.span / 1e6)
-  //   setIsRfMode(!isRfMode);
-  //   const _specA = window.sewApp[`specA${specA.canvas.id.split('A')[1]}`];
-  //   _specA.isRfMode = !isRfMode;
-  //   setCurrentSpecAnalyzer(_specA);
-
-  //   window.sewApp.announceSpecAChange(specA.whichUnit);
-  //   sewAppCtx.updateSewApp();
-  // };
 
   const handlePauseClicked = () => {
     playSelectSound();
@@ -253,21 +234,56 @@ export const SpectrumAnalyzerBox = (props) => {
     setIsMarkerOn(currentSpecAnalyzer.isDrawMarker);
   };
 
+  const hertzConverter = (spanOrFreq, number) => {
+    if (spanOrFreq === 'freq') {
+      setCfMhz(number / 1e6)
+      setCfGhz(((parseFloat(number, 10)) / 1e6) / 1e3);
+      setCfKhz(((parseFloat(number, 10)) / 1e6) * 1e3);
+    } else {
+      setSpanMhz(number / 1e6)
+      setSpanGhz(((parseFloat(number, 10)) / 1e6) / 1e3);
+      setSpanKhz(((parseFloat(number, 10)) / 1e6) * 1e3);
+    }
+  }
+
   const handleRadioFrequency = (e) => {
     const specA = sewAppCtx.sewApp[`specA${whichSpecA}`];
     if (e.target.value === 'Radio') {
-      let _cfMhz
+      //if radio, switch to Rf mode, change selection to Mhz
+      specA.isRfMode = true;
       setcfHertzSelection('cfMhz')
-      _cfMhz = cfMhz;
-      _cfMhz = specA.config.rf.freq;
+      setspanHertzSelection('spanMhz')
 
-      //setting the state values so that they all update according to the one that changed on selection change (these state values do not update the Analyzer)
-      setCfMhz(parseFloat(_cfMhz, 10) / 1e6);
-      setCfGhz(((parseFloat(_cfMhz, 10)) / 1e6) / 1e3);
-      setCfKhz(((parseFloat(_cfMhz, 10)) / 1e6) * 1e3);
+      //set hertz states to rf values for all
+
+      //cf states
+      hertzConverter('freq', specA.config.rf.freq)
+      setCfMhz(specA.config.rf.freq / 1e6)
+      setCfGhz(((parseFloat(specA.config.rf.freq, 10)) / 1e6) / 1e3);
+      setCfKhz(((parseFloat(specA.config.rf.freq, 10)) / 1e6) * 1e3);
+
+      //span states
+      setSpanMhz(specA.config.rf.span / 1e6)
+      setSpanGhz(((parseFloat(specA.config.rf.span, 10)) / 1e6) / 1e3);
+      setSpanKhz(((parseFloat(specA.config.rf.span, 10)) / 1e6) * 1e3);
+
+    } else {
+      //if intermediate, switch to If mode, change selection to Mhz
+      specA.isRfMode = false;
+      setcfHertzSelection('cfMhz')
+
+      //set hertz states to If values for all
+
+      //cf states
+      setCfMhz(specA.config.if.freq / 1e6)
+      setCfGhz(((parseFloat(specA.config.if.freq, 10)) / 1e6) / 1e3);
+      setCfKhz(((parseFloat(specA.config.if.freq, 10)) / 1e6) * 1e3);
+
+      //span states
+      setSpanMhz(specA.config.if.span / 1e6)
+      setSpanGhz(((parseFloat(specA.config.if.span, 10)) / 1e6) / 1e3);
+      setSpanKhz(((parseFloat(specA.config.if.span, 10)) / 1e6) * 1e3);
     }
-    // specA.changeCenterFreq(specA.isRfMode ? specA.config.rf.freq : specA.config.if.freq);
-    // specA.changeBandwidth(specA.isRfMode ? specA.config.rf.span : specA.config.if.span);
   }
 
   const handleInputSpanChange = (value) => {
@@ -331,12 +347,14 @@ export const SpectrumAnalyzerBox = (props) => {
   };
 
   const handleApplyClick = () => {
+    const specA = sewAppCtx.sewApp[`specA${whichSpecA}`];
+
+    //set radio frequency state
+    specA.isRfMode ? setIsRfMode(true) : setIsRfMode(false);
+
     //set Antenna state for display and analyzer update
     updateSpecAwAntennaInfo(parseInt(antenna.current.value), sewAppCtx.sewApp[`specA${whichSpecA}`], false);
     setCurrentAntennaInAnalyzer(antenna.current.value);
-
-    //set radio frequency state
-    radio.current.value === 'Radio' ? setIsRfMode(true) : setIsRfMode(false);
 
     //set Marker on if checked
     handleMarker(marker.current.checked);
@@ -344,10 +362,8 @@ export const SpectrumAnalyzerBox = (props) => {
     //set trace on if checked
     handleHold(trace.current.checked);
 
-    const specA = sewAppCtx.sewApp[`specA${whichSpecA}`];
-    specA.isRfMode = radio.current.value === 'Radio' ? true : false;
-    console.log('rfFreq', specA.config.rf.freq)
-
+    
+    //set center frequency based on hertz selection and inout value
     switch (cfHertzSelection) {
       case 'cfGhz':
         currentSpecAnalyzer.changeCenterFreq(parseFloat(cfGhz * 1e9));
@@ -367,6 +383,7 @@ export const SpectrumAnalyzerBox = (props) => {
       default:
     }
 
+    //set span based on hertz selection and inout value
     switch (spanHertzSelection) {
       case 'spanGhz':
         currentSpecAnalyzer.changeBandwidth(parseFloat(spanGhz * 1e9));
@@ -383,16 +400,20 @@ export const SpectrumAnalyzerBox = (props) => {
       default:
     }
 
-    // specA.changeCenterFreq(specA.isRfMode ? specA.config.rf.freq : specA.config.if.freq);
-    // specA.changeBandwidth(specA.isRfMode ? specA.config.rf.span : specA.config.if.span);
-
-    const _specA = window.sewApp[`specA${specA.canvas.id.split('A')[1]}`];
-    _specA.isRfMode = radio.current.value === 'Radio' ? true : false;
-    setCurrentSpecAnalyzer(_specA);
-
     window.sewApp.announceSpecAChange(specA.whichUnit);
     sewAppCtx.updateSewApp();
   };
+
+  const handleResetClick = () => {
+    currentSpecAnalyzer.changeCenterFreq(initialIfFreq);
+    setCurrentCenterFrequency(initialIfFreq / 1e6);
+    setCfMhz(initialIfFreq / 1e6);
+
+    currentSpecAnalyzer.changeBandwidth(initialIfSpan);
+    setCurrentSpan(initialIfSpan);
+    setSpanMhz(initialIfSpan / 1e6);
+    
+  }
 
   useEffect(() => {
     updateSpecAwAntennaInfo();
@@ -650,13 +671,20 @@ export const SpectrumAnalyzerBox = (props) => {
                   <div
                     style={{ borderTop: '1px solid var(--menu-divider-color-fill)', paddingTop: 'var(--spacing-4)' }}>
                     <RuxButtonGroup hAlign='right'>
-                      <RuxButton size='small' secondary>
+                      <RuxButton 
+                        size='small' 
+                        secondary
+                        onClick={() => {
+                          handleResetClick()
+                        }}
+                        >
                         Reset
                       </RuxButton>
                       <RuxButton
                         size='small'
                         onClick={() => {
                           handleApplyClick();
+                          el.current.hide()
                         }}>
                         Apply
                       </RuxButton>

@@ -11,12 +11,12 @@ export const NotificationBanner = ()=>{
     const { notification, updateNotification } = sewAppCtx
     
     useEffect(() => {
-        banner.current.addEventListener('ruxclosed', ()=>{
+        banner.current?.addEventListener('ruxclosed', ()=>{
             updateNotification(false)
         })
 
         return () => {
-            banner.current.removeEventListener('ruxclosed', ()=>{
+            banner.current?.removeEventListener('ruxclosed', ()=>{
                 updateNotification(false)
             })
           }

@@ -19,6 +19,7 @@ import config from '../constants/config';
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || 'development'].apiUrl;
 const sewAppCtx = createContext({
   sewApp: {},
+  resetSewApp: () =>{},
   updateSewApp: () => {},
   rx: {},
   updateRx: () => {},
@@ -157,15 +158,30 @@ const defaultNotification = {
   time: null,
 }
 
+//deep copy of default data
+const primeAntennaData = defaultAntennaData.map((obj) => {return {...obj}})
+const primeRxData = defaultRxData.map((obj) => {return {...obj}})
+const primeTxData = defaultTxData.map((obj) => {return {...obj}})
+const primeSignalData = defaultSignalData.map((obj) => {return {...obj}})
+
 export const SewAppProvider = ({ children }) => {
   const [sewApp, setSewApp] = useState({});
-  const [rx, setRx] = useState(defaultRxData);
-  const [tx, setTx] = useState(defaultTxData);
-  const [signal, setSignal] = useState(defaultSignalData);
-  const [antenna, setAntenna] = useState(defaultAntennaData);
+  const [rx, setRx] = useState(primeRxData);
+  const [tx, setTx] = useState(primeTxData);
+  const [signal, setSignal] = useState(primeSignalData);
+  const [antenna, setAntenna] = useState(primeAntennaData);
   const [user, setUser] = useState(defaultUserData);
   const [notification, setNotification] = useState(defaultNotification) /*Notification Banner*/
   const [lightMode, setLightMode] = useState(false); /*Theme Switcher*/
+
+  //reset data: set everything back to default on logout
+  const resetSewApp = () =>{
+    console.log('reset! antenna stuff', defaultAntennaData)
+    setRx(defaultRxData)
+    setTx(defaultTxData)
+    setSignal(defaultSignalData)
+    setAntenna(defaultAntennaData)
+  }
 
   // Overall App
   const updateSewApp = () => {
@@ -316,6 +332,7 @@ export const SewAppProvider = ({ children }) => {
     <sewAppCtx.Provider
       value={{
         sewApp,
+        resetSewApp,
         updateSewApp,
         rx,
         updateRx,

@@ -30,6 +30,8 @@ export const Header = () => {
   }, []);
 
   const handleLogout = () => {
+    //reset app data
+    sewAppCtx.resetSewApp();
     navigate('/');
   };
 
@@ -43,8 +45,13 @@ export const Header = () => {
       body.classList.add('light-theme')
     } else {
       body.classList.remove('light-theme')
-    } 
+    }
   },[lightMode])
+
+  useEffect(() => {
+    console.log(sewAppCtx.antenna)
+  }, [sewAppCtx])
+  
 
   return (
     <>
