@@ -34,9 +34,9 @@ export const RxModemInput = ({ currentRow }) => {
   return (
     <>
     <Grid container height={'100%'}  >
-      <Grid container item ml={2} xs={12} spacing={0.5} style={{maxHeight: '250px'}}>
+      <Grid container item ml={2} xs={12} spacing={1} style={{maxHeight: '250px'}}>
         <Grid container item xs={12} alignItems='center' justify='center'>
-          <Grid item xs={7} pr={2}>
+          <Grid item xs={8} pr={1}>
             <RuxSelect
               name='Antenna'
               label='Antenna'
@@ -60,7 +60,7 @@ export const RxModemInput = ({ currentRow }) => {
           </Grid>
         </Grid>
         <Grid container item xs={12} alignItems='center' justify='center'>
-          <Grid item xs={7} pr={2}>
+          <Grid item xs={8} pr={1}>
             <RuxInput
               name='frequency'
               type='text'
@@ -81,7 +81,7 @@ export const RxModemInput = ({ currentRow }) => {
           </Grid>
         </Grid>
         <Grid container item xs={12} alignItems='center' justify='center'>
-          <Grid item xs={7} pr={2}>
+          <Grid item xs={8} pr={1}>
             <RuxInput
               name='bandwidth'
               type='text'
@@ -102,7 +102,7 @@ export const RxModemInput = ({ currentRow }) => {
           </Grid>
         </Grid>
         <Grid container item xs={12} alignItems='center' justify='center'>
-          <Grid item xs={7} pr={2}>
+          <Grid item xs={8} pr={1}>
             <RuxSelect
               name='modulation'
               value={inputData.modulation}
@@ -122,7 +122,7 @@ export const RxModemInput = ({ currentRow }) => {
           </Grid>
         </Grid>
         <Grid container item xs={12} alignItems='center' justify='center'>
-          <Grid item xs={7} pr={2}>
+          <Grid item xs={8} pr={1}>
             <RuxSelect
               name='fec'
               label='FEC'

@@ -2,12 +2,22 @@
   display: flex;
   align-items: stretch;
   justify-content: space-between;
-  gap: var(--spacing-2);
+  gap: var(--spacing-4);
   padding-top: var(--spacing-4);
   flex-grow: 1;
 }
 .art-grid > * {
   flex-basis: 33%;
+}
+
+@media (max-width: 1474px) {
+  .art-grid > * {
+    flex-basis: 100%;
+  }
+
+  .art-grid {
+    flex-flow: column;
+  }
 }
 
 .art-grid rux-menu-item div {
@@ -21,7 +31,7 @@
 
 .art-grid rux-select::part(label),
 .art-grid rux-input::part(label) {
-  min-width: var(--spacing-20);
+  min-width: calc(var(--spacing-14) + 2px);
   padding-right: var(--spacing-2);
   text-align: right;
 }

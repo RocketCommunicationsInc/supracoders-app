@@ -8,6 +8,19 @@ rux-card::part(footer) {
 
 canvas {
   background-color: var(--color-background-base-default);
+  aspect-ratio: 1/1;
+}
+
+.container__analyzer {
+  height: 100%;
+}
+
+.container__analyzer::part(container) {
+  height: 100%;
+}
+
+.container__analyzer::part(footer) {
+  padding-top: 0;
 }
 
 rux-select.antenna-select::part(label) {

@@ -128,7 +128,7 @@ export const RxVideo = ({ currentRow }) => {
         height: '100%',
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         paddingLeft: '0.5rem',
         textAlign: 'center',
         maxHeight: '250px',

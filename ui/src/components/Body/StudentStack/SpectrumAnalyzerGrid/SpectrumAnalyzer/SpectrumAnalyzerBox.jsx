@@ -466,7 +466,7 @@ export const SpectrumAnalyzerBox = (props) => {
   return (
     <>
       <SpecAHelp modalState={isHelpModalActive} setModalState={setIsHelpModalActive} />
-      <RuxContainer>
+      <RuxContainer className="container__analyzer">
         <div slot='header' style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div>Analyzer {props.unit}</div>
           <RuxIcon

@@ -64,6 +64,11 @@ rux-select::part(select) {
   align-items: center;
 }
 
+rux-select::part(label),
+rux-input::part(label) {
+  margin-bottom: 0;
+}
+
 /* rux-input::part(label),
 rux-select::part(label) {
   margin-right: var(--spacing-2);

@@ -104,7 +104,7 @@ export const AntennaInput = ({ unit }) => {
       <Grid container pl={2} height={'100%'}>
         <Grid container item xs={12} spacing={0.5} style={{maxHeight: '220px'}}>
           <Grid container item xs={12}>
-            <Grid item pr={2} xs={7}>
+            <Grid item pr={1} xs={7}>
               <RuxSelect 
                 name='Target'
                 size='small'
@@ -130,7 +130,7 @@ export const AntennaInput = ({ unit }) => {
             </Grid>
           </Grid>
           <Grid container item xs={12}>
-            <Grid item pr={2} xs={7}>
+            <Grid item pr={1} xs={7}>
             <RuxSelect 
                 name='band'
                 size='small'
@@ -156,7 +156,7 @@ export const AntennaInput = ({ unit }) => {
             </Grid>
           </Grid>
           <Grid container item xs={12}>
-            <Grid item pr={2} xs={7}>
+            <Grid item pr={1} xs={7}>
               <RuxInput
                 name='offset'
                 size='small'
