@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { RuxIcon, RuxPopUp, RuxMenu, RuxMenuItem} from '@astrouxds/react'
+import { RuxIcon, RuxButton, RuxPopUp, RuxMenu, RuxMenuItem} from '@astrouxds/react'
 import { TxCase } from './TxCase';
 import TxCaseHelp from '../../HelpModals/TxCaseHelp';
 import { useSewApp } from '../../../../../context/sewAppContext';
@@ -47,9 +47,7 @@ export const TxCases = () => {
       )
       
       const help = (
-        <RuxIcon icon='help'
-        size='20px'
-        className='helpIcon'
+        <RuxButton borderless iconOnly icon='help' size='20px' className='helpIcon'
         style={{ paddingLeft: '8px' }}
           onClick={() => {
             setModalState(true);

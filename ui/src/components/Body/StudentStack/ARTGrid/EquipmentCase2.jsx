@@ -1,5 +1,5 @@
 import React from 'react';
-import { RuxContainer, RuxPopUp, RuxIcon} from '@astrouxds/react'
+import { RuxContainer, RuxPopUp, RuxButton, RuxIcon} from '@astrouxds/react'
 import PropTypes from 'prop-types';
 import { Grid } from '@mui/material';
 import './equipmentCase.css';
@@ -25,9 +25,7 @@ const DropDownSelect = () => {
         {icon} {title + ` ` + unit}
         <DropDownSelect />
       </div>
-        <RuxIcon icon='help'
-        size='20px'
-        className='helpIcon'
+        <RuxButton borderless iconOnly icon='help' size='20px' className='helpIcon'
         style={{ paddingLeft: '8px' }}
           onClick={() => {
             setModalState(true);

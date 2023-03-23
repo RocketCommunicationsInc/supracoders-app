@@ -45,8 +45,8 @@ p {
   flex: 1;
 }
 
-.helpIcon {
-  cursor: pointer;
+.helpIcon::part(container) {
+  padding: 0;
 }
 
 rux-input::part(form-field) {

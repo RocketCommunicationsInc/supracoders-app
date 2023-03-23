@@ -1,13 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { RuxTab, RuxStatus } from '@astrouxds/react'
-import { selectSound } from '../../../../../../audio';
-import { useSound } from 'use-sound';
+// import { selectSound } from '../../../../../../audio';
+// import { useSound } from 'use-sound';
 
 
 
 export const TxModemButton = ({ modemId, updateActiveModem, isActive, isTransmitting }) => {
-  const [playSelectSound] = useSound(selectSound);
+  // const [playSelectSound] = useSound(selectSound);
   const el = useRef(null)
   useEffect(()=>{
     // isActive ? el.current.classList.add('isActive') : el.current.classList.remove('isActive')
@@ -18,7 +18,7 @@ export const TxModemButton = ({ modemId, updateActiveModem, isActive, isTransmit
     <RuxTab 
       id={`tx-modem-${modemId}`} 
       onClick={()=>{
-        playSelectSound();
+        //playSelectSound();
         updateActiveModem(modemId);
       }} 
       ref={el}

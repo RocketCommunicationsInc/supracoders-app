@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { RuxIcon, RuxPopUp,RuxMenu, RuxMenuItem } from '@astrouxds/react'
+import { RuxIcon, RuxButton, RuxPopUp, RuxMenu, RuxMenuItem } from '@astrouxds/react'
 import { RxCase } from './RxCase';
 import { useSewApp } from './../../../../../context/sewAppContext';
 import RxCaseHelp from '../../HelpModals/RxCaseHelp';
@@ -52,13 +52,12 @@ export const RxCases = () => {
     )
 
     const help = (
-    <RuxIcon icon='help'
-    size='20px'
-    className='helpIcon'
-    style={{ paddingLeft: '8px' }}
-      onClick={() => {
-        setModalState(true);
-      }} />)
+      <RuxButton borderless iconOnly icon='help' size='20px' className='helpIcon'
+      style={{ paddingLeft: '8px' }}
+        onClick={() => {
+          setModalState(true);
+        }} />
+    )
 
   return (
     <>

@@ -94,7 +94,6 @@ export class SpectrumAnalyzer {
   }
 
   resize(oldHeight, oldWidth) {
-    console.log(oldHeight, oldWidth)
     const newWidth = this.canvas.parentElement.getBoundingClientRect().width
     const newHeight = this.canvas.parentElement.getBoundingClientRect().height
     this.width = newWidth > 0 ? newWidth : 10; // Jest

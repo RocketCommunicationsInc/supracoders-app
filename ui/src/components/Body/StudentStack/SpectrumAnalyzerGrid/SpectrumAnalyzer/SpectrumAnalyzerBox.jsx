@@ -4,7 +4,6 @@ import { SpectrumAnalyzer } from '../../../../';
 import React, { useLayoutEffect, useState, useEffect, useRef } from 'react';
 import {
   RuxContainer,
-  RuxIcon,
   RuxButtonGroup,
   RuxButton,
   RuxPopUp,
@@ -75,7 +74,6 @@ export const SpectrumAnalyzerBox = (props) => {
       // We need to reference the global variable here
       // NOT the context object
       const specA = window.sewApp[`specA${whichSpecA}`];
-      console.log('updateSpecA', data);
       if (specA.whichUnit === data.unit) {
         // TODO: Account for team
         specA.isRfMode = data.number === 2 ? true : false; // If we changed an RF Mode row of data we must be in RF Mode now
@@ -465,13 +463,11 @@ export const SpectrumAnalyzerBox = (props) => {
       <RuxContainer className="container__analyzer">
         <div slot='header' style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div>Analyzer {props.unit}</div>
-          <RuxIcon
-            icon='help'
-            size='20px'
-            className='helpIcon'
-            onClick={() => {
-              setIsHelpModalActive(true);
-            }}></RuxIcon>
+          <RuxButton borderless iconOnly icon='help' size='20px' className='helpIcon'
+        style={{ paddingLeft: '8px' }}
+          onClick={() => {
+            setIsHelpModalActive(true);
+          }} />
         </div>
         <Grid container spacing={0}>
           <Grid
@@ -521,7 +517,7 @@ export const SpectrumAnalyzerBox = (props) => {
         <div slot='footer'>
           <div style={{ display: 'flex', alignItems: 'flex-start', fontSize: 'var(--font-body-2-font-size)' }}>
             <RuxPopUp className='config-popup' placement='bottom-start' ref={el}>
-              <div slot='trigger'>
+              <div slot='trigger' tabIndex={-1}>
                 <RuxButton
                   className='trigger-icon'
                   iconOnly

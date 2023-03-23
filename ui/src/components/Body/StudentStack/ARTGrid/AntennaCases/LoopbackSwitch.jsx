@@ -59,11 +59,11 @@ export const LoopbackSwitch = ({ unit }) => {
   return (
     <div className='loopback_container'>
       <p style={{ textAlign: 'center' }}>Pathway Switch</p>
-        <RuxTooltip className='loopback-tooltip' style={{ display: 'flex' }} message='Intermediate Frequency'>
-          <Typography align='center'>IF</Typography>
+        <RuxTooltip className='loopback-tooltip' style={{ display: 'flex' }} message='Intermediate Frequency' strategy="fixed">
+          <Typography align='center' style={{width: 'fit-contents', paddingLeft: '6px'}}>IF</Typography>
         </RuxTooltip>
         <Box sx={sxLoopbackSwitch} width={'100%'}>
-          <RuxTooltip className='loopback-tooltip' message='Loopback'>
+          <RuxTooltip className='loopback-tooltip' message='Loopback' strategy="fixed">
             <RuxIcon icon="loop" size="24px" style={{ color: 'var(--color-text-primary)' }} />
           </RuxTooltip>
           <RuxButton
@@ -85,12 +85,12 @@ export const LoopbackSwitch = ({ unit }) => {
               />
             }
           </RuxButton>
-          <RuxTooltip className='loopback-tooltip' message='Antenna'>
+          <RuxTooltip className='loopback-tooltip' message='Antenna' strategy="fixed">
             <RuxIcon icon="antenna" size="24px" style={ sxTx } />
           </RuxTooltip>
         </Box>
-        <RuxTooltip className='loopback-tooltip' message='Ground' style={{ display: 'flex', }}>
-          <AlignHorizontalCenterIcon style={{ display: 'flex', justifyContent: 'center', width: '100%', }} />
+        <RuxTooltip className='loopback-tooltip' message='Ground' style={{ display: 'flex', }} strategy="fixed">
+          <AlignHorizontalCenterIcon style={{ display: 'flex', margin: '0 auto' }} />
         </RuxTooltip>
       
       <RuxTooltip

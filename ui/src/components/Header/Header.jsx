@@ -47,10 +47,6 @@ export const Header = () => {
       body.classList.remove('light-theme')
     }
   },[lightMode])
-
-  useEffect(() => {
-    console.log(sewAppCtx.antenna)
-  }, [sewAppCtx])
   
 
   return (
