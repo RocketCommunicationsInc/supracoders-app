@@ -3,8 +3,8 @@ export class SpectrumAnalyzer {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
     this.options = options;
-    this.width = canvas.width;
-    this.height = canvas.height;
+    this.width = options.width;
+    this.height = options.height;
     this.minDecibels = options.minDecibels || -120;
     this.maxDecibels = options.maxDecibels || -20;
     this.isShowSignals = options.isShowSignals || false;
@@ -39,7 +39,7 @@ export class SpectrumAnalyzer {
     this.isDrawHold = false;
     this.isPause = false;
     this.whichUnit = options.whichUnit || 0;
-    this.resize(this.canvas.parentElement.offsetWidth - 6, this.canvas.parentElement.offsetWidth - 6);
+    this.resize(this.canvas.parentElement.offsetWidth, this.canvas.parentElement.offsetHeight);
     this.config = {
       if: {
         freq: null, // Hz
@@ -52,8 +52,8 @@ export class SpectrumAnalyzer {
     };
 
     window.addEventListener('resize', () => {
-      if (this.canvas.parentElement.offsetWidth - 6 !== this.canvas.width - 6) {
-        this.resize(this.canvas.parentElement.offsetWidth - 6, this.canvas.parentElement.offsetWidth - 6);
+      if (this.canvas.parentElement.offsetWidth !== this.canvas.width) {
+        this.resize(this.canvas.parentElement.offsetWidth, this.canvas.parentElement.offsetHeight);
       }
     });
   }
@@ -93,11 +93,14 @@ export class SpectrumAnalyzer {
     }
   }
 
-  resize(width, height) {
-    this.width = width > 0 ? width : 10; // Jest
-    this.height = height > 0 ? height : 10; // Jest
-    this.canvas.width = width > 0 ? width : 10; // Jest
-    this.canvas.height = height > 0 ? height : 10; // Jest
+  resize(oldHeight, oldWidth) {
+    console.log(oldHeight, oldWidth)
+    const newWidth = this.canvas.parentElement.getBoundingClientRect().width
+    const newHeight = this.canvas.parentElement.getBoundingClientRect().height
+    this.width = newWidth > 0 ? newWidth : 10; // Jest
+    this.height = newHeight > 0 ? newHeight : oldWidth; // Jest
+    this.canvas.width = newWidth > 0 ? newWidth : 10; // Jest
+    this.canvas.height = newHeight > 0 ? newHeight : oldWidth; // Jest
     this.data = new Float32Array(this.width);
     this.noiseData = new Float32Array(this.width);
     this.maxHoldData = new Float32Array(this.width);

@@ -32,11 +32,6 @@ const ApiUrl = config[process.env.REACT_APP_NODE_ENV || 'development'].apiUrl;
 // If this is github then use a local file instead
 const specADataLocation = !githubCheck() ? `${ApiUrl}/data/spec_a` : './data/spec_a.json';
 
-const canvasContainer = {
-  position: 'relative',
-  overflow: 'hidden',
-};
-
 export const SpectrumAnalyzerBox = (props) => {
   const [isHelpModalActive, setIsHelpModalActive] = useState(false);
   const [playSelectSound] = useSound(selectSound);
@@ -119,6 +114,8 @@ export const SpectrumAnalyzerBox = (props) => {
       isShowSignals: false,
       locked: false,
       operational: false,
+      width: '100%',
+      height: '100%'
     }
    
 
@@ -477,8 +474,6 @@ export const SpectrumAnalyzerBox = (props) => {
             }}></RuxIcon>
         </div>
         <Grid container spacing={0}>
-          <Grid item xs={11} textAlign={'center'}></Grid>
-          <Grid item xs={1} style={{ display: 'flex', justifyContent: 'flex-end' }}></Grid>
           <Grid
             item
             sx={{
@@ -496,8 +491,10 @@ export const SpectrumAnalyzerBox = (props) => {
               {sewAppCtx.sewApp[`specA${whichSpecA}`]?.minDecibels} (dB)
             </p>
           </Grid>
-          <Grid sx={canvasContainer} item xs={10}>
-            <canvas style={{ width: '100%', margin: 'var(--spacing-1)' }} id={props.canvasId} />
+          <Grid style={{position: 'relative', overflow: 'hidden', height: 'calc(100% - 36px)', minHeight:'220px'}} item xs={10}>
+            <div className="canvas-container">
+              <canvas id={props.canvasId} />
+            </div>
           </Grid>
           <Grid item xs={2}></Grid>
           <Grid item xs={10} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -522,8 +519,8 @@ export const SpectrumAnalyzerBox = (props) => {
           </Grid>
         </Grid>
         <div slot='footer'>
-          <div style={{ display: 'flex', fontSize: 'var(--font-body-2-font-size)' }}>
-            <RuxPopUp placement='bottom-start' ref={el}>
+          <div style={{ display: 'flex', alignItems: 'flex-start', fontSize: 'var(--font-body-2-font-size)' }}>
+            <RuxPopUp className='config-popup' placement='bottom-start' ref={el}>
               <div slot='trigger'>
                 <RuxButton
                   className='trigger-icon'
@@ -696,7 +693,7 @@ export const SpectrumAnalyzerBox = (props) => {
                 </div>
               ) : null}
             </RuxPopUp>
-            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', paddingTop: 'var(--spacing-1)', }}>
               <span style={{ paddingRight: 'var(--spacing-2)', paddingLeft: 'var(--spacing-2)' }}>
                 Antenna {currentAntennaInAnalyzer}
               </span>

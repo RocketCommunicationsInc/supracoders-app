@@ -26,7 +26,7 @@ const DropDownSelect = () => {
         <DropDownSelect />
       </div>
         <RuxIcon icon='help'
-        size='24px'
+        size='20px'
         className='helpIcon'
         style={{ paddingLeft: '8px' }}
           onClick={() => {

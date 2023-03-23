@@ -5,12 +5,20 @@
   gap: var(--spacing-4);
   padding-top: var(--spacing-4);
   flex-grow: 1;
+  flex-basis:50%;
 }
 .art-grid > * {
   flex-basis: 33%;
 }
+.analyzer-grid{
+  flex-basis: 50%;
+}
 
 @media (max-width: 1474px) {
+  .art-grid{flex-basis: initial;}
+  .analyzer-grid{
+    flex-basis: initial;
+  }
   .art-grid > * {
     flex-basis: 100%;
   }
@@ -46,6 +54,7 @@
 .art-grid rux-container {
   display: flex;
   align-self: stretch;
+  max-height: 450px;
 }
 
 .art-grid .grid-header rux-tooltip::part(trigger-container) {

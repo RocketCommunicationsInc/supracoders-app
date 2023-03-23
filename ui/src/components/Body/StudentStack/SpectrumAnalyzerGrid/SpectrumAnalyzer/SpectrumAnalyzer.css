@@ -7,8 +7,15 @@ rux-card::part(footer) {
 }
 
 canvas {
+  position:absolute;
+  aspect-ratio: auto;
+}
+
+.canvas-container{
   background-color: var(--color-background-base-default);
-  aspect-ratio: 1/1;
+  height:100%;
+  width:100%;
+  position: relative;
 }
 
 .container__analyzer {
@@ -17,6 +24,13 @@ canvas {
 
 .container__analyzer::part(container) {
   height: 100%;
+  display:flex;
+  flex-flow: column;
+}
+
+.container__analyzer::part(body) {
+  display:flex;
+  flex-grow: 1;
 }
 
 .container__analyzer::part(footer) {
@@ -65,6 +79,11 @@ rux-select.antenna-select::part(label) {
   cursor: pointer;
 }
 
+.config-popup::part(popup-content) {
+  margin-left: -2px;
+  margin-top: -6px;
+}
+
 .config-radio-group::part(radiogroup) {
   box-shadow: none;
   padding: 0;
@@ -86,6 +105,7 @@ rux-select.antenna-select::part(label) {
 }
 
 .trigger-icon::part(container) {
-  padding-top: 0;
-  padding-left: 0;
+  //padding-top:6px;
+  //padding-left: 0;
+  margin-left: -4px;
 }

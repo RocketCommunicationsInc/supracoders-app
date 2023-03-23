@@ -30,3 +30,7 @@ rux-dialog.logout-modal::part(dialog) {
 }
 
 #light-dark-switch{margin-left: var(--spacing-2);}
+
+.user-popup::part(arrow) {
+  left:  194px; /*forcing the arrow over to be below the dropdown caret*/
+}

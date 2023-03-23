@@ -6,4 +6,5 @@
 .analyzer-grid {
   display: flex;
   gap: 16px;
+  flex-grow: 1;
 }

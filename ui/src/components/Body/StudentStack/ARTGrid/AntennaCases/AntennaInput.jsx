@@ -6,8 +6,8 @@ import { outputStyle } from '../../../../styles';
 import { useSewApp } from '../../../../../context/sewAppContext';
 import { antennas, satellites } from '../../../../../constants';
 import { CRUDdataTable } from '../../../../../crud/crud';
-import { breakerSound, errorSound, selectSound } from '../../../../../audio';
-import useSound from 'use-sound';
+// import { breakerSound, errorSound, selectSound } from '../../../../../audio';
+// import useSound from 'use-sound';
 import './AntennaCase.css'
 
 const DELAY_TO_ACQ_LOCK = 5000;
@@ -18,9 +18,9 @@ let trackTimeout = null;
 let errorTimeout = null;
 export const AntennaInput = ({ unit }) => {
   const [isErrorActive, setErrorActive] = useState(false);
-  const [playErrorSound] = useSound(errorSound);
-  const [playSelectSound] = useSound(selectSound);
-  const [playBreakerSound] = useSound(breakerSound);
+  // const [playErrorSound] = useSound(errorSound);
+  // const [playSelectSound] = useSound(selectSound);
+  // const [playBreakerSound] = useSound(breakerSound);
   const sewAppCtx = useSewApp();
   const unitData = sewAppCtx.antenna.filter(
     (x) => x.unit == unit && x.team_id == sewAppCtx.user.team_id && x.server_id == sewAppCtx.user.server_id
@@ -62,7 +62,7 @@ export const AntennaInput = ({ unit }) => {
   };
 
   const handleApply = () => {
-    playSelectSound();
+    //playSelectSound();
     const tmpData = [...sewAppCtx.antenna];
     tmpData[antennaIdx] = inputData;
     sewAppCtx.updateAntenna([...tmpData]);
@@ -70,7 +70,7 @@ export const AntennaInput = ({ unit }) => {
   };
 
   const handleEnable = () => {
-    playBreakerSound();
+    //playBreakerSound();
     const tmpData = [...sewAppCtx.antenna];
     tmpData[antennaIdx].operational = !tmpData[antennaIdx].operational;
     // Cant track if it is off
@@ -87,7 +87,7 @@ export const AntennaInput = ({ unit }) => {
       e.preventDefault()
       if(!sewAppCtx.antenna[antennaIdx]?.operational) return;
       const newValue = !inputData.track;
-      playBreakerSound();
+      //playBreakerSound();
       handleTrackLocked({ param: 'track', val: newValue });
       if (trackTimeout) clearTimeout(trackTimeout);
       trackTimeout = setTimeout(
@@ -185,7 +185,7 @@ export const AntennaInput = ({ unit }) => {
                 onClick={(e) => {
                   checkTrackState(e)
                   if(el.current.disabled){
-                    playErrorSound()
+                    //playErrorSound()
                     setErrorActive(true)
                     
                     errorTimeout = setTimeout(() => {
@@ -194,21 +194,22 @@ export const AntennaInput = ({ unit }) => {
                   }
                 }}></RuxSwitch>
                 <small style={{color: 'var(--color-text-error)', marginLeft: `var(--spacing-16)`, fontWeight: 'bold', display: 'flex', alignContent: 'center', minHeight: '2rem',marginTop: 'var(--spacing-2)'}}>
-                  {isErrorActive && <><RuxIcon icon="warning" size="1.15rem" style={{color: 'inherit', marginRight: 'var(--spacing-2)'}}/>Antenna must be powered</>}</small>
+                  {isErrorActive && <><RuxIcon icon="warning" size="1.15rem" style={{color: 'inherit', marginRight: 'var(--spacing-2)'}}/>Antenna must be enabled</>}</small>
             </Grid>
           </Grid>
         </Grid>
-        <Grid
+        <Grid container
           item
           xs={12}
           mt={1}
           textAlign='right'
           alignItems={'flex-end'}
+          alignContent={'flex-end'}
           justifyContent={'flex-end'}
           flexGrow={true}
           display={'flex'}>
             <RuxButton secondary onClick={(e) => handleApply(e)}>Apply changes</RuxButton>
-            <RuxButton className="enable-btn" style={{ marginLeft: '8px', minWidth: '150px' }} onClick={(e) => handleEnable(e)} >{sewAppCtx.antenna[antennaIdx]?.operational ? 'Disable ' : 'Enable '}antenna</RuxButton>
+            <RuxButton className="enable-btn" style={{ marginLeft: 'var(--spacing-2)', marginTop: 'var(--spacing-2)', minWidth: '150px' }} onClick={(e) => handleEnable(e)} >{sewAppCtx.antenna[antennaIdx]?.operational ? 'Disable ' : 'Enable '}antenna</RuxButton>
         </Grid>
       </Grid>
     </>

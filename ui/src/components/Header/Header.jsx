@@ -92,7 +92,7 @@ export const Header = () => {
                 </rux-button-group>
             </div>
             </RuxDialog>
-            <RuxPopUp disableAutoUpdate placement="bottom-end" onRuxpopupopened={()=>{ setLoginOpenedFlag(true) }} onRuxpopupclosed={()=>{ setLoginOpenedFlag(false) }}>
+            <RuxPopUp className='user-popup' disableAutoUpdate placement="bottom-end" onRuxpopupopened={()=>{ setLoginOpenedFlag(true) }} onRuxpopupclosed={()=>{ setLoginOpenedFlag(false) }}>
               <div slot='trigger' style={{ display: 'flex', borderRight: '1px solid var(--color-text-placeholder)', paddingRight: 'var(--spacing-3)' }}>
                 <RuxIcon icon="person" size="1.5rem" style={{ color: '#ffffff', paddingRight: 'var(--spacing-3)' }}/>
                 <span style={{ color: 'var(--color-text-primary)', whiteSpace: 'nowrap', }}>{teams[sewAppCtx.user?.team_id - 1].name}</span>

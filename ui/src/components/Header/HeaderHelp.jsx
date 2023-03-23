@@ -4,9 +4,9 @@ import { RuxDialog } from '@astrouxds/react';
 
 const HeaderHelp = ({ modalState, setModalState }) => {
   return (
-      <RuxDialog clickToClose header='IRIS Space Electronic Warfare Sandbox' class="main-help" open={modalState} onRuxdialogclosed={() => setModalState(false)}>
+      <RuxDialog clickToClose header='IRIS Space Electronic Warfare Sandbox' class="main-help" confirmText='Close' open={modalState} onRuxdialogclosed={() => setModalState(false)}>
         <div>
-          <h3>Introduction</h3>
+          <h3 style={{ fontSize: 'var(--font-size-lg)', marginBottom: '0', }}>Introduction</h3>
           <p>
             IRIS is a training environment to help learn how Space Electronic Warfare works. In front of you are:
           </p>
@@ -22,7 +22,7 @@ const HeaderHelp = ({ modalState, setModalState }) => {
             Using this equipment you can analyze satellites, determine the signals they are transmitting, view video
             feeds on those signals, and then generate your own signals to degrade or disable them.
           </p>
-          <h3>Example Scenario</h3>
+          <h3 style={{ fontSize: 'var(--font-size-lg)', marginBottom: '0', }}>Example Scenario</h3>
           <p>
             Satellite ARKE 3G is currently transmitting a UAV video feed in C-Band at frequency 4810 Mhz. Intel
             assessment is that they are utilizing 8QAM modulation and a forward error correction (FEC) of 3/4.
@@ -37,7 +37,7 @@ const HeaderHelp = ({ modalState, setModalState }) => {
             receives by 400 Mhz. With all of this information, see if you can find the signal on ARKE 3G and disrupt it
             with your transmitters!
           </p>
-          <h3>Why So Much Equipment?</h3>
+          <h3 style={{ fontSize: 'var(--font-size-lg)', marginBottom: '0', }}>Why So Much Equipment?</h3>
           <p>
             Students in the United States Space Force often work in teams sharing equipment. In order to accurate mimic
             this you have access to all of the equipment on your screen. If you are connected to a server (not Github)

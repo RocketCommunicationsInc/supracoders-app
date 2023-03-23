@@ -20,3 +20,13 @@
   padding-inline: 0;
   width: 100%;
 }
+
+.loopback-button::part(container) {
+  padding: var(--spacing-2);
+}
+
+.loopback-tooltip::part(trigger-container) {
+  /* Fixing the weird height of the tooltip trigger to match the icon */
+  width: 24px;
+  height: 24px;
+}

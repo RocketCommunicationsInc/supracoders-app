@@ -7,12 +7,12 @@ import { Box, Typography } from '@mui/material';
 import AlignHorizontalCenterIcon from '@mui/icons-material/AlignHorizontalCenter';
 import { useSewApp } from '../../../../../context/sewAppContext';
 import { CRUDdataTable } from '../../../../../crud/crud';
-import useSound from 'use-sound';
-import { breakerSound, switchSound } from '../../../../../audio';
+// import useSound from 'use-sound';
+// import { breakerSound, switchSound } from '../../../../../audio';
 
 export const LoopbackSwitch = ({ unit }) => {
-  const [playSwitchSound] = useSound(switchSound);
-  const [playBreakerSound] = useSound(breakerSound);
+  // const [playSwitchSound] = useSound(switchSound);
+  // const [playBreakerSound] = useSound(breakerSound);
 
   const sewAppCtx = useSewApp();
   const {lightMode} = sewAppCtx;
@@ -29,7 +29,6 @@ export const LoopbackSwitch = ({ unit }) => {
       : sewAppCtx.antenna[antennaIdx].hpa
       ? 'var(--color-status-critical)'
       : 'var(--color-status-normal)',
-    borderRadius: 'var(--radius-circle)',
   };
 
   const sxLoopbackSwitch = {
@@ -41,7 +40,7 @@ export const LoopbackSwitch = ({ unit }) => {
   };
 
   const toggleSwitch = () => {
-    playSwitchSound();
+    //playSwitchSound();
     const tmpData = [...sewAppCtx.antenna];
     const loopback = tmpData[antennaIdx].loopback;
     tmpData[antennaIdx].loopback = !loopback;
@@ -50,7 +49,7 @@ export const LoopbackSwitch = ({ unit }) => {
   };
   const handleHPA = (e) => {
     e.preventDefault()
-    playBreakerSound();
+    //playBreakerSound();
     const tmpData = [...sewAppCtx.antenna];
     const hpa = tmpData[antennaIdx].hpa;
     tmpData[antennaIdx].hpa = !hpa;
@@ -60,14 +59,15 @@ export const LoopbackSwitch = ({ unit }) => {
   return (
     <div className='loopback_container'>
       <p style={{ textAlign: 'center' }}>Pathway Switch</p>
-        <RuxTooltip style={{ display: 'flex' }} message='Intermediate Frequency'>
+        <RuxTooltip className='loopback-tooltip' style={{ display: 'flex' }} message='Intermediate Frequency'>
           <Typography align='center'>IF</Typography>
         </RuxTooltip>
         <Box sx={sxLoopbackSwitch} width={'100%'}>
-          <RuxTooltip message='Loopback'>
+          <RuxTooltip className='loopback-tooltip' message='Loopback'>
             <RuxIcon icon="loop" size="24px" style={{ color: 'var(--color-text-primary)' }} />
           </RuxTooltip>
           <RuxButton
+            className='loopback-button'
             borderless
             onClick={toggleSwitch}
             >
@@ -85,11 +85,11 @@ export const LoopbackSwitch = ({ unit }) => {
               />
             }
           </RuxButton>
-          <RuxTooltip message='Antenna'>
+          <RuxTooltip className='loopback-tooltip' message='Antenna'>
             <RuxIcon icon="antenna" size="24px" style={ sxTx } />
           </RuxTooltip>
         </Box>
-        <RuxTooltip message='Ground' style={{ display: 'flex', }}>
+        <RuxTooltip className='loopback-tooltip' message='Ground' style={{ display: 'flex', }}>
           <AlignHorizontalCenterIcon style={{ display: 'flex', justifyContent: 'center', width: '100%', }} />
         </RuxTooltip>
       
