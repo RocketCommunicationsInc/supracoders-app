@@ -1,44 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { RuxContainer } from '@astrouxds/react'
 import PropTypes from 'prop-types';
-import { Box, Grid, IconButton, Tooltip } from '@mui/material';
-import { EquipmentCaseId } from './EquipmentCaseId';
-import { InstructionsIcon } from '../HelpModals/InstructionsIcon';
-import { sxEquipmentCase } from '../../../styles';
-
-export const EquipmentCase = ({ children, helpTitle, helpComponent, unit, icon }) => {
-  const [helpState, setHelpState] = useState(false);
+import './equipmentCase.css';
+export const EquipmentCase = ({ children, title, unit, icon, tabs, dropdown, activeCase, help }) => {
 
   return (
-    <>
-      {helpComponent({ modalState: helpState, setModalState: setHelpState })}
-      <Box sx={sxEquipmentCase}>
-        <Grid container>
-          <Grid item width={30}>
-            <EquipmentCaseId unit={unit} icon={icon} />
-          </Grid>
-          <Grid item xs={true}>
+      <RuxContainer style={{overflow: 'hidden', display: activeCase === unit ? 'flex' : 'none'}}>
+        <div slot="header" style={{display: 'flex', justifyContent: 'space-between'}}>
+          <div className="grid-header" style={{ display: 'flex', alignItems: 'center', }}>
+            {icon} {title + ` ` + unit} {dropdown}
+          </div>
+          {help}
+        </div>
+        {tabs ? <div slot="tab-bar">{tabs}</div> : null}
+        <div style={{height: '100%'}}>
             {children}
-          </Grid>
-          <Grid item xs={'auto'} ml={0}>
-            <Tooltip title={helpTitle} placement='top'>
-              <IconButton
-                onClick={() => {
-                  setHelpState(true);
-                }}>
-                <InstructionsIcon />
-              </IconButton>
-            </Tooltip>
-          </Grid>
-        </Grid>
-      </Box>
-    </>
+        </div>
+      </RuxContainer>
   );
 };
 
 EquipmentCase.propTypes = {
   children: PropTypes.node.isRequired,
-  helpTitle: PropTypes.string.isRequired,
-  helpComponent: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
   unit: PropTypes.number.isRequired,
   icon: PropTypes.node,
+  tabs: PropTypes.node,
+  dropdown: PropTypes.node,
+  activeCase: PropTypes.number,
+  help: PropTypes.node,
 };

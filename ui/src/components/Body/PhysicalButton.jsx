@@ -2,7 +2,6 @@ import './3d-buttons.css';
 import React from 'react';
 import { Button } from '@mui/material';
 import { PropTypes } from 'prop-types';
-import { AstroTheme } from '../../themes/AstroTheme';
 
 export const PhysicalButton = ({ isEnabled, color, onClick, text }) => {
   let sxFront = {};
@@ -10,7 +9,7 @@ export const PhysicalButton = ({ isEnabled, color, onClick, text }) => {
   switch (color) {
     case 'red':
       sxFront = {
-        background: isEnabled ? AstroTheme.palette.critical.main : '#52667a',
+        background: isEnabled ? 'var(--color-status-critical)' : '#52667a',
         color: '#fff',
         fontWeight: 'normal',
       };
@@ -23,7 +22,7 @@ export const PhysicalButton = ({ isEnabled, color, onClick, text }) => {
     case 'green':
     default:
       sxFront = {
-        background: isEnabled ? AstroTheme.palette.success.main : '#52667a',
+        background: isEnabled ? 'var(--color-status-normal)' : '#52667a',
         color: isEnabled ? '#000' : '#fff',
         fontWeight: isEnabled ? 'bold' : 'normal',
       };

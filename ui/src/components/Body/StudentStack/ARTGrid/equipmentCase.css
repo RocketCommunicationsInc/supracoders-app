@@ -1,0 +1,102 @@
+.art-grid {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: var(--spacing-4);
+  padding-top: var(--spacing-4);
+  flex-grow: 1;
+  flex-basis:50%;
+}
+.art-grid > * {
+  flex-basis: 33%;
+}
+.analyzer-grid{
+  flex-basis: 50%;
+}
+
+@media (max-width: 1474px) {
+  .art-grid{flex-basis: initial;}
+  .analyzer-grid{
+    flex-basis: initial;
+  }
+  .art-grid > * {
+    flex-basis: 100%;
+  }
+
+  .art-grid {
+    flex-flow: column;
+  }
+}
+
+.art-grid rux-menu-item div {
+  display: flex;
+  align-items: center;
+}
+
+.art-grid rux-menu-item rux-icon {
+  margin-right: var(--spacing-2);
+}
+
+.art-grid rux-select::part(label),
+.art-grid rux-input::part(label) {
+  min-width: calc(var(--spacing-14) + 2px);
+  padding-right: var(--spacing-2);
+  text-align: right;
+}
+
+.case-grid {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr;
+  grid-template-areas: 'grid';
+}
+
+.art-grid rux-container {
+  display: flex;
+  align-self: stretch;
+  max-height: 450px;
+}
+
+.art-grid .grid-header rux-tooltip::part(trigger-container) {
+  display: flex;
+  align-items: center;
+}
+
+.art-grid .status-icons {
+  margin-inline-end: var(--spacing-4);
+}
+
+.art-grid rux-container::part(container) {
+  display: flex;
+  align-self: stretch;
+  flex-direction: column;
+}
+
+.art-grid rux-container::part(body) {
+  height: 100%;
+  position: relative;
+}
+
+.case-grid > rux-container {
+  grid-area: grid;
+}
+
+.footer-buttons {
+  textalign: right;
+  alignitems: flex-end;
+  justifycontent: flex-end;
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: var(--spacing-4);
+}
+
+.tall-panels,
+.tall-panels rux-tab-panel {
+  height: 100%;
+}
+
+.enable-btn::part(container) {
+  width: 100%;
+}

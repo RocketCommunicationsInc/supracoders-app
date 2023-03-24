@@ -19,6 +19,7 @@ import config from '../constants/config';
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || 'development'].apiUrl;
 const sewAppCtx = createContext({
   sewApp: {},
+  resetSewApp: () =>{},
   updateSewApp: () => {},
   rx: {},
   updateRx: () => {},
@@ -30,6 +31,10 @@ const sewAppCtx = createContext({
   updateAntenna: () => {},
   user: {},
   updateUser: () => {},
+  notification: {},
+  updateNotification: () => {},
+  lightMode:{},
+  updateLightMode: () => {}
 });
 export const useSewApp = () => {
   return useContext(sewAppCtx);
@@ -146,13 +151,37 @@ const _sewApp = {
 
 window.sewApp = _sewApp;
 
+const defaultNotification = {
+  isOpen: false,
+  status: 'off',
+  message: 'No notification at this time',
+  time: null,
+}
+
+//deep copy of default data in case of incidental modification
+const primeAntennaData = defaultAntennaData.map((obj) => {return {...obj}})
+const primeRxData = defaultRxData.map((obj) => {return {...obj}})
+const primeTxData = defaultTxData.map((obj) => {return {...obj}})
+const primeSignalData = defaultSignalData.map((obj) => {return {...obj}})
+
 export const SewAppProvider = ({ children }) => {
   const [sewApp, setSewApp] = useState({});
-  const [rx, setRx] = useState(defaultRxData);
-  const [tx, setTx] = useState(defaultTxData);
-  const [signal, setSignal] = useState(defaultSignalData);
-  const [antenna, setAntenna] = useState(defaultAntennaData);
+  const [rx, setRx] = useState(primeRxData);
+  const [tx, setTx] = useState(primeTxData);
+  const [signal, setSignal] = useState(primeSignalData);
+  const [antenna, setAntenna] = useState(primeAntennaData);
   const [user, setUser] = useState(defaultUserData);
+  const [notification, setNotification] = useState(defaultNotification) /*Notification Banner*/
+  const [lightMode, setLightMode] = useState(false); /*Theme Switcher*/
+
+  //reset data: set everything back to default on logout
+  const resetSewApp = () =>{
+    console.log('reset! antenna stuff', defaultAntennaData)
+    setRx(defaultRxData)
+    setTx(defaultTxData)
+    setSignal(defaultSignalData)
+    setAntenna(defaultAntennaData)
+  }
 
   // Overall App
   const updateSewApp = () => {
@@ -286,10 +315,24 @@ export const SewAppProvider = ({ children }) => {
     setUser(update);
   };
 
+  const updateNotification = (open, status, message, time) =>{
+    const newNotification = {...notification}
+    open ? newNotification.isOpen = open : null
+    status ? newNotification.status = status : null
+    message ? newNotification.message = message : null
+    time ? newNotification.time = time : null
+    setNotification(newNotification)
+  }
+
+  const updateLightMode = () =>{
+    setLightMode(!lightMode)
+  }
+
   return (
     <sewAppCtx.Provider
       value={{
         sewApp,
+        resetSewApp,
         updateSewApp,
         rx,
         updateRx,
@@ -301,6 +344,10 @@ export const SewAppProvider = ({ children }) => {
         updateAntenna,
         user,
         updateUser,
+        notification,
+        updateNotification,
+        lightMode,
+        updateLightMode
       }}>
       {children}
     </sewAppCtx.Provider>

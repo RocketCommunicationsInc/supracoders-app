@@ -1,50 +1,23 @@
 import React from 'react';
-import { Box, Modal, Typography } from '@mui/material';
-import { sxModal } from '../../../styles/sxModal';
 import PropTypes from 'prop-types';
-import { AstroTheme } from '../../../../themes/AstroTheme';
+import { RuxDialog } from '@astrouxds/react';
 
 const SpecAHelp = ({ modalState, setModalState }) => {
   return (
-    <Modal open={modalState} onClose={() => setModalState(false)}>
-      <Box sx={{ ...sxModal, ...{ color: AstroTheme.palette.tertiary.light4 } }}>
-        <Typography align='center' m={1} variant='h4'>
-          Spectrum Analyzer
-        </Typography>
-        <Typography m={1} variant='h5'>
-          Description
-        </Typography>
-        <Typography ml={1} mr={1} variant='body1'>
-          The spectrum analyzer is used to view the analog signal on the EM spectrum. The higher the peak, the more
-          power that is detected.
-        </Typography>
-        <Typography m={1} variant='h5'>
-          Antenna
-        </Typography>
-        <Typography ml={1} mr={1} variant='body1'>
-          Select which antenna the spectrum analyzer should be connected to.
-        </Typography>
-        <Typography m={1} variant='h5'>
-          Config
-        </Typography>
-        <Typography ml={1} mr={1} variant='body1'>
-          Opens the configuration menu. Use this to change the center frequency and span of the spectrum analyzer. The
-          hold function will maintain the highest power in the spectrum analyzer until cleared.
-        </Typography>
-        <Typography m={1} variant='h5'>
-          IF / RF
-        </Typography>
-        <Typography ml={1} mr={1} variant='body1'>
-          Toggle between Intermediate Frequency and the Radio Frequency.
-        </Typography>
-        <Typography m={1} variant='h5'>
-          Pause
-        </Typography>
-        <Typography ml={1} mr={1} variant='body1'>
-          Pause the spectrum analyzer.
-        </Typography>
-      </Box>
-    </Modal>
+    <RuxDialog clickToClose header="Spectrum Analyzer" confirmText='Close' open={modalState}  onRuxdialogclosed={() => setModalState(false)}>
+        <h3 style={{ fontSize: 'var(--font-size-lg)', marginBottom: '0', }}>Description</h3>
+        <p>The spectrum analyzer is used to view the analog signal on the EM spectrum. The higher the peak, the more
+          power that is detected.</p>
+        <h3 style={{ fontSize: 'var(--font-size-lg)', marginBottom: '0', }}>Antenna</h3>
+        <p>Select which antenna the spectrum analyzer should be connected to.</p>
+        <h3 style={{ fontSize: 'var(--font-size-lg)', marginBottom: '0', }}>Config</h3>
+        <p>Opens the configuration menu. Use this to change the center frequency and span of the spectrum analyzer. The
+          hold function will maintain the highest power in the spectrum analyzer until cleared.</p>
+        <h3 style={{ fontSize: 'var(--font-size-lg)', marginBottom: '0', }}>IF / RF</h3>
+        <p>Toggle between Intermediate Frequency and the Radio Frequency.</p>
+        <h3 style={{ fontSize: 'var(--font-size-lg)', marginBottom: '0', }}>Pause</h3>
+        <p>Pause the spectrum analyzer.</p>
+    </RuxDialog>
   );
 };
 

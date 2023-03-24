@@ -1,12 +1,9 @@
 //import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme';
+import '@astrouxds/tokens/dist/css/index.css'
 
 export const AstroTheme = {
   palette: {
     type: 'dark',
-    background: {
-      default: '#101923',
-      paper: '#1b2d3e',
-    },
     primary: {
       main: '#005a8f',
       light: '#2f7aa7',

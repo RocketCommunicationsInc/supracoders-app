@@ -1,0 +1,6 @@
+.notification-banner[open] {
+  margin-block: var(--spacing-4);
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}

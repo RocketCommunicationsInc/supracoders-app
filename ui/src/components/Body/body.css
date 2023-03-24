@@ -1,0 +1,10 @@
+.body {
+  height: 100%;
+  padding: var(--spacing-4);
+}
+
+.analyzer-grid {
+  display: flex;
+  gap: 16px;
+  flex-grow: 1;
+}

@@ -1,81 +1,98 @@
-import React, { useState } from 'react';
-import { Grid, Tooltip } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { RuxTooltip, RuxIcon, RuxMenu, RuxMenuItem } from '@astrouxds/react'
 import { AntennaController } from '../../../..';
-import { EquipmentCase } from '../EquipmentCase';
-import AntennaHelp from '../../HelpModals/AntennaHelp';
-import SettingsInputAntennaIcon from '@mui/icons-material/SettingsInputAntenna';
-import { AstroTheme } from '../../../../../themes/AstroTheme';
-import { PropTypes } from 'prop-types';
+import { EquipmentCase2 } from '../EquipmentCase2';
+import  AntennaHelp from '../../HelpModals/AntennaHelp'
 import { useSewApp } from '../../../../../context/sewAppContext';
-import { useEffect } from 'react';
-import LockIcon from '@mui/icons-material/Lock';
 
-export const AntennaCase = ({ unit }) => {
-  const [antColor, setAntColor] = useState(AstroTheme.palette.standby.main);
-  const [antState, setAntState] = useState('standby');
-  const [lockColor, setLockColor] = useState(AstroTheme.palette.standby.main);
-  const [lockState, setLockState] = useState('standby');
+export const AntennaCase = () => {
+  const [modalState, setModalState] = useState(false);
+  const [antColor, setAntColor] = useState({ant1:'var(--color-status-standby)', ant2:'var(--color-status-standby)'});
+  const [antState, setAntState] = useState({ant1:'standby', ant2: 'standby'});
+  const [lockColor, setLockColor] = useState({ant1:'var(--color-status-standby)', ant2:'var(--color-status-standby)'});
+  const [lockState, setLockState] = useState({ant1:'standby', ant2: 'standby'});
+  const [unit, setUnit] = useState(1)
   const sewAppCtx = useSewApp();
+  const icons = (
+              <>
+                <RuxTooltip message={antState[`ant${unit}`]}>
+                  <RuxIcon className="status-icons" icon="antenna" size="1.75rem" style={{ color: antColor[`ant${unit}`]}}/>
+                </RuxTooltip>
+                <RuxTooltip message={lockState[`ant${unit}`]}>
+                  <RuxIcon className="status-icons" icon={lockState[`ant${unit}`] === 'Locked' ? 'lock' : 'lock-open'} size="1.75rem" style={{ color: lockColor[`ant${unit}`]}}/>
+                </RuxTooltip>
+              </>
+              )
 
+    //units menu
+    const units =(<RuxMenu>
+      {[1,2].map((singleUnit)=>{
+      return(
+        <RuxMenuItem key={singleUnit} onClick={()=>setUnit(singleUnit)}>
+          <div><RuxIcon icon="antenna" size="20px" style={{ color: antColor[`ant${singleUnit}`]}}/>
+          <span>{ 'Antenna ' + singleUnit}</span></div>
+        </RuxMenuItem>
+      )
+      })}
+    </RuxMenu>)
+
+  //this controls the color states of icons
   useEffect(() => {
-    const antenna = sewAppCtx.antenna[unit - 1];
-    if (antenna) {
-      let _color, _state;
+    const antennas = sewAppCtx.antenna;
+    let _color = antColor
+    let _state = antState
+    let _lockState = lockState
+    let _lockColor = lockColor
 
+    for(const antenna of antennas){
+      const antNum = `ant${antenna.id}`;
+    if (antenna) {
       if (!antenna.operational) {
-        _color = AstroTheme.palette.disabled.main;
-        _state = 'Not Operational';
+        _color = {..._color, [antNum]:'var(--color-status-off)'};
+        _state = {..._state, [antNum]:'Not Operational'};
       } else {
         if (antenna.loopback || (!antenna.loopback && antenna.hpa)) {
-          _color = AstroTheme.palette.success.main;
+          _color = {..._color, [antNum]:'var(--color-status-normal)'};
           if (antenna.loopback) {
-            _state = 'Loopback';
+            _state = {..._state, [antNum]:'Loopback'};
           } else {
-            _state = 'Actively Transmitting';
+            _state = {..._state, [antNum]:'Actively Transmitting'};
           }
         } else {
-          _color = AstroTheme.palette.critical.main;
-          _state = 'No Power';
+          _color = {..._color, [antNum]:'var(--color-status-critical)'};
+          _state = {..._state, [antNum]:'No Power'};
         }
       }
-
-      setAntColor(_color);
-      setAntState(_state);
-
       if (antenna.locked) {
-        setLockColor(AstroTheme.palette.success.main);
-        setLockState('Locked');
+        _lockColor = {..._lockColor, [antNum]:'var(--color-status-normal)'};
+        _lockState = {..._lockState, [antNum]:'Locked'};
       } else if (!antenna.locked && antenna.track) {
-        setLockColor(AstroTheme.palette.caution.main);
-        setLockState('Tracking');
+        _lockColor = {..._lockColor, [antNum]:'var(--color-status-standby)'};
+        _lockState = {..._lockState, [antNum]:'Tracking'};
       } else if (!antenna.locked && !antenna.track) {
-        setLockColor(AstroTheme.palette.critical.main);
-        setLockState('Unlocked');
+        _lockColor = {..._lockColor, [antNum]:'var(--color-status-off)'};
+        _lockState = {..._lockState, [antNum]:'Unlocked'};
       }
     }
-  }, [sewAppCtx.antenna]);
+  }
+  setAntColor(_color);
+  setAntState(_state);
+  setLockColor(_lockColor);
+  setLockState(_lockState);
+}, [sewAppCtx.antenna, unit]);
 
   return (
-    <Grid xs={true} item minWidth={675}>
-      <EquipmentCase
-        helpTitle='Antenna'
-        helpComponent={AntennaHelp}
-        unit={unit}
-        icon={
-          <>
-            <Tooltip title={antState}>
-              <SettingsInputAntennaIcon sx={{ color: antColor }} />
-            </Tooltip>
-            <Tooltip title={lockState}>
-              <LockIcon sx={{ color: lockColor }} />
-            </Tooltip>
-          </>
-        }>
-        <AntennaController unit={unit} />
-      </EquipmentCase>
-    </Grid>
+    <>
+      <AntennaHelp modalState={modalState} setModalState={setModalState} />
+      <EquipmentCase2
+          title='Antenna'
+          unit={unit}
+          units={units}
+          icon={icons}
+          modalState={modalState}
+          setModalState = {setModalState}>
+          <AntennaController unit={unit} />
+      </EquipmentCase2>
+    </>
   );
-};
-AntennaCase.propTypes = {
-  unit: PropTypes.number.isRequired,
 };

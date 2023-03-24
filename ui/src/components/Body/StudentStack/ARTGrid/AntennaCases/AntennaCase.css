@@ -1,0 +1,32 @@
+.antenna_card::part(body) {
+  padding: var(--spacing-050);
+}
+
+.loopback_container {
+  display: flex;
+  flex-flow: column;
+  width: 240px;
+  padding: var(--spacing-4);
+}
+
+.loopback_container {
+  background: var(--color-background-base-default);
+  display: flex;
+  width:11.25rem;
+  max-width:100%;
+}
+
+.loopback_container rux-push-button::part(container){
+  padding-inline: 0;
+  width: 100%;
+}
+
+.loopback-button::part(container) {
+  padding: var(--spacing-2);
+}
+
+.loopback-tooltip::part(trigger-container) {
+  /* Fixing the weird height of the tooltip trigger to match the icon */
+  width: 24px;
+  height: 24px;
+}

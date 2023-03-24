@@ -1,14 +1,16 @@
 import { createTheme, ThemeProvider } from '@mui/material';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { StudentStack, InstructorStack, Body, Header, Footer } from './components';
+import { StudentStack, InstructorStack, Body, Header} from './components';
 import Login from './components/Login/Login';
 import { AstroTheme } from './themes/AstroTheme';
+import { AppIcons } from './AppIcons';
 
 const App = () => {
   return (
     <ThemeProvider theme={createTheme(AstroTheme)}>
-      <Router basename={`${process.env.PUBLIC_URL}/`}>
+      <AppIcons />
+      <Router>
         <Header />
         <Body>
           <Routes>
@@ -19,7 +21,6 @@ const App = () => {
             <Route path='*' element={<Login />} />
           </Routes>
         </Body>
-        <Footer />
       </Router>
     </ThemeProvider>
   );
